@@ -1,0 +1,99 @@
+---
+import type { SiteConfig } from "../config/site";
+
+interface Props {
+  config: SiteConfig;
+}
+
+const { config } = Astro.props;
+---
+
+<nipo-hero
+  class="hero"
+  data-video-src={config.video.src}
+  style={`--hero-poster: url("${config.video.poster}")`}
+>
+  <div class="hero__media" aria-hidden="true">
+    <video
+      class="hero__video"
+      muted
+      loop
+      playsinline
+      poster={config.video.poster}
+      preload="none"
+      tabindex="-1"
+    ></video>
+    <div class="hero__veil"></div>
+  </div>
+
+  <header class="hero__header">
+    <a class="hero__brand" href="/" aria-label="NIPO home">
+      <img src="/brand/nipo-logo.svg" alt="NIPO" width="455" height="401" />
+    </a>
+    <a class="hero__vip-link" href="#vip">VIP list</a>
+  </header>
+
+  <div class="hero__content">
+    <h1>Japanese Precision.<br /><em>Brazilian Fire.</em></h1>
+    <p class="hero__location">
+      Coming Soon to <strong>{config.locationLabel}</strong>
+    </p>
+    <p class="hero__intro">
+      An evening-led Japanese-Brazilian dining experience shaped by craft, flame and
+      warmth.
+    </p>
+    <div class="hero__actions">
+      <a class="button button--ivory" href="#vip">Join the VIP list</a>
+    </div>
+  </div>
+</nipo-hero>
+
+<script>
+  class NipoHero extends HTMLElement {
+    connectedCallback(): void {
+      const video = this.querySelector<HTMLVideoElement>("video");
+      const source = this.dataset.videoSrc;
+      if (!video || !source) return;
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const connection = navigator as Navigator & {
+        connection?: { saveData?: boolean };
+      };
+
+      if (reducedMotion || connection.connection?.saveData) {
+        this.dataset.videoState = "poster";
+        return;
+      }
+
+      video.src = source;
+      video.preload = "metadata";
+      video.addEventListener(
+        "canplay",
+        () => {
+          video
+            .play()
+            .then(() => {
+              this.dataset.videoState = "playing";
+            })
+            .catch(() => {
+              this.dataset.videoState = "poster";
+            });
+        },
+        { once: true },
+      );
+      video.addEventListener(
+        "error",
+        () => {
+          this.dataset.videoState = "poster";
+          video.removeAttribute("src");
+        },
+        { once: true },
+      );
+      video.load();
+    }
+  }
+
+  if (!customElements.get("nipo-hero")) {
+    customElements.define("nipo-hero", NipoHero);
+  }
+</script>

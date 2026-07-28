@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Story from "../components/Story.astro";
+import VipSignup from "../components/VipSignup.astro";
+import { siteConfig } from "../config/site";
+
+const title = "NIPO | Japanese-Brazilian Dining, Newcastle Quayside";
+const description =
+  "NIPO is a new Japanese-Brazilian restaurant coming soon to Newcastle Quayside. Join the VIP list for opening updates.";
+---
+
+<BaseLayout title={title} description={description}>
+  <main id="main-content">
+    <Hero config={siteConfig} />
+    <Story />
+    <VipSignup />
+  </main>
+  <SiteFooter config={siteConfig} />
+</BaseLayout>
+
+<script>
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!reducedMotion && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("motion-ready");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -7% 0px" },
+    );
+
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+  }
+</script>

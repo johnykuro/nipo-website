@@ -1,0 +1,33 @@
+{
+  "name": "nipo-coming-soon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "generate:assets": "node scripts/generate-social.mjs",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cf:dev": "pnpm build && wrangler dev",
+    "deploy": "pnpm build && wrangler deploy",
+    "types:worker": "wrangler types worker-configuration.d.ts"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "@fontsource/playfair-display": "^5.2.8",
+    "astro": "^6.3.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@cloudflare/workers-types": "^5.20260728.1",
+    "sharp": "^0.35.3",
+    "typescript": "^5.9.2",
+    "vite": "^7.3.6",
+    "vitest": "^3.2.4",
+    "wrangler": "^4.36.0"
+  },
+  "packageManager": "pnpm@10.13.1"
+}

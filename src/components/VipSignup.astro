@@ -1,0 +1,251 @@
+---
+const turnstileSiteKey =
+  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA";
+---
+
+<section class="signup" id="vip" aria-labelledby="vip-title">
+  <div class="section-shell signup__inner">
+    <div class="signup__intro reveal">
+      <h2 id="vip-title">Be first at the table.</h2>
+      <p>
+        Join the VIP list for opening news, first looks and updates as NIPO comes to
+        Newcastle Quayside.
+      </p>
+    </div>
+
+    <vip-signup class="signup__form-wrap reveal reveal--delay">
+      <form class="vip-form" data-vip-form novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="first-name">First name</label>
+            <input
+              id="first-name"
+              name="firstName"
+              type="text"
+              autocomplete="given-name"
+              maxlength="80"
+              required
+            />
+            <p class="field__error" id="first-name-error" data-error="firstName"></p>
+          </div>
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              maxlength="254"
+              required
+            />
+            <p class="field__error" id="email-error" data-error="email"></p>
+          </div>
+        </div>
+
+        <div class="honeypot" aria-hidden="true">
+          <label for="website">Leave this field empty</label>
+          <input id="website" name="website" type="url" tabindex="-1" autocomplete="off" />
+        </div>
+        <input name="startedAt" type="hidden" value="" />
+
+        <label class="consent">
+          <input name="consent" type="checkbox" value="true" />
+          <span>
+            I’d like to receive news and updates from NIPO. I can unsubscribe at any
+            time. Read our <a href="/privacy/">privacy notice</a>.
+          </span>
+        </label>
+        <p class="field__error" data-error="consent"></p>
+
+        <div
+          class="cf-turnstile"
+          data-sitekey={turnstileSiteKey}
+          data-theme="dark"
+          data-size="flexible"
+          data-action="vip_signup"
+          data-appearance="interaction-only"
+          data-response-field-name="cf-turnstile-response"
+        ></div>
+        <p class="field__error" data-error="turnstile"></p>
+
+        <div class="form-submit">
+          <button class="button button--ivory" type="submit">
+            <span data-button-label>Join the VIP list</span>
+            <span class="button__spinner" aria-hidden="true"></span>
+          </button>
+          <p class="form-status" data-form-status aria-live="polite"></p>
+        </div>
+      </form>
+
+      <div class="form-success" data-form-success hidden tabindex="-1">
+        <img src="/brand/nipo-mark.svg" alt="" width="72" height="68" />
+        <h3>Welcome to NIPO. You’re on the list.</h3>
+        <p>We’ll be in touch as our story takes shape on Newcastle Quayside.</p>
+      </div>
+    </vip-signup>
+  </div>
+</section>
+
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script>
+  import type { VipSignupResponse } from "../types/vip";
+
+  type FieldName = "firstName" | "email" | "consent" | "turnstile";
+
+  interface TurnstileApi {
+    reset: (widget?: string | HTMLElement) => void;
+  }
+
+  class VipSignupElement extends HTMLElement {
+    private form!: HTMLFormElement;
+    private submitButton!: HTMLButtonElement;
+    private status!: HTMLElement;
+
+    connectedCallback(): void {
+      const form = this.querySelector<HTMLFormElement>("[data-vip-form]");
+      const submitButton = this.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const status = this.querySelector<HTMLElement>("[data-form-status]");
+      const startedAt = this.querySelector<HTMLInputElement>('input[name="startedAt"]');
+
+      if (!form || !submitButton || !status || !startedAt) return;
+
+      this.form = form;
+      this.submitButton = submitButton;
+      this.status = status;
+      startedAt.value = String(Date.now());
+      this.form.addEventListener("submit", this.handleSubmit);
+    }
+
+    private clearErrors(): void {
+      this.querySelectorAll<HTMLElement>("[data-error]").forEach((element) => {
+        element.textContent = "";
+      });
+      this.querySelectorAll<HTMLInputElement>("input").forEach((input) => {
+        input.removeAttribute("aria-invalid");
+        input.removeAttribute("aria-describedby");
+      });
+      this.status.textContent = "";
+    }
+
+    private setError(field: FieldName, message: string): void {
+      const errorElement = this.querySelector<HTMLElement>(`[data-error="${field}"]`);
+      const inputName = field === "turnstile" ? undefined : field;
+      const input = inputName
+        ? this.querySelector<HTMLInputElement>(`[name="${inputName}"]`)
+        : undefined;
+
+      if (errorElement) errorElement.textContent = message;
+      if (input) {
+        input.setAttribute("aria-invalid", "true");
+        if (errorElement?.id) input.setAttribute("aria-describedby", errorElement.id);
+      }
+    }
+
+    private validateClient(
+      firstName: string,
+      email: string,
+      consent: boolean,
+      turnstileToken: string,
+    ): boolean {
+      let valid = true;
+      if (!firstName || firstName.length > 80) {
+        this.setError("firstName", "Enter your first name.");
+        valid = false;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(email)) {
+        this.setError("email", "Enter a valid email address.");
+        valid = false;
+      }
+      if (!consent) {
+        this.setError(
+          "consent",
+          "Please confirm that you would like to receive NIPO updates.",
+        );
+        valid = false;
+      }
+      if (!turnstileToken) {
+        this.setError("turnstile", "Please complete the security check.");
+        valid = false;
+      }
+      return valid;
+    }
+
+    private setLoading(loading: boolean): void {
+      this.submitButton.disabled = loading;
+      this.submitButton.dataset.loading = String(loading);
+      this.submitButton.setAttribute("aria-busy", String(loading));
+    }
+
+    private resetTurnstile(): void {
+      const turnstile = (window as Window & { turnstile?: TurnstileApi }).turnstile;
+      const widget = this.querySelector<HTMLElement>(".cf-turnstile");
+      if (turnstile && widget) turnstile.reset(widget);
+    }
+
+    private handleSubmit = async (event: SubmitEvent): Promise<void> => {
+      event.preventDefault();
+      this.clearErrors();
+
+      const formData = new FormData(this.form);
+      const firstName = String(formData.get("firstName") ?? "").trim();
+      const email = String(formData.get("email") ?? "").trim();
+      const consent = formData.get("consent") === "true";
+      const turnstileToken = String(formData.get("cf-turnstile-response") ?? "");
+
+      if (!this.validateClient(firstName, email, consent, turnstileToken)) {
+        this.querySelector<HTMLInputElement>('[aria-invalid="true"]')?.focus();
+        return;
+      }
+
+      this.setLoading(true);
+      this.status.textContent = "Joining the VIP list…";
+
+      try {
+        const response = await fetch("/api/vip-signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName,
+            email,
+            consent,
+            turnstileToken,
+            website: String(formData.get("website") ?? ""),
+            startedAt: Number(formData.get("startedAt")),
+          }),
+        });
+        const result = (await response.json()) as VipSignupResponse;
+
+        if (!response.ok || !result.ok) {
+          if (!result.ok && result.fields) {
+            Object.entries(result.fields).forEach(([field, message]) => {
+              if (message) this.setError(field as FieldName, message);
+            });
+          }
+          this.status.textContent = result.message;
+          this.resetTurnstile();
+          return;
+        }
+
+        const success = this.querySelector<HTMLElement>("[data-form-success]");
+        this.form.hidden = true;
+        if (success) {
+          success.hidden = false;
+          success.focus();
+        }
+      } catch {
+        this.status.textContent =
+          "We couldn’t add you just now. Check your connection and try again.";
+        this.resetTurnstile();
+      } finally {
+        this.setLoading(false);
+      }
+    };
+  }
+
+  if (!customElements.get("vip-signup")) {
+    customElements.define("vip-signup", VipSignupElement);
+  }
+</script>

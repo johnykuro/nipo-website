@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" role="img" aria-label="Dark green botanical texture with warm firelight">
+  <defs>
+    <radialGradient id="fire" cx="74%" cy="59%" r="52%">
+      <stop offset="0" stop-color="#b96f2e" stop-opacity=".56"/>
+      <stop offset=".25" stop-color="#64412a" stop-opacity=".32"/>
+      <stop offset=".7" stop-color="#15231f" stop-opacity=".08"/>
+      <stop offset="1" stop-color="#07100e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="night" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#07100e"/>
+      <stop offset=".48" stop-color="#15231f"/>
+      <stop offset="1" stop-color="#241e1c"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="42"/></filter>
+    <filter id="grain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence baseFrequency=".72" numOctaves="4" seed="18" stitchTiles="stitch" type="fractalNoise"/>
+      <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .1 0"/>
+    </filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#night)"/>
+  <rect width="1920" height="1080" fill="url(#fire)"/>
+  <g fill="none" stroke="#f0e098" stroke-opacity=".14" stroke-width="2">
+    <path d="M1590-40c-210 256-283 517-179 783 38 97 112 201 216 311"/>
+    <path d="M1721-22c-265 268-372 552-260 846 31 80 87 162 168 246"/>
+    <path d="M1841 48c-231 221-335 454-262 702 39 132 126 239 269 323"/>
+    <path d="M-83 849c241-161 448-187 619-76 75 49 142 132 202 250"/>
+    <path d="M-70 933c282-138 512-132 691 18 34 29 65 67 93 113"/>
+  </g>
+  <g fill="#8f9b7a" fill-opacity=".08">
+    <ellipse cx="1538" cy="203" rx="330" ry="92" transform="rotate(-38 1538 203)"/>
+    <ellipse cx="1710" cy="434" rx="380" ry="106" transform="rotate(-64 1710 434)"/>
+    <ellipse cx="210" cy="844" rx="360" ry="130" transform="rotate(24 210 844)"/>
+  </g>
+  <g filter="url(#blur)">
+    <circle cx="1384" cy="690" r="89" fill="#d28a43" fill-opacity=".2"/>
+    <circle cx="1578" cy="558" r="42" fill="#f0e098" fill-opacity=".18"/>
+    <circle cx="1178" cy="831" r="54" fill="#b02028" fill-opacity=".12"/>
+  </g>
+  <rect width="1920" height="1080" filter="url(#grain)" opacity=".38"/>
+</svg>

@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../config/site";
+
+const title = "Privacy notice | NIPO";
+const description =
+  "How NIPO uses the personal information submitted through its VIP mailing list.";
+---
+
+<BaseLayout title={title} description={description} noIndex>
+  <header class="legal-header">
+    <a href="/" aria-label="Return to NIPO home">
+      <img src="/brand/nipo-logo.svg" alt="NIPO" width="455" height="401" />
+    </a>
+    <a class="text-link text-link--light" href="/">Return home</a>
+  </header>
+
+  <main class="legal-page" id="main-content">
+    <div class="legal-page__intro">
+      <p class="eyebrow">Privacy notice</p>
+      <h1>Your details,<br /><em>treated with care.</em></h1>
+      <p class="legal-page__review">
+        Draft launch notice — this copy and the final data-controller contact must be
+        approved before publication.
+      </p>
+    </div>
+
+    <div class="legal-copy">
+      <section>
+        <h2>What we collect</h2>
+        <p>
+          When you join the NIPO VIP list, we collect your first name, email address,
+          consent choice and the date of your signup. We also process limited technical
+          information needed to protect the form from automated abuse.
+        </p>
+      </section>
+
+      <section>
+        <h2>How we use it</h2>
+        <p>
+          We use these details to send news about NIPO, including opening updates and
+          first looks at the restaurant. We do not use the signup form for unrelated
+          marketing.
+        </p>
+      </section>
+
+      <section>
+        <h2>Our email provider</h2>
+        <p>
+          We use Brevo to securely manage our mailing list and deliver email updates.
+          Brevo processes your details on our behalf under its data-processing terms.
+        </p>
+      </section>
+
+      <section>
+        <h2>How long we keep it</h2>
+        <p>
+          We keep your details while you remain subscribed. Every marketing email will
+          include a way to unsubscribe, after which your marketing status will be
+          updated or your details removed in line with our retention requirements.
+        </p>
+      </section>
+
+      <section>
+        <h2>Your choices</h2>
+        <p>
+          You can unsubscribe at any time. You may also ask us to access, correct or
+          delete the personal information we hold about you.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        {
+          siteConfig.privacyContact ? (
+            <p>
+              Email us at{" "}
+              <a href={`mailto:${siteConfig.privacyContact}`}>
+                {siteConfig.privacyContact}
+              </a>
+              .
+            </p>
+          ) : (
+            <p class="legal-copy__placeholder">
+              Privacy contact details will be added before the public launch.
+            </p>
+          )
+        }
+      </section>
+    </div>
+  </main>
+</BaseLayout>

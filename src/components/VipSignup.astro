@@ -1,12 +1,15 @@
 ---
 const turnstileSiteKey =
-  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA";
+  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAEFHyznfIrD-Fjmv";
 ---
 
 <section class="signup" id="vip" aria-labelledby="vip-title">
   <div class="section-shell signup__inner">
     <div class="signup__intro reveal">
-      <h2 id="vip-title">Be first at the table.</h2>
+      <h2 id="vip-title" class="responsive-heading">
+        <span class="responsive-heading__line">Be first at the</span>
+        <span class="responsive-heading__line">table.</span>
+      </h2>
       <p>
         Join the VIP list for opening news, first looks and updates as NIPO comes to
         Newcastle Quayside.
@@ -14,7 +17,7 @@ const turnstileSiteKey =
     </div>
 
     <vip-signup class="signup__form-wrap reveal reveal--delay">
-      <form class="vip-form" data-vip-form novalidate>
+      <form class="vip-form" data-vip-form method="post" action="/api/vip-signup" novalidate>
         <div class="form-row">
           <div class="field">
             <label for="first-name">First name</label>
@@ -64,7 +67,7 @@ const turnstileSiteKey =
           data-sitekey={turnstileSiteKey}
           data-theme="dark"
           data-size="flexible"
-          data-action="vip_signup"
+          data-action="turnstile-spin-v2"
           data-appearance="interaction-only"
           data-response-field-name="cf-turnstile-response"
         ></div>

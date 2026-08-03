@@ -24,7 +24,7 @@ function createEnv(overrides: Partial<Env> = {}): Env {
     } as unknown as RateLimit,
     BREVO_API_KEY: "brevo-key",
     BREVO_LIST_ID: "42",
-    TURNSTILE_SECRET_KEY: "turnstile-secret",
+    TURNSTILE_SECRET: "turnstile-secret",
     SITE_ORIGIN: "https://nipo.example",
     ...overrides,
   };
@@ -57,7 +57,7 @@ describe("VIP signup Worker", () => {
     const fetchMock = vi
       .fn()
       .mockResolvedValueOnce(
-        Response.json({ success: true, hostname: "nipo.example", action: "vip_signup" }),
+        Response.json({ success: true, hostname: "nipo.example", action: "turnstile-spin-v2" }),
       )
       .mockResolvedValueOnce(Response.json({ id: 21 }, { status: 201 }));
     globalThis.fetch = fetchMock;
@@ -143,7 +143,7 @@ describe("VIP signup Worker", () => {
     globalThis.fetch = vi
       .fn()
       .mockResolvedValueOnce(
-        Response.json({ success: true, hostname: "nipo.example", action: "vip_signup" }),
+        Response.json({ success: true, hostname: "nipo.example", action: "turnstile-spin-v2" }),
       )
       .mockResolvedValueOnce(Response.json({ message: "failure" }, { status: 500 }));
     const response = await handleRequest(signupRequest(), createEnv());

@@ -140,6 +140,14 @@ h2 em {
   font-weight: 400;
 }
 
+.responsive-heading {
+  white-space: nowrap;
+}
+
+.responsive-heading__line {
+  display: inline;
+}
+
 .button {
   display: inline-flex;
   min-height: 2.875rem;
@@ -263,7 +271,7 @@ h2 em {
 
 .hero__veil {
   z-index: 1;
-  background: rgba(5, 12, 10, 0.68);
+  background: rgba(5, 12, 10, 0.8);
 }
 
 .hero__header {
@@ -400,11 +408,6 @@ h2 em {
   margin-top: 1.8rem;
   color: var(--teal) !important;
   font-weight: 600;
-}
-
-.story__mark {
-  width: clamp(4.75rem, 8vw, 6.5rem);
-  margin: 2.5rem auto 0;
 }
 
 .signup {
@@ -686,21 +689,25 @@ h2 em {
 }
 
 .legal-page {
-  display: grid;
   min-height: calc(100svh - 7rem);
   padding: var(--section-space) var(--gutter);
   background: var(--ivory);
   color: var(--night);
-  grid-template-columns: minmax(0, 1fr) minmax(20rem, 38rem);
-  gap: clamp(3rem, 8vw, 8rem);
+  text-align: left;
+}
+
+.legal-page > * {
+  width: min(100%, 48rem);
+  margin-inline: auto;
 }
 
 .legal-page__intro {
-  max-width: 45rem;
+  margin-bottom: clamp(3rem, 7vw, 5rem);
 }
 
 .legal-page h1 {
-  font-size: clamp(3rem, 6vw, 6rem);
+  max-width: 42rem;
+  font-size: clamp(3rem, 7vw, 5rem);
   line-height: 0.95;
 }
 
@@ -709,7 +716,6 @@ h2 em {
 }
 
 .legal-page__review {
-  max-width: 34rem;
   border-top: 1px solid rgba(21, 35, 31, 0.25);
   padding-top: 1rem;
   color: #6b5141;
@@ -730,14 +736,23 @@ h2 em {
   color: #414942;
 }
 
+.legal-copy ul {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+  color: #414942;
+}
+
+.legal-copy li + li {
+  margin-top: 0.55rem;
+}
+
+.legal-copy strong {
+  color: var(--night);
+}
+
 .legal-copy a {
   color: var(--teal);
   text-underline-offset: 0.2em;
-}
-
-.legal-copy__placeholder {
-  color: #8b4a4d !important;
-  font-weight: 600;
 }
 
 .not-found {
@@ -874,14 +889,22 @@ h2 em {
     gap: 0.65rem;
   }
 
+  .responsive-heading {
+    white-space: normal;
+  }
+
+  .responsive-heading__line {
+    display: block;
+    white-space: nowrap;
+  }
+
   .hero__scroll {
     display: none;
   }
 
   .story__grid,
   .signup__grid,
-  .footer__top,
-  .legal-page {
+  .footer__top {
     grid-template-columns: 1fr;
   }
 
@@ -947,7 +970,6 @@ h2 em {
 
   .legal-page {
     min-height: calc(100svh - 5.5rem);
-    gap: 3rem;
   }
 }
 

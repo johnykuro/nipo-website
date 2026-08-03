@@ -12,6 +12,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "cf:dev": "pnpm build && wrangler dev",
+    "netlify:dev": "npx netlify-cli dev",
+    "netlify:deploy": "pnpm build && npx netlify-cli deploy --prod --dir=dist",
     "deploy": "pnpm build && wrangler deploy",
     "types:worker": "wrangler types worker-configuration.d.ts"
   },
@@ -21,6 +23,7 @@
     "astro": "^6.3.1"
   },
   "devDependencies": {
+    "@netlify/functions": "^5.3.0",
     "@astrojs/check": "^0.9.6",
     "@cloudflare/workers-types": "^5.20260728.1",
     "sharp": "^0.35.3",

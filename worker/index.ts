@@ -9,7 +9,7 @@ export interface Env {
   SIGNUP_RATE_LIMITER: RateLimit;
   BREVO_API_KEY: string;
   BREVO_LIST_ID: string;
-  TURNSTILE_SECRET_KEY: string;
+  TURNSTILE_SECRET: string;
   SITE_ORIGIN: string;
 }
 
@@ -119,7 +119,7 @@ async function verifyTurnstile(
   env: Env,
 ): Promise<boolean> {
   const body = new URLSearchParams({
-    secret: env.TURNSTILE_SECRET_KEY,
+    secret: env.TURNSTILE_SECRET,
     response: token,
   });
   const remoteIp = request.headers.get("CF-Connecting-IP");
@@ -141,7 +141,7 @@ async function verifyTurnstile(
   }
 
   const result = (await response.json()) as TurnstileResponse;
-  if (!result.success || (result.action && result.action !== "vip_signup")) {
+  if (!result.success || (result.action && result.action !== "turnstile-spin-v2")) {
     return false;
   }
 
@@ -188,7 +188,7 @@ function configurationIsValid(env: Env): boolean {
   return Boolean(
     env.BREVO_API_KEY &&
       env.BREVO_LIST_ID &&
-      env.TURNSTILE_SECRET_KEY &&
+      env.TURNSTILE_SECRET &&
       env.SITE_ORIGIN,
   );
 }

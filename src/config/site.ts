@@ -29,7 +29,9 @@ export const siteConfig: SiteConfig = {
   locationLabel: "Newcastle Quayside",
   canonicalUrl: import.meta.env.PUBLIC_SITE_URL ?? "https://nipo.example",
   video: {
-    src: cleanUrl(import.meta.env.PUBLIC_VIMEO_VIDEO_URL),
+    src:
+      cleanUrl(import.meta.env.PUBLIC_VIMEO_VIDEO_URL) ??
+      "https://player.vimeo.com/progressive_redirect/playback/1215173947/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&signature=e5191c7f23e58d8bab39b943c669fc9e01dc85185f9ecc2717a08072097a5be4",
     poster: "/images/hero-poster.svg",
   },
   privacyContact: cleanUrl(import.meta.env.PUBLIC_PRIVACY_EMAIL),

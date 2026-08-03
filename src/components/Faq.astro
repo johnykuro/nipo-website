@@ -1,0 +1,23 @@
+---
+import { faqItems } from "../config/seo";
+---
+
+<section class="faq" id="faq" aria-labelledby="faq-title">
+  <div class="section-shell faq__inner">
+    <div class="faq__intro reveal">
+      <p class="eyebrow eyebrow--dark">The essentials</p>
+      <h2 id="faq-title">About NIPO</h2>
+    </div>
+
+    <div class="faq__list">
+      {
+        faqItems.map((item, index) => (
+          <article class={`faq__item reveal${index % 2 ? " reveal--delay" : ""}`}>
+            <h3>{item.question}</h3>
+            <p>{item.answer}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

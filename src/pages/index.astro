@@ -1,20 +1,30 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Faq from "../components/Faq.astro";
 import Hero from "../components/Hero.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Story from "../components/Story.astro";
 import VipSignup from "../components/VipSignup.astro";
+import {
+  buildHomeStructuredData,
+  homeDescription,
+  homeTitle,
+} from "../config/seo";
 import { siteConfig } from "../config/site";
 
-const title = "NIPO | Japanese-Brazilian Dining, Newcastle Quayside";
-const description =
-  "NIPO is a new Japanese-Brazilian restaurant coming soon to Newcastle Quayside. Join the VIP list for opening updates.";
+const site = Astro.site ?? new URL(siteConfig.canonicalUrl);
+const structuredData = buildHomeStructuredData(siteConfig, site);
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={homeTitle}
+  description={homeDescription}
+  structuredData={structuredData}
+>
   <main id="main-content">
     <Hero config={siteConfig} />
     <Story />
+    <Faq />
     <VipSignup />
   </main>
   <SiteFooter config={siteConfig} />

@@ -27,7 +27,7 @@ export const siteConfig: SiteConfig = {
   name: "NIPO",
   tagline: "Japanese Precision. Brazilian Fire.",
   locationLabel: "Newcastle Quayside",
-  canonicalUrl: import.meta.env.PUBLIC_SITE_URL ?? "https://nipo.example",
+  canonicalUrl: import.meta.env.PUBLIC_SITE_URL ?? "https://nipobraza.co.uk",
   video: {
     src:
       cleanUrl(import.meta.env.PUBLIC_VIMEO_VIDEO_URL) ??

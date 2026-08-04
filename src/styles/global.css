@@ -11,6 +11,8 @@
   --sans: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --gutter: clamp(1.25rem, 4vw, 3rem);
+  --content-width: 70rem;
+  --copy-width: 52rem;
   --section-space: clamp(5rem, 10vw, 9rem);
 }
 
@@ -100,9 +102,8 @@ input:focus-visible {
 }
 
 .section-shell {
-  width: min(100%, 90rem);
+  width: min(var(--content-width), calc(100% - (2 * var(--gutter))));
   margin-inline: auto;
-  padding-inline: var(--gutter);
 }
 
 .eyebrow {
@@ -280,10 +281,12 @@ h2 em {
   top: 0;
   right: 0;
   left: 0;
+  width: min(var(--content-width), calc(100% - (2 * var(--gutter))));
+  margin-inline: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(1.5rem, 4vw, 3rem) var(--gutter);
+  padding-block: clamp(1.5rem, 4vw, 3rem);
 }
 
 .hero__brand {
@@ -298,7 +301,7 @@ h2 em {
 
 .hero__vip-link {
   position: absolute;
-  right: var(--gutter);
+  right: 0;
   display: inline-flex;
   min-width: 6.5rem;
   min-height: 2.75rem;
@@ -380,10 +383,12 @@ h2 em {
 }
 
 .story__inner {
-  max-width: 52rem;
+  max-width: var(--content-width);
 }
 
 .story h2 {
+  max-width: var(--copy-width);
+  margin-inline: auto;
   margin-bottom: 1.8rem;
   font-size: clamp(2.8rem, 5.2vw, 5rem);
   line-height: 1;
@@ -391,9 +396,8 @@ h2 em {
 
 .story__inner > p {
   max-width: 44rem;
-  margin-right: auto;
+  margin-inline: auto;
   margin-bottom: 1.2rem;
-  margin-left: auto;
   color: #3a423c;
 }
 
@@ -416,7 +420,6 @@ h2 em {
 }
 
 .faq__inner {
-  max-width: 70rem;
   border-top: 1px solid rgba(21, 35, 31, 0.2);
   padding-top: clamp(4rem, 7vw, 6rem);
   padding-bottom: var(--section-space);
@@ -424,7 +427,8 @@ h2 em {
 
 .faq__intro {
   max-width: 42rem;
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
 }
 
 .faq__intro h2 {
@@ -462,7 +466,7 @@ h2 em {
 }
 
 .signup__inner {
-  max-width: 48rem;
+  max-width: var(--content-width);
 }
 
 .signup__intro {
@@ -624,7 +628,7 @@ h2 em {
 }
 
 .footer__top {
-  padding-block: clamp(3.5rem, 6vw, 5rem);
+  padding-block: clamp(3rem, 5vw, 4rem);
   text-align: center;
 }
 
@@ -684,10 +688,10 @@ h2 em {
 
 .footer__bottom {
   display: grid;
-  min-height: 7rem;
+  min-height: 0;
   align-items: center;
   border-top: 1px solid rgba(247, 241, 222, 0.16);
-  padding-block: 1.6rem;
+  padding-block: 2.5rem;
   color: rgba(247, 241, 222, 0.55);
   font-size: 0.68rem;
   letter-spacing: 0.12em;

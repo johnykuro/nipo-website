@@ -1,6 +1,6 @@
 import type { SiteConfig } from "./site";
 
-export const homeTitle = "Japanese-Brazilian Restaurant Newcastle | NIPO";
+export const homeTitle = "NIPO | Japanese-Brazilian Restaurant Newcastle";
 export const homeDescription =
   "NIPO is a Japanese-Brazilian restaurant coming soon to Newcastle Quayside, serving sushi, robata and fire-cooked signatures. Join the VIP list.";
 

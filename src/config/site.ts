@@ -36,8 +36,8 @@ export const siteConfig: SiteConfig = {
   },
   privacyContact: cleanUrl(import.meta.env.PUBLIC_PRIVACY_EMAIL),
   socialLinks: [
-    { label: "Facebook", url: cleanUrl(import.meta.env.PUBLIC_FACEBOOK_URL) },
-    { label: "Instagram", url: cleanUrl(import.meta.env.PUBLIC_INSTAGRAM_URL) },
+    { label: "Facebook", url: "https://www.facebook.com/nipobraza" },
+    { label: "Instagram", url: "https://www.instagram.com/nipobraza/" },
     { label: "TikTok", url: cleanUrl(import.meta.env.PUBLIC_TIKTOK_URL) },
   ],
 };

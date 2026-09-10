@@ -1,5 +1,6 @@
 ---
 import type { SiteConfig } from "../config/site";
+import SocialIcon from "./SocialIcon.astro";
 
 interface Props {
   config: SiteConfig;
@@ -13,26 +14,18 @@ const { config } = Astro.props;
     <h2>Follow NIPO</h2>
     <nav class="social-list" aria-label="Social media">
       {
-        config.socialLinks.map((social) =>
-          social.url ? (
-            <a href={social.url} rel="noreferrer" target="_blank">
-              <span>{social.label}</span>
-              <span aria-hidden="true">↗</span>
+        config.socialLinks.filter((social) => social.url).map((social) => (
+            <a href={social.url} aria-label={`${social.label} (opens in a new tab)`} rel="noopener noreferrer" target="_blank">
+              <SocialIcon platform={social.label} />
             </a>
-          ) : (
-            <span aria-label={`${social.label} — account coming soon`}>
-              <span>{social.label}</span>
-              <small>Coming soon</small>
-            </span>
-          ),
-        )
+          ))
       }
     </nav>
   </div>
 
   <div class="section-shell footer__bottom">
     <img src="/brand/nipo-logo.svg" alt="NIPO" width="455" height="401" loading="lazy" />
-    <p><strong>Coming Soon to {config.locationLabel}</strong></p>
+    <p><strong>Opening 23rd September on {config.locationLabel}</strong></p>
     <p>
       <a href="/privacy/">Privacy</a>
       <span aria-hidden="true"> · </span>

@@ -2,18 +2,18 @@ import type { SiteConfig } from "./site";
 
 export const homeTitle = "NIPO | Japanese-Brazilian Restaurant Newcastle";
 export const homeDescription =
-  "NIPO is a Japanese-Brazilian restaurant coming soon to Newcastle Quayside, serving sushi, robata and fire-cooked signatures. Join the VIP list.";
+  "NIPO opens 23rd September at 95 Quayside, Newcastle upon Tyne. Discover Japanese-Brazilian dining, sushi, robata and fire-cooked signatures.";
 
 export const faqItems = [
   {
     question: "What is NIPO?",
     answer:
-      "NIPO is a Japanese-Brazilian restaurant coming soon to Newcastle Quayside, shaped by Japanese precision, Brazilian fire and warm hospitality.",
+      "NIPO is a Japanese-Brazilian restaurant opening on Newcastle Quayside on 23rd September, shaped by Japanese precision, Brazilian fire and warm hospitality.",
   },
   {
     question: "Where is NIPO opening?",
     answer:
-      "NIPO is opening on Newcastle Quayside in Newcastle upon Tyne. The full address will be announced before opening.",
+      "Find NIPO at 95 Quayside, Newcastle upon Tyne NE1 3DH, in the former Tomahawk Steakhouse location.",
   },
   {
     question: "What food will NIPO serve?",
@@ -23,7 +23,7 @@ export const faqItems = [
   {
     question: "When will NIPO open?",
     answer:
-      "NIPO's opening date will be announced soon. Join the VIP list for opening news, first looks and updates.",
+      "NIPO opens on 23rd September. Join the VIP list for first looks and updates ahead of opening.",
   },
 ] as const;
 
@@ -65,8 +65,10 @@ export function buildHomeStructuredData(config: SiteConfig, site: URL) {
         ],
         address: {
           "@type": "PostalAddress",
+          streetAddress: "95 Quayside",
           addressLocality: "Newcastle upon Tyne",
           addressRegion: "Tyne and Wear",
+          postalCode: "NE1 3DH",
           addressCountry: "GB",
         },
         areaServed: {

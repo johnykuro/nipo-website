@@ -10,6 +10,7 @@ export interface SiteConfig {
   tagline: string;
   locationLabel: string;
   canonicalUrl: string;
+  bookingUrl: string;
   video: {
     src?: string;
     poster: string;
@@ -28,6 +29,7 @@ export const siteConfig: SiteConfig = {
   tagline: "Japanese Precision. Brazilian Fire.",
   locationLabel: "Newcastle Quayside",
   canonicalUrl: import.meta.env.PUBLIC_SITE_URL ?? "https://nipobraza.co.uk",
+  bookingUrl: "https://www.sevenrooms.com/app/reservations/nipo/create/search/",
   video: {
     src:
       cleanUrl(import.meta.env.PUBLIC_VIMEO_VIDEO_URL) ??

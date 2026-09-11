@@ -39,7 +39,10 @@ const { config } = Astro.props;
           </a>
         ))}
       </div>
-      <a class="hero__vip-link" href="#vip">VIP list</a>
+      <div class="hero__nav-links">
+        <a class="hero__nav-link hero__nav-link--primary" href={config.bookingUrl}>Book a table</a>
+        <a class="hero__nav-link hero__nav-link--vip" href="#vip">VIP list</a>
+      </div>
     </nav>
   </header>
 
@@ -53,7 +56,8 @@ const { config } = Astro.props;
       naturally from day into night.
     </p>
     <div class="hero__actions">
-      <a class="button button--ivory" href="#vip">Join the VIP list</a>
+      <a class="button button--ivory" href={config.bookingUrl}>Book a table</a>
+      <a class="button button--outline" href="#vip">Join the VIP list</a>
     </div>
   </div>
 </nipo-hero>

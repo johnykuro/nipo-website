@@ -1,0 +1,20 @@
+---
+import { getImage } from "astro:assets";
+import { photo } from "../data/media";
+import Photo from "./Photo.astro";
+const assets = await Promise.all(["fish-avocado-tartare", "salmon-sushi", "botanical-cocktail", "steak-salad", "chicken-skewers", "sesame-tuna-bites"].map(async (id) => {
+  const asset = photo(id);
+  return { asset, full: (await getImage({ src: asset.src, width: Math.min(1600, asset.src.width), format: "webp" })).src };
+}));
+---
+<section class="rail-section" aria-labelledby="rail-heading">
+  <div class="rail-heading section-shell"><h2 id="rail-heading" class="sr-only">A taste of NIPO</h2><p>Craft. Fire. A table to share.</p></div>
+  <div class="gallery-rail" data-gallery-rail aria-label="NIPO image gallery">
+    <div class="gallery-track" data-gallery-track>
+      {[...assets, ...assets].map(({ asset, full }, index) => <a class:list={["rail-image", { "rail-image--wide": index % 3 === 1 }]} href={full} data-lightbox-item data-photo-id={asset.id} data-caption={asset.caption} data-alt={asset.alt} data-duplicate={index >= assets.length ? "true" : undefined} tabindex={index >= assets.length ? -1 : undefined} aria-hidden={index >= assets.length ? "true" : undefined} aria-label={"Enlarge: " + asset.alt}>
+        <Photo asset={asset} sizes="(max-width: 767px) 78vw, 35vw" />
+      </a>)}
+    </div>
+  </div>
+  <div class="rail-footer section-shell"><a class="text-link" href="/gallery/">Explore the gallery <span aria-hidden="true">↗</span></a></div>
+</section>

@@ -1,8 +1,12 @@
 /// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
+declare const __NIPO_SITE_URL__: string;
+declare const __NIPO_NOINDEX__: boolean;
+
 interface ImportMetaEnv {
   readonly PUBLIC_SITE_URL?: string;
+  readonly PUBLIC_NOINDEX?: string;
   readonly PUBLIC_VIMEO_VIDEO_URL?: string;
   readonly PUBLIC_TURNSTILE_SITE_KEY?: string;
   readonly PUBLIC_TIKTOK_URL?: string;

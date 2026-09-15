@@ -1,44 +1,46 @@
-# NIPO coming-soon website
+# NIPO website
 
-A static Astro 6 launch site with a Cloudflare Worker endpoint for Brevo VIP-list capture.
+An Astro 7 restaurant website for NIPO on Newcastle Quayside: Home, Concept, Menus, Gallery, Contact and Privacy. GSAP provides the hero slideshow, draggable gallery rail and menu previews. Netlify is the production host; the Cloudflare Worker is retained as an alternative.
 
-## Local setup
+## Local preview
 
-1. Install dependencies with `pnpm install`.
-2. Copy `.env.example` to `.env` and add public build-time values.
-3. Copy `.dev.vars.example` to `.dev.vars` and add Worker secrets.
-4. Run `pnpm dev` for frontend work.
-5. Run `pnpm cf:dev` for an end-to-end Worker preview.
+```sh
+pnpm install
+pnpm dev
+```
 
-The Astro development server proxies `/api/*` to Wrangler on port `8787`. When testing
-the complete signup flow with hot reload, run `wrangler dev` and `pnpm dev` in separate
-terminals.
+For the production build:
 
-## Production configuration
+```sh
+pnpm test
+pnpm check
+pnpm build
+pnpm preview --host 127.0.0.1 --port 4322
+```
 
-Before deploying:
+The frontend preview does not run the VIP backend. For a complete local signup flow, supply the existing secrets from `.dev.vars.example` and run Wrangler on port 8787 alongside Astro; Astro proxies `/api/*` to that port. Netlify also retains its existing `/api/vip-signup` function.
 
-- Replace the placeholder `PUBLIC_SITE_URL` and `SITE_ORIGIN`.
-- Add the direct Vimeo video URL and verify it supports browser playback, CORS, and byte ranges.
-- Replace the temporary SVG poster with a frame approved from the final footage.
-- Supply the production Brevo list ID and ensure the `FNAME` contact attribute exists.
-- Create a production Turnstile widget restricted to the final hostname.
-- Set `BREVO_API_KEY` and `TURNSTILE_SECRET` with `wrangler secret put`.
-- Replace the rate-limit namespace ID if `1001` is already used in the Cloudflare account.
-- Add the approved privacy contact and have the privacy copy reviewed before launch.
-- Add social URLs when the accounts are ready; blank URLs remain non-interactive.
+## Content and assets
 
-Run `pnpm check`, `pnpm test`, and `pnpm build` before `pnpm deploy`.
+- `src/config/site.ts`: navigation, booking URL, address, socials, opening status/date, slideshow and future video.
+- `src/data/media.ts`: photo imports, descriptions, captions and desktop/mobile focal positions.
+- `src/data/menus.ts`: menu destinations and 68 sample food dishes.
+- `src/config/seo.ts`: page registry, linked Restaurant/page/menu schema and visible Contact FAQs.
+- `src/scripts/consent.ts`: optional cookie choices and consent-gated GTM loading.
+- `src/assets/photos/approved/`: eight approved food-reference PNG masters used across the website. Earlier placeholders are retained in the parent folder; prompts and source mappings are in `output/imagegen/nipo-food-v1/`.
+- `public/menus/`: approved Drinks and Wine website PDFs, cropped to their original trim boxes.
+- `docs/IMAGERY.md`: asset catalogue and photoshoot replacement instructions.
+- `docs/IMPLEMENTATION.md`: menu, opening, video and signup maintenance.
+- `docs/QA.md`: verification evidence and limits.
 
-## Netlify deployment
+Run `pnpm generate:assets` after changing the social-card photograph. Astro builds responsive AVIF and WebP automatically.
 
-The same static Astro site can run on Netlify, with the VIP signup handled by
-`netlify/functions/vip-signup.ts` at `/api/vip-signup`.
+## Browser regression checks
 
-1. Link or create the site with `npx netlify-cli init --manual`.
-2. Set `BREVO_API_KEY`, `BREVO_LIST_ID`, `TURNSTILE_SECRET`, and `SITE_ORIGIN`
-   in Netlify. Set the public build variables from `.env.example` there as well.
-3. Add the Netlify hostname to the production Turnstile widget's allowed hostnames.
-4. Run `pnpm netlify:deploy` for a production deploy.
+Install `agent-browser` and set `AGENT_BROWSER_BIN` to its executable. After `pnpm build`, run `node scripts/qa-server.mjs` in a separate terminal, then `node scripts/verify-browser.mjs`. The fixture on port 4323 serves the production files with local VIP responses and removes the external Turnstile script. It never creates real mailing-list contacts. `QA_ORIGIN` accepts localhost URLs only. Results and screenshots go to ignored `tmp/qa/`. The user-facing production preview remains on port 4322.
 
-Use `pnpm netlify:dev` to test the Astro site and function together locally.
+## Deployment
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for Netlify configuration, verification and launch checks. `pnpm build` checks TypeScript, builds the site, and validates generated SEO, schema, links and social assets. Netlify also runs the backend tests before building. Node 22.12 or later is required.
+
+For consent verification, run `node scripts/verify-consent.mjs` against the production preview on port 4322. It intercepts Google requests and does not send analytics events. Run browser checks only after a build has completed; rebuilding replaces `dist` while tests are running.

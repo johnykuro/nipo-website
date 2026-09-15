@@ -1,13 +1,12 @@
 import type { APIRoute } from "astro";
+import { indexablePages, siteNoIndex } from "../config/seo";
 
 export const prerender = true;
 
-const paths = ["/", "/privacy/"];
-
 export const GET: APIRoute = ({ site }) => {
   const origin = site ?? new URL("https://nipobraza.co.uk");
-  const entries = paths
-    .map((path) => `  <url><loc>${new URL(path, origin).href}</loc></url>`)
+  const entries = (siteNoIndex ? [] : indexablePages)
+    .map(({ path }) => `  <url><loc>${new URL(path, origin).href.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</loc></url>`)
     .join("\n");
 
   return new Response(

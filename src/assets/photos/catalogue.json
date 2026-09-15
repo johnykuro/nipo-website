@@ -1,0 +1,94 @@
+{
+  "generator": "Built-in image_gen",
+  "originals": "Unaltered generated PNGs retained in this directory",
+  "assets": [
+    {
+      "id": "cheesecake",
+      "file": "cheesecake.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "9ca00f86f913661dbf51bba966c0e65b2316f81ddd800ecfe754dc08a332ca6e",
+      "placeholder": true,
+      "generated_on": "2026-09-14",
+      "prompt_file": "prompts.json",
+      "metadata_file": "../../data/media.ts"
+    },
+    {
+      "id": "cocktail",
+      "file": "cocktail.png",
+      "width": 1672,
+      "height": 940,
+      "sha256": "2c9ad65d49a2c1880de2b8a946c48c89da9caf6fcf3e89154dadc434aec88c90",
+      "placeholder": true,
+      "generated_on": "2026-09-14",
+      "prompt_file": "prompts.json",
+      "metadata_file": "../../data/media.ts"
+    },
+    {
+      "id": "cod",
+      "file": "cod.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "dc0b2fa542e2e47c1dceb96941c3a048af0f3e2c025f7e75f6f6882ff14a8588",
+      "placeholder": true,
+      "generated_on": "2026-09-14",
+      "prompt_file": "prompts.json",
+      "metadata_file": "../../data/media.ts"
+    },
+    {
+      "id": "craft",
+      "file": "craft.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "2817bdecfc47643a7b3d571bce159b74ae9a4e01d1474d95675ddd484221003d",
+      "placeholder": true,
+      "generated_on": "2026-09-14",
+      "prompt_file": "prompts.json",
+      "metadata_file": "../../data/media.ts"
+    },
+    {
+      "id": "fire",
+      "file": "fire.png",
+      "width": 1672,
+      "height": 941,
+      "sha256": "f5163eab626b383aaade2fd82815ce9e9ec66568c45b170d3d74adb296a97191",
+      "placeholder": true,
+      "generated_on": "2026-09-14",
+      "prompt_file": "prompts.json",
+      "metadata_file": "../../data/media.ts"
+    },
+    {
+      "id": "moqueca",
+      "file": "moqueca.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "6560d663cb052da98fff79dd78a71064c718e05909e753cd83468549feda8c30",
+      "placeholder": true,
+      "generated_on": "2026-09-14",
+      "prompt_file": "prompts.json",
+      "metadata_file": "../../data/media.ts"
+    },
+    {
+      "id": "sushi",
+      "file": "sushi.png",
+      "width": 1672,
+      "height": 941,
+      "sha256": "98883e742c00e389fc0b19ac693027985f7927f18caf16a85fc93d9d801f2e01",
+      "placeholder": true,
+      "generated_on": "2026-09-14",
+      "prompt_file": "prompts.json",
+      "metadata_file": "../../data/media.ts"
+    },
+    {
+      "id": "table",
+      "file": "table.png",
+      "width": 1122,
+      "height": 1402,
+      "sha256": "b34a6f6e858a51c4b7c17e81358eb8a29698e295a44d83e5a203836af6abcd05",
+      "placeholder": true,
+      "generated_on": "2026-09-14",
+      "prompt_file": "prompts.json",
+      "metadata_file": "../../data/media.ts"
+    }
+  ]
+}

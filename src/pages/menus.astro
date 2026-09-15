@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Photo from "../components/Photo.astro";
+import { photo } from "../data/media";
+import { menuLinks, sampleSections } from "../data/menus";
+import { siteConfig } from "../config/site";
+---
+<BaseLayout title="Menus | NIPO Newcastle" description="Explore NIPO’s sample food menu, cocktails, drinks and wine list. Sushi, robata and Japanese-Brazilian dishes on Newcastle Quayside.">
+  <main id="main-content">
+    <section class="menu-browser" aria-labelledby="menus-title">
+      <div class="menu-browser__list"><p class="label">At the NIPO table</p><h1 id="menus-title">Our menus</h1>
+        <div class="menu-links">
+          {menuLinks.map((item, index) => <a href={item.href} target={item.pdf ? "_blank" : undefined} rel={item.pdf ? "noopener noreferrer" : undefined} class:list={{ "is-active": index === 0 }} data-menu-preview={index}>
+            <span class="menu-link__title">{item.title}<span aria-hidden="true">↗</span></span><span class="menu-link__detail">{item.description}{item.pdf && <span class="pdf-label">View PDF</span>}</span>
+          </a>)}
+        </div><p class="menu-browser__note">Made to discover. Made to share.</p>
+      </div>
+      <div class="menu-browser__visual" aria-hidden="true">
+        {menuLinks.map((item, index) => <div class:list={["menu-preview", { "is-active": index === 0 }]} data-menu-image={index}><Photo asset={photo(item.photoId)} sizes="(max-width:767px) 100vw, 50vw" eager={index === 0} decorative /></div>)}
+      </div>
+    </section>
+    <section class="sample-menu section-shell" id="sample-food" tabindex="-1">
+      <header class="sample-menu__intro"><p class="label">A taste of what’s to come</p><h2>Sample Main Menu</h2><p class="sample-notice">Sample menu — subject to change</p><p>Explore the menu we’re developing.<br />Dishes and availability may change as we prepare to open.</p></header>
+      <div class="sample-menu__sections">
+        {sampleSections.map((section) => (
+          <section class="menu-category">
+            <header><h3>{section.title}</h3>{section.note && <p class="menu-category__note">{section.note}</p>}</header>
+            <div>{section.dishes.map((dish) => (
+              <article class="menu-dish">
+                <h4>{dish.name}{dish.details && <span class="menu-dish__details">{dish.details}</span>}</h4>
+                {dish.description && <p>{dish.description}</p>}
+              </article>
+            ))}</div>
+          </section>
+        ))}
+      </div>
+      <div class="sample-menu__end"><p>Please speak to our team about allergies and dietary requirements before ordering.</p><a class="button button--dark" href={siteConfig.bookingUrl}>Book a table</a></div>
+    </section>
+  </main>
+</BaseLayout>

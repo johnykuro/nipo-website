@@ -1,113 +1,25 @@
 ---
-import type { SiteConfig } from "../config/site";
-import SocialIcon from "./SocialIcon.astro";
-
-interface Props {
-  config: SiteConfig;
-}
-
-const { config } = Astro.props;
+import { siteConfig, openingLine } from "../config/site";
+import { photo } from "../data/media";
+import Photo from "./Photo.astro";
+const slides = siteConfig.hero.slideIds.map(photo);
+const useVideo = siteConfig.hero.mode === "video" && siteConfig.video.src;
 ---
-
-<nipo-hero
-  class="hero"
-  data-video-src={config.video.src}
-  style={`--hero-poster: url("${config.video.poster}")`}
->
-  <div class="hero__media" aria-hidden="true">
-    <video
-      class="hero__video"
-      muted
-      loop
-      playsinline
-      poster={config.video.poster}
-      preload="none"
-      tabindex="-1"
-    ></video>
-    <div class="hero__veil"></div>
+<section class="hero" aria-label="Welcome to NIPO" aria-roledescription="carousel" data-hero data-interval={siteConfig.hero.interval} data-video-src={useVideo ? siteConfig.video.src : undefined}>
+  <div class="hero-media" aria-hidden="true">
+    {slides.map((asset, index) => <div class:list={["hero-slide", { "is-active": index === 0 }]} data-hero-slide><Photo asset={asset} eager={index === 0} decorative /></div>)}
+    {useVideo && <video class="hero-video" poster={siteConfig.video.poster} muted loop playsinline preload="none" tabindex="-1"></video>}
   </div>
-
-  <header class="hero__header">
-    <a class="hero__brand" href="/" aria-label="NIPO home">
-      <img src="/brand/nipo-logo.svg" alt="NIPO" width="455" height="401" />
-    </a>
-    <nav class="hero__nav" aria-label="Main navigation">
-      <div class="hero__socials">
-        {config.socialLinks.filter((social) => social.url && (social.label === "Facebook" || social.label === "Instagram")).map((social) => (
-          <a class="hero__social-link" href={social.url} aria-label={`${social.label} (opens in a new tab)`} target="_blank" rel="noopener noreferrer">
-            <SocialIcon platform={social.label} />
-          </a>
-        ))}
-      </div>
-      <div class="hero__nav-links">
-        <a class="hero__nav-link hero__nav-link--primary" href={config.bookingUrl}>Book a table</a>
-        <a class="hero__nav-link hero__nav-link--vip" href="#vip">VIP list</a>
-      </div>
-    </nav>
-  </header>
-
-  <div class="hero__content">
-    <h1>Japanese Precision.<br /><em>Brazilian Fire.</em></h1>
-    <p class="hero__location">
-      Opening 23rd September on <strong>{config.locationLabel}</strong>
-    </p>
-    <p class="hero__intro">
-      NIPO will be a place to linger, with a warm and immersive atmosphere that shifts
-      naturally from day into night.
-    </p>
-    <div class="hero__actions">
-      <a class="button button--ivory" href={config.bookingUrl}>Book a table</a>
-      <a class="button button--outline" href="#vip">Join the VIP list</a>
+  <div class="hero-veil"></div>
+  <div class="hero-content">
+    <div class="hero-logo"><img src="/brand/nipo-logo-compact.svg" width="455" height="367" alt="NIPO" fetchpriority="high" /></div>
+    <h1>Japanese Precision.<br />Brazilian Fire.</h1>
+    <p class="hero-location">{openingLine} <span aria-hidden="true">·</span> Newcastle Quayside</p>
+    <a class="button button--ivory" href="/menus/">Discover the menus <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="hero-bottom"><a class="hero-scroll" href="#welcome">Scroll to discover <span aria-hidden="true">↓</span></a>
+    <div class="slideshow-controls" aria-label="Slideshow controls" data-slideshow-controls hidden>
+      <button type="button" data-hero-prev aria-label="Previous photograph">←</button><span data-hero-count>01 / 03</span><button type="button" data-hero-next aria-label="Next photograph">→</button><button type="button" data-hero-pause aria-pressed="false">Pause</button>
     </div>
   </div>
-</nipo-hero>
-
-<script>
-  class NipoHero extends HTMLElement {
-    connectedCallback(): void {
-      const video = this.querySelector<HTMLVideoElement>("video");
-      const source = this.dataset.videoSrc;
-      if (!video || !source) return;
-
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const connection = navigator as Navigator & {
-        connection?: { saveData?: boolean };
-      };
-
-      if (reducedMotion || connection.connection?.saveData) {
-        this.dataset.videoState = "poster";
-        return;
-      }
-
-      video.src = source;
-      video.preload = "metadata";
-      video.addEventListener(
-        "canplay",
-        () => {
-          video
-            .play()
-            .then(() => {
-              this.dataset.videoState = "playing";
-            })
-            .catch(() => {
-              this.dataset.videoState = "poster";
-            });
-        },
-        { once: true },
-      );
-      video.addEventListener(
-        "error",
-        () => {
-          this.dataset.videoState = "poster";
-          video.removeAttribute("src");
-        },
-        { once: true },
-      );
-      video.load();
-    }
-  }
-
-  if (!customElements.get("nipo-hero")) {
-    customElements.define("nipo-hero", NipoHero);
-  }
-</script>
+</section>

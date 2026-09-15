@@ -6,30 +6,37 @@
   "scripts": {
     "dev": "astro dev",
     "generate:assets": "node scripts/generate-social.mjs",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/verify-seo.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "vitest run",
+    "test": "vitest run && node --test scripts/deployment-config.test.mjs",
+    "verify:seo": "node scripts/verify-seo.mjs",
     "test:watch": "vitest",
     "cf:dev": "pnpm build && wrangler dev",
     "netlify:dev": "npx netlify-cli dev",
-    "netlify:deploy": "pnpm build && npx netlify-cli deploy --prod --dir=dist",
-    "deploy": "pnpm build && wrangler deploy",
+    "netlify:deploy": "pnpm test && pnpm build && npx netlify-cli deploy --prod --dir=dist",
+    "deploy": "pnpm netlify:deploy",
+    "cf:deploy": "pnpm test && pnpm build && wrangler deploy",
     "types:worker": "wrangler types worker-configuration.d.ts"
   },
   "dependencies": {
     "@fontsource/playfair-display": "^5.2.8",
-    "astro": "^6.3.1"
+    "astro": "^7.3.2",
+    "gsap": "^3.15.0"
   },
   "devDependencies": {
-    "@netlify/functions": "^5.3.0",
     "@astrojs/check": "^0.9.6",
-    "@cloudflare/workers-types": "^5.20260728.1",
-    "sharp": "^0.35.3",
+    "@cloudflare/workers-types": "^5.20260915.1",
+    "@netlify/functions": "^5.3.0",
+    "sharp": "^0.35.4",
     "typescript": "^5.9.2",
-    "vite": "^7.3.6",
-    "vitest": "^3.2.4",
-    "wrangler": "^4.36.0"
+    "vite": "^8.3.0",
+    "vitest": "^4.1.11",
+    "wrangler": "^4.132.0"
   },
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.13.1",
+  "pnpm": { "overrides": { "fast-uri@<3.1.6": "^3.1.8" } },
+  "engines": {
+    "node": ">=22.12.0"
+  }
 }

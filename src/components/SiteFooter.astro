@@ -1,35 +1,12 @@
 ---
-import type { SiteConfig } from "../config/site";
-import SocialIcon from "./SocialIcon.astro";
-
-interface Props {
-  config: SiteConfig;
-}
-
-const { config } = Astro.props;
+import { siteConfig as config, openingLine } from "../config/site";
 ---
-
 <footer class="site-footer">
-  <div class="section-shell footer__top">
-    <h2>Follow NIPO</h2>
-    <nav class="social-list" aria-label="Social media">
-      {
-        config.socialLinks.filter((social) => social.url).map((social) => (
-            <a href={social.url} aria-label={`${social.label} (opens in a new tab)`} rel="noopener noreferrer" target="_blank">
-              <SocialIcon platform={social.label} />
-            </a>
-          ))
-      }
-    </nav>
+  <div class="footer-main section-shell">
+    <a class="footer-brand" href="/" aria-label="NIPO home"><img src="/brand/nipo-logo.svg" width="455" height="401" alt="NIPO — Japanese Precision. Brazilian Fire." loading="lazy" /></a>
+    <div class="footer-address"><p class="label">Find us</p><p>{config.address.street}<br />{config.address.city}<br />{config.address.postcode}</p><a class="text-link" href={config.address.directionsUrl} target="_blank" rel="noopener noreferrer">Directions <span aria-hidden="true">↗</span></a></div>
+    <nav aria-label="Footer navigation"><p class="label">Discover</p>{config.navigation.map((link) => <a href={link.href}>{link.label}</a>)}<a href="/#vip">VIP list</a></nav>
+    <div class="footer-social"><p class="label">Follow NIPO</p>{config.socialLinks.filter((item) => item.url).map((item) => <a href={item.url} target="_blank" rel="noopener noreferrer">{item.label} <span aria-hidden="true">↗</span></a>)}<p class="footer-opening">{openingLine}</p></div>
   </div>
-
-  <div class="section-shell footer__bottom">
-    <img src="/brand/nipo-logo.svg" alt="NIPO" width="455" height="401" loading="lazy" />
-    <p><strong>Opening 23rd September on {config.locationLabel}</strong></p>
-    <p>
-      <a href="/privacy/">Privacy</a>
-      <span aria-hidden="true"> · </span>
-      <span>© {new Date().getFullYear()} NIPO</span>
-    </p>
-  </div>
+  <div class="footer-bottom section-shell"><p>© {new Date().getFullYear()} NIPO</p><p>Japanese Precision. Brazilian Fire.</p><a href="/privacy/">Privacy</a><button type="button" data-cookie-settings hidden>Cookie settings</button></div>
 </footer>

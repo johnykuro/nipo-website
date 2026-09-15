@@ -287,7 +287,7 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
     );
   }
 
-  const created = await createBrevoContact(payload, env);
+  const created = await createBrevoContact(payload, env).catch(() => false);
   if (!created) {
     return error(
       "UPSTREAM",

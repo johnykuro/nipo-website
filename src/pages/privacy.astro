@@ -5,17 +5,10 @@ import { siteConfig } from "../config/site";
 const title = "Privacy policy | NIPO";
 const description =
   "How NIPO collects, uses and protects personal information from website visitors and restaurant guests.";
-const lastUpdated = "3 August 2026";
+const lastUpdated = "15 September 2026";
 ---
 
 <BaseLayout title={title} description={description}>
-  <header class="legal-header">
-    <a href="/" aria-label="Return to NIPO home">
-      <img src="/brand/nipo-logo.svg" alt="NIPO" width="455" height="401" />
-    </a>
-    <a class="text-link text-link--light" href="/">Return home</a>
-  </header>
-
   <main class="legal-page" id="main-content">
     <div class="legal-page__intro">
       <p class="eyebrow">Privacy policy</p>
@@ -133,17 +126,37 @@ const lastUpdated = "3 August 2026";
         </p>
       </section>
 
-      <section>
+      <section id="cookies">
         <h2>7. Cookies and similar technology</h2>
         <p>
-          Our website may use cookies and similar technology to operate correctly,
-          protect forms, remember choices and understand how the site is used. You can
-          control cookies through your browser. Blocking essential technology may affect
-          how parts of the website work.
+          We use essential technology to operate the website, remember your cookie
+          choices and protect forms with Cloudflare Turnstile. The security check
+          processes technical information about your browser and connection to help
+          distinguish genuine visitors from automated submissions.
         </p>
         <p>
-          We will request consent before using non-essential cookies where consent is
-          required by law.
+          Optional analytics helps us understand visits and improve the website.
+          Optional marketing measures advertising and may personalise ads. These
+          purposes are off until you choose to allow them. You can accept all,
+          reject optional cookies, or choose each purpose separately.
+        </p>
+        <p>
+          We store your choice in your browser under <code>nipo-cookie-consent</code>
+          for up to 180 days. This preference is essential so that we can respect
+          your choice. Google Tag Manager loads only after you accept an optional
+          purpose, and Google tags receive your choices for analytics and advertising.
+          Without JavaScript, optional tags do not load.
+        </p>
+        <p>
+          Use Cookie settings in the footer to change or withdraw your consent at
+          any time. Withdrawing a previously accepted purpose reloads the page to
+          stop loaded tags and removes recognised first-party analytics or marketing
+          cookies for that purpose. Cookies on other providers’ domains can also be
+          removed using your browser’s privacy controls.
+        </p>
+        <p>
+          Bookings open on SevenRooms, which provides its own privacy and cookie
+          information. Your choices here apply to the NIPO website.
         </p>
       </section>
 
@@ -245,8 +258,9 @@ const lastUpdated = "3 August 2026";
           ) : (
             <p>
               To ask a privacy question or exercise your rights, reply to an email from
-              NIPO with “Privacy” in the subject line, or write to NIPO, Newcastle
-              Quayside, Newcastle upon Tyne, United Kingdom.
+              NIPO with “Privacy” in the subject line, or write to NIPO,
+              {siteConfig.address.street}, {siteConfig.address.city},
+              {siteConfig.address.postcode}, United Kingdom.
             </p>
           )
         }

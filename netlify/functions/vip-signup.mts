@@ -189,7 +189,8 @@ export default async function handler(request: Request, _context: Context): Prom
     });
   }
 
-  return (await createBrevoContact(payload, env))
+  const created = await createBrevoContact(payload, env).catch(() => false);
+  return created
     ? json({ ok: true, message: "Welcome to NIPO. You’re on the list." }, 201)
     : error("UPSTREAM", "We couldn’t add you just now. Please try again in a moment.", 502);
 }

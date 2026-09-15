@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Photo from "../components/Photo.astro";
+import Faq from "../components/Faq.astro";
+import { photo } from "../data/media";
+import { siteConfig as config, openingLine } from "../config/site";
+---
+<BaseLayout title="Contact & find us | NIPO Newcastle Quayside" description="Find NIPO at 95 Quayside, Newcastle upon Tyne NE1 3DH. Book a table at our Japanese-Brazilian restaurant, get directions and find answers to common questions.">
+  <main id="main-content">
+    <section class="contact-opening">
+      <div class="contact-opening__copy"><p class="label">Newcastle Quayside</p><h1>Find your<br />way to NIPO.</h1><p class="contact-opening__date">{openingLine}</p>
+        <address>{config.address.street}<br />{config.address.city}<br />{config.address.postcode}</address>
+        <div class="contact-details">
+          <p><a href={"tel:" + config.telephone}>{config.telephoneDisplay}</a><br /><a href={"mailto:" + config.email}>{config.email}</a></p>
+          <p><strong>Opening hours</strong>{config.hours.map((hours) => <Fragment><br />{hours.label}</Fragment>)}</p>
+        </div>
+        <div class="action-row"><a class="button button--ivory" href={config.bookingUrl}>Book a table</a><a class="text-link" href={config.address.directionsUrl} target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">↗</span></a></div>
+        <div class="contact-socials">{config.socialLinks.filter((item) => item.url).map((item) => <a href={item.url} target="_blank" rel="noopener noreferrer">{item.label} <span aria-hidden="true">↗</span></a>)}</div>
+      </div>
+      <Photo asset={photo("sesame-tuna-bites")} eager sizes="(max-width:767px) 100vw, 50vw" />
+    </section>
+    <Faq />
+    <div class="booking-band section-shell"><h2>A little more NIPO.</h2><a class="text-link" href="/#vip">Join our VIP list <span aria-hidden="true">↗</span></a></div>
+  </main>
+</BaseLayout>

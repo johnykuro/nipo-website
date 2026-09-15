@@ -1,111 +1,88 @@
+import { isPreOpening, siteConfig } from "./site";
 import type { SiteConfig } from "./site";
+import { sampleSections, menuLinks } from "../data/menus";
 
-export const homeTitle = "NIPO | Japanese-Brazilian Restaurant Newcastle";
-export const homeDescription =
-  "NIPO opens 23rd September at 95 Quayside, Newcastle upon Tyne. Discover Japanese-Brazilian dining, sushi, robata and fire-cooked signatures.";
-
-export const faqItems = [
-  {
-    question: "What is NIPO?",
-    answer:
-      "NIPO is a Japanese-Brazilian restaurant opening on Newcastle Quayside on 23rd September, shaped by Japanese precision, Brazilian fire and warm hospitality.",
-  },
-  {
-    question: "Where is NIPO opening?",
-    answer:
-      "Find NIPO at 95 Quayside, Newcastle upon Tyne NE1 3DH, in the former Tomahawk Steakhouse location.",
-  },
-  {
-    question: "What food will NIPO serve?",
-    answer:
-      "The menu will bring together sushi, robata-style cooking, fire-cooked picanha and Japanese-Brazilian signatures designed for sharing.",
-  },
-  {
-    question: "When will NIPO open?",
-    answer:
-      "NIPO opens on 23rd September. Join the VIP list for first looks and updates ahead of opening.",
-  },
+export const indexablePages = [
+  { path: "/", label: "Home", type: "WebPage" },
+  { path: "/concept/", label: "Concept", type: "AboutPage" },
+  { path: "/menus/", label: "Menus", type: "CollectionPage" },
+  { path: "/gallery/", label: "Gallery", type: "CollectionPage" },
+  { path: "/contact/", label: "Contact", type: "ContactPage" },
+  { path: "/privacy/", label: "Privacy policy", type: "WebPage" },
 ] as const;
-
-export function buildHomeStructuredData(config: SiteConfig, site: URL) {
-  const homeUrl = new URL("/", site).href;
-  const logoUrl = new URL("/brand/nipo-logo.svg", site).href;
-  const imageUrl = new URL("/images/social-card.png", site).href;
-  const sameAs = config.socialLinks.flatMap((social) =>
-    social.url ? [social.url] : [],
-  );
-
-  return {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": `${homeUrl}#website`,
-        url: homeUrl,
-        name: config.name,
-        alternateName: "NIPO Newcastle",
-        inLanguage: "en-GB",
-        publisher: { "@id": `${homeUrl}#restaurant` },
-      },
-      {
-        "@type": "Restaurant",
-        "@id": `${homeUrl}#restaurant`,
-        name: config.name,
-        url: homeUrl,
-        logo: logoUrl,
-        image: imageUrl,
-        description: homeDescription,
-        slogan: config.tagline,
-        servesCuisine: [
-          "Japanese-Brazilian",
-          "Japanese",
-          "Brazilian",
-          "Sushi",
-          "Robata",
-        ],
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "95 Quayside",
-          addressLocality: "Newcastle upon Tyne",
-          addressRegion: "Tyne and Wear",
-          postalCode: "NE1 3DH",
-          addressCountry: "GB",
-        },
-        areaServed: {
-          "@type": "City",
-          name: "Newcastle upon Tyne",
-        },
-        ...(sameAs.length > 0 ? { sameAs } : {}),
-      },
-      {
-        "@type": "WebPage",
-        "@id": `${homeUrl}#webpage`,
-        url: homeUrl,
-        name: homeTitle,
-        description: homeDescription,
-        inLanguage: "en-GB",
-        isPartOf: { "@id": `${homeUrl}#website` },
-        about: { "@id": `${homeUrl}#restaurant` },
-        primaryImageOfPage: {
-          "@type": "ImageObject",
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-        },
-      },
-      {
-        "@type": "FAQPage",
-        "@id": `${homeUrl}#faq`,
-        isPartOf: { "@id": `${homeUrl}#webpage` },
-        mainEntity: faqItems.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: item.answer,
-          },
-        })),
-      },
+export const siteNoIndex = __NIPO_NOINDEX__;
+export const homeTitle = "NIPO | Japanese-Brazilian Restaurant Newcastle";
+export const homeDescription = isPreOpening
+  ? "NIPO opens " + siteConfig.opening.label + " at 95 Quayside, Newcastle upon Tyne. Discover sushi, robata and Japanese-Brazilian dining."
+  : "Discover NIPO at 95 Quayside, Newcastle upon Tyne. Japanese-Brazilian dining, sushi, robata and fire-cooked signatures.";
+export const faqItems = [
+  { question: "What is NIPO?", answer: "NIPO is a Japanese-Brazilian restaurant on Newcastle Quayside, shaped by sushi craft, cooking over fire and warm hospitality." },
+  { question: "Where can I find NIPO?", answer: siteConfig.address.street + ", " + siteConfig.address.city + " " + siteConfig.address.postcode + "." },
+  { question: "What food will I find at NIPO?", answer: "Sushi, small plates, robata-style cooking, picanha and plant-led dishes. Explore a selection on our sample food menu while the full menu is being finalised." },
+  ...(isPreOpening ? [{ question: "When does NIPO open?", answer: "NIPO opens on " + siteConfig.opening.label + ". Reservations are available now. Join our VIP list for opening news and first looks." }] : []),
+  { question: "How do I book a table?", answer: "Choose Book a Table anywhere on our website to see availability and make your reservation with SevenRooms." },
+  { question: "What are NIPO’s opening hours?", answer: (isPreOpening ? "From " + siteConfig.opening.label + ", " : "") + "NIPO is open: " + siteConfig.hours.map((hours) => hours.label).join("; ") + "." },
+  { question: "How do I contact NIPO?", answer: "Call " + siteConfig.telephoneDisplay + " or email " + siteConfig.email + "." },
+];
+export function buildPageStructuredData(config: SiteConfig, path: string, title: string, description: string) {
+  const page = indexablePages.find((entry) => entry.path === path);
+  if (!page) return undefined;
+  const site = new URL(config.canonicalUrl);
+  const home = new URL("/", site).href;
+  const url = new URL(path, site).href;
+  const graph: Record<string, unknown>[] = [
+    { "@type": "WebSite", "@id": home + "#website", url: home, name: config.name,
+      publisher: { "@id": home + "#restaurant" }, inLanguage: "en-GB" },
+    { "@type": "Restaurant", "@id": home + "#restaurant", name: config.name, url: home,
+      image: new URL("/images/social-card.png", site).href, logo: new URL("/brand/nipo-logo.svg", site).href,
+      description: homeDescription, slogan: config.tagline, servesCuisine: ["Japanese-Brazilian", "Japanese", "Brazilian"],
+      hasMenu: new URL("/menus/", site).href, acceptsReservations: config.bookingUrl,
+      hasMap: config.address.directionsUrl,
+      telephone: config.telephone, email: config.email,
+      openingHoursSpecification: config.hours.map((hours) => ({ "@type": "OpeningHoursSpecification",
+        dayOfWeek: hours.days.map((day) => "https://schema.org/" + day),
+        opens: hours.opens, closes: hours.closes, validFrom: config.opening.date,
+      })),
+      address: { "@type": "PostalAddress", streetAddress: config.address.street, addressLocality: config.address.city,
+        postalCode: config.address.postcode, addressCountry: "GB" },
+      sameAs: config.socialLinks.flatMap((item) => item.url ? [item.url] : []),
+    },
+    { "@type": path === "/contact/" ? [page.type, "FAQPage"] : page.type,
+      "@id": url + "#webpage", url, name: title, description, inLanguage: "en-GB",
+      isPartOf: { "@id": home + "#website" }, about: { "@id": home + "#restaurant" },
+      ...(path !== "/" ? { breadcrumb: { "@id": url + "#breadcrumb" } } : {}),
+      ...(path === "/contact/" ? {
+        mainEntity: faqItems.map((item) => ({ "@type": "Question", name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer } })),
+      } : path === "/menus/" ? { mainEntity: { "@id": url + "#sample-food" } } : {}),
+    },
+  ];
+  if (path !== "/") graph.push({
+    "@type": "BreadcrumbList", "@id": url + "#breadcrumb",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: home },
+      { "@type": "ListItem", position: 2, name: page.label, item: url },
     ],
-  };
+  });
+  if (path === "/menus/") {
+    graph.push({
+      "@type": "Menu", "@id": url + "#sample-food", url: url + "#sample-food",
+      name: "Sample Main Menu", description: "Sample menu — subject to change",
+      inLanguage: "en-GB",
+      hasMenuSection: sampleSections.map((section) => ({
+        "@type": "MenuSection", name: section.title,
+        ...(section.note ? { description: section.note } : {}),
+        hasMenuItem: section.dishes.map((dish) => ({
+          "@type": "MenuItem", name: dish.name,
+          ...(dish.description ? { description: dish.description } : {}),
+        })),
+      })),
+    });
+    for (const menu of menuLinks.filter((item) => item.pdf)) graph.push({
+      "@type": "Menu", "@id": new URL(menu.href, site).href,
+      url: new URL(menu.href, site).href, name: menu.title, description: menu.description,
+      inLanguage: "en-GB",
+    });
+  }
+  return { "@context": "https://schema.org", "@graph": graph };
 }

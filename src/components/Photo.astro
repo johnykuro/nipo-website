@@ -1,0 +1,10 @@
+---
+import { Picture } from "astro:assets";
+import type { PhotoAsset } from "../data/media";
+interface Props { asset: PhotoAsset; sizes?: string; eager?: boolean; decorative?: boolean; class?: string }
+const { asset, sizes = "100vw", eager = false, decorative = false, class: className = "" } = Astro.props;
+---
+<div class:list={["photo", className]} style={"--photo-position:" + asset.position + ";--photo-mobile-position:" + asset.mobilePosition}>
+  <Picture src={asset.src} formats={["avif", "webp"]} fallbackFormat="webp" widths={[480, 768, 1200, 1600].filter(width => width < asset.src.width).concat(asset.src.width)} sizes={sizes}
+    alt={decorative ? "" : asset.alt} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} />
+</div>

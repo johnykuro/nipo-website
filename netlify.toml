@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm build"
+  command = "pnpm test && pnpm build"
   publish = "dist"
 
 [functions]
@@ -10,3 +10,8 @@
   NODE_VERSION = "22"
   PNPM_VERSION = "10.13.1"
 
+[[redirects]]
+  from = "https://www.nipobraza.co.uk/*"
+  to = "https://nipobraza.co.uk/:splat"
+  status = 301
+  force = true

@@ -3,6 +3,10 @@ import "@fontsource/playfair-display/400.css";
 import "@fontsource/playfair-display/500.css";
 import "../styles/global.css";
 import { siteConfig } from "../config/site";
+import { buildPageStructuredData, siteNoIndex } from "../config/seo";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import CookieConsent from "../components/CookieConsent.astro";
 
 interface Props {
   title: string;
@@ -10,20 +14,21 @@ interface Props {
   image?: string;
   imageAlt?: string;
   noIndex?: boolean;
-  structuredData?: Record<string, unknown>;
+  overlayHeader?: boolean;
 }
 
 const {
   title,
   description,
   image = "/images/social-card.png",
-  imageAlt = "NIPO Japanese-Brazilian restaurant on Newcastle Quayside",
+  imageAlt = "NIPO logo beside salmon sushi rolls on a bronze platter, Newcastle Quayside",
   noIndex = false,
-  structuredData,
+  overlayHeader = false,
 } = Astro.props;
 const site = new URL(siteConfig.canonicalUrl);
 const canonical = new URL(Astro.url.pathname, site);
 const socialImage = new URL(image, site);
+const structuredData = noIndex ? undefined : buildPageStructuredData(siteConfig, Astro.url.pathname, title, description);
 const jsonLd = structuredData
   ? JSON.stringify(structuredData).replace(/</g, "\\u003c")
   : undefined;
@@ -40,12 +45,12 @@ const jsonLd = structuredData
     <meta
       name="robots"
       content={
-        noIndex
+        (noIndex || siteNoIndex)
           ? "noindex, nofollow"
           : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
       }
     />
-    <link rel="canonical" href={canonical} />
+    {!noIndex && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/svg+xml" href="/brand/nipo-mark.svg" />
     <link rel="preconnect" href="https://challenges.cloudflare.com" />
 
@@ -72,6 +77,10 @@ const jsonLd = structuredData
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
+    <SiteHeader overlay={overlayHeader} />
     <slot />
+    <SiteFooter />
+    <CookieConsent />
+    <script>import "../scripts/site";</script>
   </body>
 </html>

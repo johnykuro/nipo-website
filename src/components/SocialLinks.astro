@@ -1,0 +1,19 @@
+---
+import { siteConfig } from "../config/site";
+import SocialIcon from "./SocialIcon.astro";
+const links = siteConfig.socialLinks.filter((link) => link.url);
+---
+{links.length > 0 && (
+  <div class="social-links">
+    {links.map((link) => (
+      <a href={link.url} aria-label={`NIPO on ${link.label} (opens in a new tab)`} title={link.label} target="_blank" rel="noopener noreferrer">
+        <SocialIcon platform={link.label} />
+      </a>
+    ))}
+  </div>
+)}
+<style>
+  .social-links { display: flex; align-items: center; gap: 4px; }
+  .social-links a { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; }
+  .social-links a:hover, .social-links a:focus-visible { color: var(--gold); }
+</style>

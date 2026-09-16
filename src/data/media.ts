@@ -7,6 +7,7 @@ import tartare from "../assets/photos/approved/fish-avocado-tartare.png";
 import chicken from "../assets/photos/approved/chicken-skewers.png";
 import blueRice from "../assets/photos/approved/blue-rice-rolls.png";
 import meringue from "../assets/photos/approved/passionfruit-meringue.png";
+import wine from "../assets/photos/wine/wine-pour.png";
 export interface PhotoAsset {
   id: string; src: ImageMetadata; alt: string; caption: string;
   position: string; mobilePosition: string; placeholder: boolean;
@@ -23,8 +24,13 @@ export const photos: PhotoAsset[] = [
   { id: "blue-rice-rolls", src: blueRice, alt: "Five blue rice vegetable sushi rolls on a bronze platter with a dipping sauce", caption: "Vegetable rolls with a distinctive blue finish.", position: "50% 50%", mobilePosition: "50% 50%", placeholder: false },
   { id: "passionfruit-meringue", src: meringue, alt: "Layered white meringue with cream and golden passion fruit", caption: "Passion fruit and meringue to finish.", position: "50% 50%", mobilePosition: "50% 50%", placeholder: false },
 ];
+// Menu-only image. Source and prompt: output/imagegen/nipo-wine-v1/.
+const winePhoto: PhotoAsset = {
+  id: "wine-pour", src: wine, alt: "Red wine being poured into one of two stemmed glasses on a candlelit dark timber table",
+  caption: "A bottle for the table.", position: "50% 50%", mobilePosition: "50% 15%", placeholder: false,
+};
 export function photo(id: string): PhotoAsset {
-  const asset = photos.find((item) => item.id === id);
+  const asset = [...photos, winePhoto].find((item) => item.id === id);
   if (!asset) throw new Error("Unknown photo: " + id);
   return asset;
 }

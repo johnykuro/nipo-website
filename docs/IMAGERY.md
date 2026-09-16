@@ -9,7 +9,7 @@ Native PNG masters are copied unchanged into `src/assets/photos/approved/`. Astr
 | ID | Subject | Main uses | Desktop / mobile position |
 | --- | --- | --- | --- |
 | salmon-sushi | Five salmon-topped sushi rolls | Hero 1, food menu preview, Concept, rail, Gallery, social card | 50% 50% / 60% 50% |
-| steak-salad | Sliced bone-in steak and flower salad | Hero 2, Home menus feature, Concept, wine-pairing preview, rail, Gallery | 50% 50% / 64% 50% |
+| steak-salad | Sliced bone-in steak and flower salad | Hero 2, Home menus feature, Concept, rail, Gallery | 50% 50% / 64% 50% |
 | botanical-cocktail | Layered green cocktail with magenta flower | Hero 3, drinks preview, hospitality, rail, Gallery | 72% 50% / 72% 50% |
 | sesame-tuna-bites | Sesame-crusted tuna on crisp golden bases | Contact, Home Gallery feature, rail, Gallery | 50% 50% / 50% 50% |
 | fish-avocado-tartare | Tuna, salmon and avocado with lotus crisps | Concept opening, Home concept feature, rail, Gallery | 50% 50% / 50% 50% |
@@ -22,6 +22,12 @@ Landscape masters are 1672 × 941; portrait masters are 1122 × 1402. The cockta
 `src/data/media.ts` owns accurate alt text, captions and focal positions. `placeholder: false` means the image was approved for use; it does not imply documentary photography. Dish labels are descriptive and must not inherit the old placeholder captions about picanha on a grill, black cod, moqueca or cheesecake.
 
 ## Provenance and review
+
+### Wine menu image — 16 September 2026
+
+Wine menu selection and the Wine list's initial preview now use `wine-pour`, a separate AI-generated image based on the owner's `C:/Users/jonmc/Downloads/RIO EDINBURGH_059.jpg`. The source remains untouched. The image preserves the two angular wine glasses, red-wine pour, candle and timber table, with muted green upholstery and warm lighting. Bottle branding is omitted.
+
+Native master: 1254×1254 PNG at `src/assets/photos/wine/wine-pour.png`; master copy and exact built-in generation prompt: `output/imagegen/nipo-wine-v1/`. Astro generates responsive AVIF/WebP assets. Desktop focal position is 50% 50%; the wine-only mobile position is 50% 15% to retain the pouring stream in shallow crops. This menu-only image is outside the eight-photo Gallery collection.
 
 The Home “The NIPO concept” card uses the approved tartare image. The alternative shared-table composition was rejected and deleted at the owner's request on 15 September 2026.
 

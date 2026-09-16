@@ -1,0 +1,21 @@
+---
+import Photo from "./Photo.astro";
+import { photo } from "../data/media";
+import { menuLinks } from "../data/menus";
+const { activeIndex = 0, title = "Our menus" } = Astro.props;
+---
+<section class="menu-browser" aria-labelledby="menus-title">
+  <div class="menu-browser__list"><p class="label">At the NIPO table</p><h1 id="menus-title">{title}</h1>
+    <div class="menu-links">
+      {menuLinks.map((item, index) => <div class="menu-link-row">
+        <a href={item.href} class:list={{ "is-active": index === activeIndex }} data-menu-preview={index}>
+          <span class="menu-link__title">{item.title}</span><span class="menu-link__detail">{item.description}</span>
+        </a>
+        <a class="menu-pdf-link" href={item.pdfHref} target="_blank" rel="noopener noreferrer" aria-label={`View ${item.title.toLowerCase()} PDF (opens in a new tab)`}>View PDF</a>
+      </div>)}
+    </div><p class="menu-browser__note">Made to discover. Made to share.</p>
+  </div>
+  <div class="menu-browser__visual" aria-hidden="true">
+    {menuLinks.map((item, index) => <div class:list={["menu-preview", { "is-active": index === activeIndex }]} data-menu-image={index} data-menu-photo={item.photoId}><Photo asset={photo(item.photoId)} sizes="(max-width:767px) 100vw, 50vw" eager={index === activeIndex} decorative /></div>)}
+  </div>
+</section>

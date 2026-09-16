@@ -280,6 +280,7 @@ Logo clearspace is the height of the blossom mark on every side. Minimum stacked
 
 ### Buttons
 
+- **Booking buttons:** Use the approved wordmark artwork's gold (`#F6DF98`) with Deep Green Black text, including the header, mobile menu and main hero CTA. Label the hero CTA “Book a table” and omit decorative diagonal arrows. Pair it with a transparent “View menus” button with a Warm Ivory border and text, inverting to an ivory fill on hover. Place the buttons side by side on desktop and stack them on mobile, with the scroll prompt and SVG arrow below the pair.
 - **Primary on dark:** Warm Ivory fill, Deep Green Black text, 44px minimum height, 12px by 24px padding, 2px radius.
 - **Primary on light:** Deep Green Black fill with Warm Ivory text using the same dimensions.
 - **Secondary:** Transparent with a 1px contextual border. Use Warm Ivory or Premium Gold on dark surfaces and Deep Green Black on light surfaces.

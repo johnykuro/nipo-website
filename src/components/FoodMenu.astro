@@ -1,0 +1,33 @@
+---
+import { formatMenuPrice, type MenuSection } from "../data/menus";
+import { siteConfig } from "../config/site";
+interface Props {
+  id: string;
+  title: string;
+  intro: string;
+  pdfHref: string;
+  sections: MenuSection[];
+}
+const { id, title, intro, pdfHref, sections } = Astro.props;
+---
+<section class="food-menu section-shell" id={id} tabindex="-1" aria-labelledby={`${id}-title`}>
+  <header class="food-menu__intro"><p class="label">At the NIPO table</p><h2 id={`${id}-title`}>{title}</h2><p>{intro}</p><a class="text-link" href={pdfHref} target="_blank" rel="noopener noreferrer">View {title.toLowerCase()} PDF<span class="sr-only"> (opens in a new tab)</span></a></header>
+  <div class="food-menu__sections">
+    {sections.map((section) => (
+      <section class="menu-category">
+        <header><h3>{section.title}</h3>{section.note && <p class="menu-category__note">{section.note}</p>}</header>
+        <div>{section.dishes.map((dish) => (
+          <article class="menu-dish">
+            <div class:list={["menu-dish__heading", { "menu-dish__heading--servings": !!dish.servings }]}>
+              <h4>{dish.name}{dish.details && <span class="menu-dish__details">{dish.details}</span>}</h4>
+              {dish.servings ? <dl class="menu-dish__servings">{dish.servings.map((serving) => <div><dt>{serving.label}</dt><dd class="menu-dish__price" data-price={serving.price.toFixed(2)} data-serving={serving.label}>{formatMenuPrice(serving.price)}</dd></div>)}</dl> : <span class="menu-dish__price" data-price={dish.price.toFixed(2)}>{formatMenuPrice(dish.price)}</span>}
+            </div>
+            {dish.region && <p class="menu-dish__region">{dish.region}</p>}
+            {dish.description && <p>{dish.description}</p>}
+          </article>
+        ))}</div>
+      </section>
+    ))}
+  </div>
+  <div class="food-menu__end"><p>Please inform your server of any allergies or intolerances before ordering.<br />Full allergen information is available on request.</p><a class="button button--booking" href={siteConfig.bookingUrl}>Book a table</a></div>
+</section>

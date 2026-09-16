@@ -12,10 +12,10 @@ const gallery = await Promise.all(photos.map(async (asset) => ({ asset, full: (a
     <header class="page-intro section-shell"><p class="label">NIPO in detail</p><h1>A closer look.</h1><p>A taste of the food and drinks of NIPO.</p></header>
     <div class="gallery-grid section-shell">
       {gallery.map(({ asset, full }, index) => <a class:list={["gallery-item", { "gallery-item--wide": index === 0 || index === 1 || index === 7 }]} href={full} data-lightbox-item data-photo-id={asset.id} data-caption={asset.caption} data-alt={asset.alt} aria-label={"Enlarge: " + asset.alt}>
-        <Photo asset={asset} sizes="(max-width:767px) 100vw, (max-width:1099px) 50vw, 40vw" eager={index === 0} /><span class="gallery-caption">{asset.caption}<span aria-hidden="true">↗</span></span>
+        <Photo asset={asset} sizes="(max-width:767px) 100vw, (max-width:1099px) 50vw, 40vw" eager={index === 0} /><span class="gallery-caption">{asset.caption}</span>
       </a>)}
     </div>
-    <div class="booking-band section-shell"><h2>Join us at the table.</h2><a class="button button--ivory" href={siteConfig.bookingUrl}>Book a table</a></div>
+    <div class="booking-band section-shell"><h2>Join us at the table.</h2><a class="button button--booking" href={siteConfig.bookingUrl}>Book a table</a></div>
   </main>
   <Lightbox />
 </BaseLayout>

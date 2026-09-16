@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MenuBrowser from "../../components/MenuBrowser.astro";
+import FoodMenu from "../../components/FoodMenu.astro";
+import { wineSections } from "../../data/wine";
+---
+<BaseLayout title="Wine List | NIPO Newcastle" description="Explore NIPO’s sparkling, Champagne, white, rosé, red and prestige wines, with glass and bottle prices. Wines chosen for Japanese-Brazilian dining.">
+  <main id="main-content">
+    <MenuBrowser activeIndex={3} title="Wine list" />
+    <FoodMenu id="wine-menu" title="Wine List" intro="Wines with character and provenance, chosen with our food in mind. Kanpai! Saúde! Cheers!" pdfHref="/menus/nipo-wine.pdf" sections={wineSections} />
+  </main>
+</BaseLayout>

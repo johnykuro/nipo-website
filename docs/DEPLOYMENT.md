@@ -31,7 +31,7 @@ The optional Cloudflare configuration remains, but is not the selected launch pa
 - Unique titles/descriptions, canonical URLs, Open Graph and Twitter cards; verified 1200 × 630 social image.
 - Linked WebSite, Restaurant and page entities with stable IDs; AboutPage, ContactPage, FAQPage, CollectionPage and BreadcrumbList where appropriate.
 - Restaurant address, booking URL, social profiles, phone, email and confirmed hours from 23 September 2026: Monday–Thursday noon–9pm, Friday–Saturday noon–10pm, Sunday noon–8pm.
-- Menu/MenuSection/MenuItem schema matches all 68 visible sample dishes and preserves the sample-menu qualification. No invented prices, ratings, coordinates or dietary guarantees.
+- Menu/MenuSection/MenuItem schema matches the confirmed main and dessert menus, with GBP Offer prices matching the visible dishes. No invented ratings, coordinates or dietary guarantees.
 - Visible FAQs answer cuisine, location, opening date, reservations, hours and contact questions. Static HTML exposes this information without requiring JavaScript.
 - Custom 404 is noindex and has no misleading canonical or Restaurant schema.
 - Hashed Astro assets receive immutable caching; replaceable images and menu PDFs have shorter caches.
@@ -80,6 +80,6 @@ Browser evidence goes to ignored `tmp/qa/`. Consent tests intercept Google reque
 - Read-only HTTP checks confirmed the current apex serves from Netlify and www redirects to it. An empty invalid signup submission returned field-validation errors (400), indicating required runtime configuration is present, without creating a contact. This does not prove real Turnstile or Brevo delivery.
 - Before launch, use a Netlify preview to check response headers, the real 404 response, PDFs, booking destination and successful signup with a consenting test subscriber. Delete/unsubscribe that test contact afterwards as appropriate.
 - After publishing, confirm production has no `noindex`, run [Rich Results Test](https://search.google.com/test/rich-results) and [Schema.org Validator](https://validator.schema.org/), verify the domain in Search Console and Bing Webmaster Tools, and submit `https://nipobraza.co.uk/sitemap.xml`. Keep Google Business Profile hours, address, contact and menu URL aligned.
-- On 23 September, change `siteConfig.opening.status` from `pre-opening` to `open` and rebuild. Also review the sample-menu notice before presenting it as final.
+- On 23 September, change `siteConfig.opening.status` from `pre-opening` to `open` and rebuild.
 
 Dependency updates include Astro 7.3.2, Sharp 0.35.4, Vite 8 and Vitest 4, plus current compatible tooling. A same-major `fast-uri` override closes an advisory in the editor/checker dependency chain. See the final QA entry for completed checks and any remaining limits.

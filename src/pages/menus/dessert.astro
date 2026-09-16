@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MenuBrowser from "../../components/MenuBrowser.astro";
+import FoodMenu from "../../components/FoodMenu.astro";
+import { dessertSections } from "../../data/menus";
+---
+<BaseLayout title="Dessert Menu | NIPO Newcastle" description="Discover NIPO’s dessert menu with prices: chocolate fondant, passion fruit pavlova, matcha cheesecake and house-made ice cream on Newcastle Quayside.">
+  <main id="main-content">
+    <MenuBrowser activeIndex={1} title="Dessert menu" />
+    <FoodMenu id="dessert-menu" title="Dessert Menu" intro="Hand-finished and freshly made in-house. A little more NIPO, to finish." pdfHref="/menus/nipo-dessert.pdf" sections={dessertSections} />
+  </main>
+</BaseLayout>

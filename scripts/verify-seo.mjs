@@ -83,16 +83,35 @@ for (const file of files) {
       assert(visible.includes(question.name), `Visible FAQ: ${question.name}`);
       assert(visible.includes(question.acceptedAnswer.text), `Visible answer: ${question.name}`);
     }
-    if (path === "/menus/") {
-      const menu = graph.find((node) => node["@id"] === url.href + "#sample-food");
-      assert.match(menu.description, /subject to change/);
+    assert(!/sample menu|sample food|being finalised|subject to change/i.test(visible + description), `${path}: final menu wording`);
+    if (path.startsWith("/menus/")) {
+      const menuId = path === "/menus/" ? "main-menu" : path.split("/")[2] + "-menu";
+      let pageMenuItems = 0;
+      const menu = graph.find((node) => node["@id"] === url.href + "#" + menuId);
+      assert(menu, `${path}: menu schema exists`);
+      const visibleDishes = [...html.matchAll(/<article class="menu-dish">([\s\S]*?)<\/article>/g)];
       for (const section of menu.hasMenuSection) for (const dish of section.hasMenuItem) {
         assert(visible.includes(dish.name), `Visible dish: ${dish.name}`);
         if (dish.description) assert(visible.includes(dish.description), `Visible description: ${dish.name}`);
-        assert(!dish.offers && !dish.suitableForDiet, "Do not invent prices or dietary guarantees");
+        const article = visibleDishes[pageMenuItems][1];
+        const offers = Array.isArray(dish.offers) ? dish.offers : [dish.offers];
+        const visiblePrices = tags(article, "(?:span|dd)").filter(tag => "data-price" in tag);
+        assert.equal(visiblePrices.length, offers.length, `Serving count matches schema: ${dish.name}`);
+        offers.forEach((offer, index) => {
+          assert.equal(offer.priceCurrency, "GBP");
+          assert(Number(offer.price) > 0, `Confirmed price: ${dish.name}`);
+          assert.equal(visiblePrices[index]["data-price"], offer.price, `Visible price matches schema: ${dish.name}`);
+          if (offer.name) assert.equal(visiblePrices[index]["data-serving"], offer.name);
+          const price = Number(offer.price);
+          const displayPrice = String(Number.isInteger(price) ? price : price.toFixed(2));
+          assert(article.includes(`>${displayPrice}<`), `Formatted price: ${dish.name}`);
+        });
+        assert(!article.includes("£"), "Menu prices omit currency symbols");
+        assert(!dish.suitableForDiet, "Do not infer dietary guarantees");
+        pageMenuItems++;
         menuItems++;
       }
-      assert.equal(menuItems, (html.match(/class="menu-dish"/g) || []).length);
+      assert.equal(pageMenuItems, (html.match(/class="menu-dish"/g) || []).length);
     }
   }
   for (const tag of [...tags(html, "a"), ...tags(html, "link"), ...tags(html, "img"), ...tags(html, "script")]) {
@@ -124,5 +143,5 @@ assert.match(headers, /\/_astro\/\*/);
 assert.equal(headers.includes("X-Robots-Tag: noindex, nofollow"), preview);
 const image = await sharp(resolve(root, "images/social-card.png")).metadata();
 assert.equal(image.width, 1200); assert.equal(image.height, 630);
-for (const name of ["nipo-drinks.pdf", "nipo-wine.pdf"]) assert.equal(readFileSync(resolve(root, "menus", name)).subarray(0, 5).toString(), "%PDF-");
+for (const name of ["nipo-main.pdf", "nipo-dessert.pdf", "nipo-drinks.pdf", "nipo-wine.pdf"]) assert.equal(readFileSync(resolve(root, "menus", name)).subarray(0, 5).toString(), "%PDF-");
 console.log(`SEO verification passed: ${urls.length} pages, ${localLinks} local links/assets, ${menuItems} menu items; ${preview ? "preview noindex" : "production indexable"}.`);

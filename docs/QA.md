@@ -1,5 +1,12 @@
 # NIPO redesign verification
 
+## Wine menu image — 16 September 2026
+
+- Replaced steak in the Wine menu mapping with a generated wine-pouring photograph based on the supplied RIO image. Kept the Gallery at eight images and retained the original source photograph.
+- `pnpm build` passed: 0 errors, warnings or hints; SEO verification passed for 9 pages, 417 local links/assets and 270 menu items. `git diff --check` passed.
+- Browser verified Wine hover and keyboard-focus previews on all four menu pages, Wine's initial image on direct load, and the Wine link destination. Desktop 1440px and 390/767/1024px crops checked without horizontal overflow; no browser errors. Screenshots: `tmp/qa/wine-menu-*.png`. The initial test hover was obstructed by the cookie panel; checks passed after choosing Reject optional in the test browser.
+- Local preview updated; no production deployment performed.
+
 ## Deployment, SEO and consent review — 15 September 2026
 
 - Updated Astro 6 to 7.3.2 and patched image/build/test dependencies. Full `pnpm audit --audit-level low` reports **no known vulnerabilities**. Frozen-lockfile installation passed.
@@ -58,7 +65,7 @@ Verified 14 September 2026 against the supplied Amazónico Home and menu referen
 Home, Concept, Menus, Gallery, Contact, Privacy and 404 inspected at 1440×900, 1024×768, 390×844 and 360×800. All 28 route/viewport checks reported no horizontal overflow, one H1, a title, description and canonical URL, with no framework error overlay. Full-page compositions were inspected for the five main pages. Images were also decoded after scrolling to verify the entire collection loads.
 
 - Concept is 404 words in the rendered main content.
-- Sample food contains eight agreed dishes, its subject-to-change notice, no prices and no internal markers.
+- Main and dessert menu entries display the confirmed PDF prices; the food pages contain no sample-menu notice or internal markers.
 - All local image, script, PDF and page links in the production HTML resolve to build artifacts.
 - All six indexable routes are in the sitemap. The 404 page is noindex.
 - Contact's visible FAQ questions and answers match its JSON-LD.

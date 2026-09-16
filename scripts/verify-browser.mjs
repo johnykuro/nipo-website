@@ -66,20 +66,20 @@ check("Lightbox next/previous, keyboard, focus restoration and swipe", () => {
   assert.equal(evaluate("document.activeElement.dataset.photoId"),"salmon-sushi");
 });
 open("/menus/");
-check("Menu hover and keyboard focus update photography; food opens HTML sample", () => {
+check("Menu hover and keyboard focus update photography; food opens the priced main menu", () => {
   command("hover","[data-menu-preview='1']");
   assert.equal(evaluate("document.querySelector('[data-menu-image].is-active').dataset.menuImage"),"1");
   command("focus","[data-menu-preview='2']");
   assert.equal(evaluate("document.querySelector('[data-menu-image].is-active').dataset.menuImage"),"2");
   command("click","[data-menu-preview='0']");
-  assert.equal(evaluate("location.hash"),"#sample-food");
+  assert.equal(evaluate("location.hash"),"#main-menu");
   const counts = evaluate("(() => { const graph=JSON.parse(document.querySelector('script[type=\"application/ld+json\"]').textContent)['@graph']; const menu=graph.find(n=>n.hasMenuSection); return {visible:document.querySelectorAll('.menu-dish').length,schema:menu.hasMenuSection.reduce((total,section)=>total+section.hasMenuItem.length,0)}; })()");
   assert(counts.visible > 0); assert.equal(counts.visible, counts.schema);
-  assert.equal(evaluate("/£|\\b(?:TODO|TBC)\\b|[0-9]+\\.[0-9]{2}/i.test(document.querySelector('#sample-food').innerText)"),false);
+  assert.equal(evaluate("document.querySelector('#main-menu').innerText.includes('£')"),false);
 });
-check("Both PDF downloads return PDFs", () => {
+check("All four PDF links return PDFs", () => {
   const data = evaluate("Promise.all([...document.querySelectorAll('.menu-links a[target]')].map(async a=>{const r=await fetch(a.href);return {status:r.status,type:r.headers.get('content-type'),magic:(await r.text()).slice(0,5)}}))");
-  assert.equal(data.length,2); data.forEach(pdf=>{assert.equal(pdf.status,200);assert.match(pdf.type,/pdf/);assert.equal(pdf.magic,"%PDF-");});
+  assert.equal(data.length,4); data.forEach(pdf=>{assert.equal(pdf.status,200);assert.match(pdf.type,/pdf/);assert.equal(pdf.magic,"%PDF-");});
 });
 command("set","viewport","1440","900"); open("/");
 check("Hero advances after seven seconds and pauses on request", () => {
@@ -161,17 +161,17 @@ check("Image failure keeps content and navigation available", () => {
   evaluate("(()=>{const p=document.querySelector('.hero-slide.is-active picture');p.querySelectorAll('source').forEach(s=>s.remove());const i=p.querySelector('img');i.removeAttribute('srcset');i.src='/missing-qa-image.webp';})()");
   delay(250);
   assert.equal(evaluate("!!document.querySelector('.hero-slide.is-active .photo.is-failed')"),true);
-  assert.equal(evaluate("!!document.querySelector('.hero-content a[href=\"/menus/\"]')"),true);
+  assert.equal(evaluate("!!document.querySelector('.hero-content .button--booking')"),true);
 });
 evaluate("fetch('/__qa/mode?value=no-js').then(r=>r.json())");
 command("set","viewport","390","844");
 open("/");
-check("Navigation, images, sample menu and gallery remain usable without scripts", () => {
+check("Navigation, images, main menu and gallery remain usable without scripts", () => {
   assert.equal(evaluate("document.documentElement.classList.contains('js')"),false);
   assert.equal(evaluate("document.querySelectorAll('.no-js-nav a').length"),4);
   assert.equal(evaluate("getComputedStyle(document.querySelector('.hero-slide')).opacity"),"1");
   command("click",".no-js-nav a[href='/menus/']");
-  command("click","[data-menu-preview='0']"); assert.equal(evaluate("location.hash"),"#sample-food");
+  command("click","[data-menu-preview='0']"); assert.equal(evaluate("location.hash"),"#main-menu");
   open("/gallery/"); assert.match(evaluate("document.querySelector('[data-lightbox-item]').getAttribute('href')"),/webp/);
 });
 evaluate("fetch('/__qa/mode?value=success').then(r=>r.json())");

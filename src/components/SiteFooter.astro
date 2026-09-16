@@ -4,9 +4,9 @@ import { siteConfig as config, openingLine } from "../config/site";
 <footer class="site-footer">
   <div class="footer-main section-shell">
     <a class="footer-brand" href="/" aria-label="NIPO home"><img src="/brand/nipo-logo.svg" width="455" height="401" alt="NIPO — Japanese Precision. Brazilian Fire." loading="lazy" /></a>
-    <div class="footer-address"><p class="label">Find us</p><p>{config.address.street}<br />{config.address.city}<br />{config.address.postcode}</p><a class="text-link" href={config.address.directionsUrl} target="_blank" rel="noopener noreferrer">Directions <span aria-hidden="true">↗</span></a></div>
+    <div class="footer-address"><p class="label">Find us</p><p>{config.address.street}<br />{config.address.city}<br />{config.address.postcode}</p><a class="text-link" href={config.address.directionsUrl} target="_blank" rel="noopener noreferrer">Directions</a></div>
     <nav aria-label="Footer navigation"><p class="label">Discover</p>{config.navigation.map((link) => <a href={link.href}>{link.label}</a>)}<a href="/#vip">VIP list</a></nav>
-    <div class="footer-social"><p class="label">Follow NIPO</p>{config.socialLinks.filter((item) => item.url).map((item) => <a href={item.url} target="_blank" rel="noopener noreferrer">{item.label} <span aria-hidden="true">↗</span></a>)}<p class="footer-opening">{openingLine}</p></div>
+    <div class="footer-social"><p class="label">Follow NIPO</p>{config.socialLinks.filter((item) => item.url).map((item) => <a href={item.url} target="_blank" rel="noopener noreferrer">{item.label}</a>)}<p class="footer-opening">{openingLine}</p></div>
   </div>
   <div class="footer-bottom section-shell"><p>© {new Date().getFullYear()} NIPO</p><p>Japanese Precision. Brazilian Fire.</p><a href="/privacy/">Privacy</a><button type="button" data-cookie-settings hidden>Cookie settings</button></div>
 </footer>

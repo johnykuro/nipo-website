@@ -1,0 +1,118 @@
+{
+  "generator": "Built-in image_gen",
+  "description": "AI-generated images based on NIPO food photography. Reference 1 defines subject; reference 2 defines style.",
+  "assets": [
+    {
+      "id": "salmon-sushi",
+      "prompt": "Use case: photorealistic-natural. Asset: premium NIPO Japanese-Brazilian restaurant website food photography. Re-photograph the actual dish from image 1 with polished professional lighting and framing. Image 1 is the authoritative food and crockery reference; image 2 is ONLY a lighting, backdrop and photographic finish reference, never copy its food or crockery. Preserve source food identity, visible ingredients, portion, garnishes, their placement, dish construction and distinctive crockery. Warm soft directional evening light with controlled highlights and deep natural shadows; green-black #15231F softly defocused background and dark timber table; refined, tactile, believable photographic food texture. Restrained warmth, avoid orange cast. No extra ingredients, no additional portions, no text, no logos, no background signage, no people, no additional tableware, no collage, no watermark, no excessive smoke, no artificial gloss. Remove incidental background clutter. Do not simplify distinctive source presentation into generic food.\nSubject: five salmon-topped sushi rolls on the SAME elongated dark oval mottled bronze ceramic platter from image 1. Preserve salmon draped over rice rolls, white sauce dots, yellow fruit cubes, thin red chilli rings, green herb leaves, sesame and pink pickled ginger to the side; dark sauce drizzled across platter. Same five-piece portion, naturally distinct pieces. Angle is a lower three-quarter professional food view so front roll cross-section and salmon texture are appetising, full platter framed with breathing room.\nComposition: LANDSCAPE 16:9, target 2560x1440 pixels. Platter across the lower centre-right, food around x=62%, y=69%. Left 36% and upper middle remain dark and quiet for website logo and heading; maintain visible subject in a vertical crop around x=62%. Deep enough focus for all five rolls, softly falling off into backdrop. Output a single finished photograph.",
+      "refs": [
+        "C:\\Users\\jonmc\\Creative Cloud Files Personal Account\\Other Brands\\Nipo Steakhouse\\Website Images\\IMG_5550.jpg",
+        "C:\\Development\\codex\\nipo-website\\src\\assets\\photos\\sushi.png"
+      ],
+      "target": [
+        2560,
+        1440
+      ],
+      "source": "IMG_5550.jpg",
+      "generatedPath": "C:\\Users\\jonmc\\.codex\\generated_images\\01a0a549-f2d7-7ff2-8826-d3806963fec2\\exec-70a92a1b-5071-4a4e-9309-042cd82e6c37.png"
+    },
+    {
+      "id": "steak-salad",
+      "source": "IMG_5614 (1).jpg",
+      "target": [
+        2560,
+        1440
+      ],
+      "prompt": "Use case: photorealistic-natural. Asset: premium NIPO Japanese-Brazilian restaurant website food photography. Re-photograph the actual dish from image 1 with polished professional lighting and framing. Image 1 is the authoritative food and crockery reference; image 2 is ONLY a lighting, backdrop and photographic finish reference, never copy its food or crockery. Preserve source food identity, visible ingredients, portion, garnishes, their placement, dish construction and distinctive crockery. Warm soft directional evening light with controlled highlights and deep natural shadows; green-black #15231F softly defocused background and dark timber table; refined, tactile, believable photographic food texture. Restrained warmth, avoid orange cast. No extra ingredients, no additional portions, no text, no logos, no background signage, no people, no additional tableware, no collage, no watermark, no excessive smoke, no artificial gloss. Remove incidental background clutter. Do not simplify distinctive source presentation into generic food.\nSubject: the same generous sliced bone-in steak on the source's long pale sage-grey crackle-glazed oval platter. Preserve the fan of pink medium-rare beef slices, browned crust and rendered fat, long rib bone along the back, and the small dark ceramic salad bowl on the platter's right holding ruffled lettuce, red-veined sorrel and purple/yellow edible flowers. Retain portion and recognisable serving arrangement. Maintain realistic meat fibres and pink colour, no exaggerated red saturation. Do not turn it into an unsliced steak or a grill scene.\nComposition: LANDSCAPE 16:9, requested 2560x1440 pixels. Main subject lower centre-right around x=64%, y=66%, with full crockery visible and generous breathing room. Left 36% and upper middle dark and visually quiet for website branding. Frame so a vertical mobile crop around x=64% retains a recognisable subject. Single finished photograph.",
+      "refs": [
+        "C:\\Users\\jonmc\\Creative Cloud Files Personal Account\\Other Brands\\Nipo Steakhouse\\Website Images\\IMG_5614 (1).jpg",
+        "C:\\Development\\codex\\nipo-website\\output\\imagegen\\nipo-food-v1\\masters\\salmon-sushi.png"
+      ],
+      "generatedPath": "C:\\Users\\jonmc\\.codex\\generated_images\\01a0a549-f2d7-7ff2-8826-d3806963fec2\\exec-9820983f-db4b-4ef9-9902-9ff8110a46a6.png"
+    },
+    {
+      "id": "botanical-cocktail",
+      "source": "WhatsApp Image 2026-09-15 at 10.15.16 AM.jpg",
+      "target": [
+        2560,
+        1440
+      ],
+      "prompt": "Use case: photorealistic-natural. Asset: premium NIPO Japanese-Brazilian restaurant website food photography. Re-photograph the actual dish from image 1 with polished professional lighting and framing. Image 1 is the authoritative food and crockery reference; image 2 is ONLY a lighting, backdrop and photographic finish reference, never copy its food or crockery. Preserve source food identity, visible ingredients, portion, garnishes, their placement, dish construction and distinctive crockery. Warm soft directional evening light with controlled highlights and deep natural shadows; green-black #15231F softly defocused background and dark timber table; refined, tactile, believable photographic food texture. Restrained warmth, avoid orange cast. No extra ingredients, no additional portions, no text, no logos, no background signage, no people, no additional tableware, no collage, no watermark, no excessive smoke, no artificial gloss. Remove incidental background clutter. Do not simplify distinctive source presentation into generic food.\nSubject: the single green layered cocktail from image 1, in the identical short clear vertically fluted tumbler with diamond-cut heavy base. Preserve bottom reddish amber layer, cloudy pale middle, translucent yellow-green upper drink, thin foam and prominent deep magenta flower garnish with orange stamens. Keep source fill level, colour layering and glass proportions. Professional drinks lighting: precise glass edges, subtle believable condensation, soft highlights, natural optical refraction. No straw, no citrus, no second glass. Remove restaurant signage and architecture, using the common dark defocused setting.\nComposition: LANDSCAPE 16:9, requested 2560x1440 pixels. Main subject lower centre-right around x=64%, y=66%, with full crockery visible and generous breathing room. Left 36% and upper middle dark and visually quiet for website branding. Frame so a vertical mobile crop around x=64% retains a recognisable subject. Single finished photograph.",
+      "refs": [
+        "C:\\Users\\jonmc\\Creative Cloud Files Personal Account\\Other Brands\\Nipo Steakhouse\\Website Images\\WhatsApp Image 2026-09-15 at 10.15.16 AM.jpg",
+        "C:\\Development\\codex\\nipo-website\\output\\imagegen\\nipo-food-v1\\masters\\salmon-sushi.png"
+      ],
+      "generatedPath": "C:\\Users\\jonmc\\.codex\\generated_images\\01a0a549-f2d7-7ff2-8826-d3806963fec2\\exec-f70f35be-3a07-4530-b256-b93a9f41c1db.png"
+    },
+    {
+      "id": "sesame-tuna-bites",
+      "source": "IMG_5473.jpg",
+      "target": [
+        1600,
+        2000
+      ],
+      "prompt": "Use case: photorealistic-natural. Asset: premium NIPO Japanese-Brazilian restaurant website food photography. Re-photograph the actual dish from image 1 with polished professional lighting and framing. Image 1 is the authoritative food and crockery reference; image 2 is ONLY a lighting, backdrop and photographic finish reference, never copy its food or crockery. Preserve source food identity, visible ingredients, portion, garnishes, their placement, dish construction and distinctive crockery. Warm soft directional evening light with controlled highlights and deep natural shadows; green-black #15231F softly defocused background and dark timber table; refined, tactile, believable photographic food texture. Restrained warmth, avoid orange cast. No extra ingredients, no additional portions, no text, no logos, no background signage, no people, no additional tableware, no collage, no watermark, no excessive smoke, no artificial gloss. Remove incidental background clutter. Do not simplify distinctive source presentation into generic food.\nSubject: exactly FOUR golden crisp rectangular bites, each topped with a thick slice of pink-centred sesame-crusted seared tuna, a small pale sauce dollop and delicate dill sprig. Preserve the irregular dark oval ceramic plate with bronze-red mottling, pale sauce loops and restrained seeds/herbs in source. Do not invent toppings or change the crunchy bases into sushi rice rolls. Keep all four bites separated and anatomically plausible, natural crumb and sesame detail.\nComposition: PORTRAIT 4:5, requested 1600x2000 pixels. Intimate three-quarter editorial food photograph. Complete principal dish centred with rim breathing room, all essential garnishes visible. Food tack sharp with natural depth of field; softly defocused green-black backdrop across upper fifth, dark timber below. Single finished photograph.",
+      "refs": [
+        "C:\\Users\\jonmc\\Creative Cloud Files Personal Account\\Other Brands\\Nipo Steakhouse\\Website Images\\IMG_5473.jpg",
+        "C:\\Development\\codex\\nipo-website\\output\\imagegen\\nipo-food-v1\\masters\\salmon-sushi.png"
+      ],
+      "generatedPath": "C:\\Users\\jonmc\\.codex\\generated_images\\01a0a549-f2d7-7ff2-8826-d3806963fec2\\exec-0b5b2fc1-e9b0-4298-bf62-6fb0482fac77.png"
+    },
+    {
+      "id": "fish-avocado-tartare",
+      "source": "IMG_5504.jpg",
+      "target": [
+        1600,
+        2000
+      ],
+      "prompt": "Use case: photorealistic-natural. Asset: premium NIPO Japanese-Brazilian restaurant website food photography. Re-photograph the actual dish from image 1 with polished professional lighting and framing. Image 1 is the authoritative food and crockery reference; image 2 is ONLY a lighting, backdrop and photographic finish reference, never copy its food or crockery. Preserve source food identity, visible ingredients, portion, garnishes, their placement, dish construction and distinctive crockery. Warm soft directional evening light with controlled highlights and deep natural shadows; green-black #15231F softly defocused background and dark timber table; refined, tactile, believable photographic food texture. Restrained warmth, avoid orange cast. No extra ingredients, no additional portions, no text, no logos, no background signage, no people, no additional tableware, no collage, no watermark, no excessive smoke, no artificial gloss. Remove incidental background clutter. Do not simplify distinctive source presentation into generic food.\nSubject: same small cylindrical layered tartare on source's grey-beige radially fluted round plate with bronze rim. Preserve clear lower layer of diced avocado, middle orange salmon, upper red tuna, topped with red/green microleaves and TWO golden fried lotus-root crisps standing upright. Subtle source dressing around base, realistic irregular diced fish, true colours and same portion. Preserve airy holes and thin crisp texture of lotus root. No new sauce decoration.\nComposition: PORTRAIT 4:5, requested 1600x2000 pixels. Intimate three-quarter editorial food photograph. Complete principal dish centred with rim breathing room, all essential garnishes visible. Food tack sharp with natural depth of field; softly defocused green-black backdrop across upper fifth, dark timber below. Single finished photograph.",
+      "refs": [
+        "C:\\Users\\jonmc\\Creative Cloud Files Personal Account\\Other Brands\\Nipo Steakhouse\\Website Images\\IMG_5504.jpg",
+        "C:\\Development\\codex\\nipo-website\\output\\imagegen\\nipo-food-v1\\masters\\salmon-sushi.png"
+      ],
+      "generatedPath": "C:\\Users\\jonmc\\.codex\\generated_images\\01a0a549-f2d7-7ff2-8826-d3806963fec2\\exec-ea952201-0c9f-47d5-9760-709a3dade78f.png"
+    },
+    {
+      "id": "chicken-skewers",
+      "source": "IMG_5457.jpg",
+      "target": [
+        1600,
+        2000
+      ],
+      "prompt": "Use case: photorealistic-natural. Asset: premium NIPO Japanese-Brazilian restaurant website food photography. Re-photograph the actual dish from image 1 with polished professional lighting and framing. Image 1 is the authoritative food and crockery reference; image 2 is ONLY a lighting, backdrop and photographic finish reference, never copy its food or crockery. Preserve source food identity, visible ingredients, portion, garnishes, their placement, dish construction and distinctive crockery. Warm soft directional evening light with controlled highlights and deep natural shadows; green-black #15231F softly defocused background and dark timber table; refined, tactile, believable photographic food texture. Restrained warmth, avoid orange cast. No extra ingredients, no additional portions, no text, no logos, no background signage, no people, no additional tableware, no collage, no watermark, no excessive smoke, no artificial gloss. Remove incidental background clutter. Do not simplify distinctive source presentation into generic food.\nSubject: same two thin silver metal skewers with glossy browned chicken pieces and natural irregular dark char marks, crossing over a modest bed of green lettuce and purple radicchio on the source's large grey-beige radially fluted round plate. Preserve source piece count and serving size, metal skewer shape and angled handles. Whole plate remains natural, appetising detailed chicken with restrained glaze; no flames, smoke, grill, added herbs, sauce bowls or extra skewers.\nComposition: PORTRAIT 4:5, requested 1600x2000 pixels. Intimate three-quarter editorial food photograph. Complete principal dish centred with rim breathing room, all essential garnishes visible. Food tack sharp with natural depth of field; softly defocused green-black backdrop across upper fifth, dark timber below. Single finished photograph.",
+      "refs": [
+        "C:\\Users\\jonmc\\Creative Cloud Files Personal Account\\Other Brands\\Nipo Steakhouse\\Website Images\\IMG_5457.jpg",
+        "C:\\Development\\codex\\nipo-website\\output\\imagegen\\nipo-food-v1\\masters\\salmon-sushi.png"
+      ],
+      "generatedPath": "C:\\Users\\jonmc\\.codex\\generated_images\\01a0a549-f2d7-7ff2-8826-d3806963fec2\\exec-c2be9b79-8f99-4a3c-915f-f43aeaa83ad8.png"
+    },
+    {
+      "id": "blue-rice-rolls",
+      "source": "IMG_5558.jpg",
+      "target": [
+        1600,
+        2000
+      ],
+      "prompt": "Use case: photorealistic-natural. Asset: premium NIPO Japanese-Brazilian restaurant website food photography. Re-photograph the actual dish from image 1 with polished professional lighting and framing. Image 1 is the authoritative food and crockery reference; image 2 is ONLY a lighting, backdrop and photographic finish reference, never copy its food or crockery. Preserve source food identity, visible ingredients, portion, garnishes, their placement, dish construction and distinctive crockery. Warm soft directional evening light with controlled highlights and deep natural shadows; green-black #15231F softly defocused background and dark timber table; refined, tactile, believable photographic food texture. Restrained warmth, avoid orange cast. No extra ingredients, no additional portions, no text, no logos, no background signage, no people, no additional tableware, no collage, no watermark, no excessive smoke, no artificial gloss. Remove incidental background clutter. Do not simplify distinctive source presentation into generic food.\nSubject: exactly FIVE of the source's distinctive blue-purple rice vegetable sushi rolls on the same long dark bronze/copper-mottled oval platter. Preserve BLUE rice colour, vegetable filling including orange carrot, yellow vegetable/fruit, red beetroot and pale green cucumber, nori ring, dark sauce drizzle, and scattered golden crisp flakes. Front open roll has long pale green vegetable ribbons, matching the source. Preserve single small square dark sauce dish beside platter, no added tableware. Do not recolour rice white or change filling to fish. Refined natural appetising texture without fluorescent saturation.\nComposition: PORTRAIT 4:5, requested 1600x2000 pixels. Intimate three-quarter editorial food photograph. Complete principal dish centred with rim breathing room, all essential garnishes visible. Food tack sharp with natural depth of field; softly defocused green-black backdrop across upper fifth, dark timber below. Single finished photograph.",
+      "refs": [
+        "C:\\Users\\jonmc\\Creative Cloud Files Personal Account\\Other Brands\\Nipo Steakhouse\\Website Images\\IMG_5558.jpg",
+        "C:\\Development\\codex\\nipo-website\\output\\imagegen\\nipo-food-v1\\masters\\salmon-sushi.png"
+      ],
+      "generatedPath": "C:\\Users\\jonmc\\.codex\\generated_images\\01a0a549-f2d7-7ff2-8826-d3806963fec2\\exec-9948933b-6efb-480c-a519-947eae21a281.png"
+    },
+    {
+      "id": "passionfruit-meringue",
+      "source": "IMG_5656.jpg",
+      "target": [
+        1600,
+        2000
+      ],
+      "prompt": "Use case: photorealistic-natural. Asset: premium NIPO Japanese-Brazilian restaurant website food photography. Re-photograph the actual dish from image 1 with polished professional lighting and framing. Image 1 is the authoritative food and crockery reference; image 2 is ONLY a lighting, backdrop and photographic finish reference, never copy its food or crockery. Preserve source food identity, visible ingredients, portion, garnishes, their placement, dish construction and distinctive crockery. Warm soft directional evening light with controlled highlights and deep natural shadows; green-black #15231F softly defocused background and dark timber table; refined, tactile, believable photographic food texture. Restrained warmth, avoid orange cast. No extra ingredients, no additional portions, no text, no logos, no background signage, no people, no additional tableware, no collage, no watermark, no excessive smoke, no artificial gloss. Remove incidental background clutter. Do not simplify distinctive source presentation into generic food.\nSubject: the same individual white meringue dessert on the source's irregular dark bronze ceramic plate. Preserve two offset oval meringue layers, pale cream filling, pale quenelle on top, golden passion-fruit pulp with visible seeds, a light golden drizzle, scattered broken white meringue and icing sugar. Maintain original size, low layered form and slightly angled upper shell. Preserve crisp porous meringue and soft cream texture. No berries, mint, chocolate or extra garnish. Highlight control is crucial: white texture visible against dark plate, without harsh clipped whites.\nComposition: PORTRAIT 4:5, requested 1600x2000 pixels. Intimate three-quarter editorial food photograph. Complete principal dish centred with rim breathing room, all essential garnishes visible. Food tack sharp with natural depth of field; softly defocused green-black backdrop across upper fifth, dark timber below. Single finished photograph.",
+      "refs": [
+        "C:\\Users\\jonmc\\Creative Cloud Files Personal Account\\Other Brands\\Nipo Steakhouse\\Website Images\\IMG_5656.jpg",
+        "C:\\Development\\codex\\nipo-website\\output\\imagegen\\nipo-food-v1\\masters\\salmon-sushi.png"
+      ],
+      "generatedPath": "C:\\Users\\jonmc\\.codex\\generated_images\\01a0a549-f2d7-7ff2-8826-d3806963fec2\\exec-337680c0-3db1-4cd8-aa03-66790cd3bc33.png"
+    }
+  ]
+}

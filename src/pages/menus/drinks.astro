@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MenuBrowser from "../../components/MenuBrowser.astro";
+import FoodMenu from "../../components/FoodMenu.astro";
+import { drinksSections } from "../../data/drinks";
+---
+<BaseLayout title="Drinks Menu | NIPO Newcastle" description="Explore NIPO’s cocktails, sake, spirits, beer, matcha and alcohol-free drinks with prices and serving sizes. View the drinks menu on Newcastle Quayside.">
+  <main id="main-content">
+    <MenuBrowser activeIndex={2} title="Drinks menu" />
+    <FoodMenu id="drinks-menu" title="Drinks Menu" intro="Signature cocktails, sake and spirits. Something to savour, from the first sip to the last." pdfHref="/menus/nipo-drinks.pdf" sections={drinksSections} />
+  </main>
+</BaseLayout>

@@ -14,12 +14,12 @@ import { siteConfig as config, openingLine } from "../config/site";
           <p><a href={"tel:" + config.telephone}>{config.telephoneDisplay}</a><br /><a href={"mailto:" + config.email}>{config.email}</a></p>
           <p><strong>Opening hours</strong>{config.hours.map((hours) => <Fragment><br />{hours.label}</Fragment>)}</p>
         </div>
-        <div class="action-row"><a class="button button--ivory" href={config.bookingUrl}>Book a table</a><a class="text-link" href={config.address.directionsUrl} target="_blank" rel="noopener noreferrer">Get directions <span aria-hidden="true">↗</span></a></div>
-        <div class="contact-socials">{config.socialLinks.filter((item) => item.url).map((item) => <a href={item.url} target="_blank" rel="noopener noreferrer">{item.label} <span aria-hidden="true">↗</span></a>)}</div>
+        <div class="action-row"><a class="button button--booking" href={config.bookingUrl}>Book a table</a><a class="text-link" href={config.address.directionsUrl} target="_blank" rel="noopener noreferrer">Get directions</a></div>
+        <div class="contact-socials">{config.socialLinks.filter((item) => item.url).map((item) => <a href={item.url} target="_blank" rel="noopener noreferrer">{item.label}</a>)}</div>
       </div>
       <Photo asset={photo("sesame-tuna-bites")} eager sizes="(max-width:767px) 100vw, 50vw" />
     </section>
     <Faq />
-    <div class="booking-band section-shell"><h2>A little more NIPO.</h2><a class="text-link" href="/#vip">Join our VIP list <span aria-hidden="true">↗</span></a></div>
+    <div class="booking-band section-shell"><h2>A little more NIPO.</h2><a class="text-link" href="/#vip">Join our VIP list</a></div>
   </main>
 </BaseLayout>

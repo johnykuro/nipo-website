@@ -8,13 +8,13 @@ The owner confirmed: opening 23 September 2026; Monday–Thursday, noon–9pm; F
 
 ## Food, drinks and wine
 
-Menu selections and 68 sample dishes live in `src/data/menus.ts`. They exclude prices and internal notes. Menu schema is generated from the same visible dish names and descriptions; it makes no dietary guarantees. The owner asked to leave the current Nigiri Vegetarian Selection entry unchanged; its VG label and tamago description still need a future content review.
+Menu selections and 71 confirmed entries with GBP prices live in `src/data/menus.ts`. The main menu is at `/menus/#main-menu`; its six dessert entries are also rendered at `/menus/dessert/#dessert-menu` using the same data and FoodMenu component. Names, descriptions, portions and prices follow the supplied NIPO-main-menu-WEB.pdf and NIPO-dessert-menu-WEB.pdf. The source labels for Nigiri Vegetarian Selection are retained; no dietary guarantees are inferred in schema.
 
-To publish the final food PDF, add the approved web PDF under `public/menus/`, then update the first menu link's title, href and pdf flag in the data file. The existing layout, hover preview and mobile link need no redesign. The sample HTML can remain as a taste of the menu, or its copy/dishes can be updated in the same data file.
+The Main and Dessert PDF links point to unchanged copies at `public/menus/nipo-main.pdf` and `public/menus/nipo-dessert.pdf`. Replace them when approved PDFs change and update the HTML data in the same change. Menu schema uses the visible dish data and GBP Offer prices. The owner confirmed Blue Matcha Garden Roll at £8 in both website sections. The supplied PDF is unchanged and still lists £9 in Plant-led small plates.
 
-Drinks source: `Menus/NIPO-drink-menu-booklet-A5.pdf` (12 pages).
-Wine source: `Menus/NIPO Wine List/NIPO-wine-list-2026.pdf` (8 pages).
-Both are from the supplied Nipo Steakhouse folder. Website copies set MediaBox and CropBox to each page's existing TrimBox. Content streams and source files remain unchanged. Recreate them with `scripts/prepare-menu-pdfs.py` and the two source paths, using Python with pypdf installed. Inspect all rendered pages after replacing a print source.
+Drinks and Wine have matching HTML pages at `/menus/drinks/` and `/menus/wine/`. Their full lists live in `src/data/drinks.ts` (154 entries) and `src/data/wine.ts` (39 entries). Each serving keeps its own label and price; bottle-only wines do not imply availability by the glass. All displayed menu prices omit the currency symbol; schema continues to identify GBP.
+
+All four entries in `MenuBrowser` use ordinary HTML links and the same separate `View PDF` control. Website PDFs are unchanged copies of the supplied web exports. Drinks source: `Menus/NIPO-drink-menu-WEB.pdf` (10 pages, 779,263 bytes). Wine source: `Menus/NIPO Wine List/NIPO-wine-list-WEB.pdf` (6 pages, 179,497 bytes). Do not run the older print-PDF trimming script on these exports.
 
 ## Photography and video
 
@@ -30,6 +30,6 @@ The production preview serves static files only. Browser regression checks use t
 
 ## Layout and accessibility
 
-Page navigation uses ordinary links. Without scripts, the first hero image, sample menu and PDF/gallery image links remain available. Mobile gets a fallback navigation row. Dialogs provide Escape, focus containment and restoration. Lightbox controls support arrow keys and horizontal swipe. Reduced motion disables automatic slideshow/rail movement; manual navigation remains available.
+Page navigation uses ordinary links. Without scripts, the first hero image, food menus and PDF/gallery image links remain available. Mobile gets a fallback navigation row. Dialogs provide Escape, focus containment and restoration. Lightbox controls support arrow keys and horizontal swipe. Reduced motion disables automatic slideshow/rail movement; manual navigation remains available.
 
 Playfair Display is self-hosted. Sans-serif uses the existing Avenir/Helvetica/Arial fallback until licensed Gotham webfonts are supplied. Logo artwork is retained; footer botanical artwork comes from brand-guide page 18.

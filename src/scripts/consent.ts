@@ -1,4 +1,4 @@
-/** Basic consent: no Google requests until an optional purpose is accepted. */
+/** Analytics/marketing tags load only after an optional purpose is accepted. Maps have a separate click-to-load control. */
 type Choice = { analytics: boolean; marketing: boolean };
 type SavedChoice = Choice & { version: number; expires: number };
 const storageKey = "nipo-cookie-consent";

@@ -1,0 +1,60 @@
+---
+import { siteConfig as config } from "../config/site";
+---
+
+<section class="location-map section-shell" aria-labelledby="location-map-title">
+  <div class="location-map__heading">
+    <div><p class="label">Find us on the Quayside</p><h2 id="location-map-title">Your route to NIPO.</h2></div>
+    <a class="text-link" href={config.address.directionsUrl} target="_blank" rel="noopener noreferrer">Get directions</a>
+  </div>
+  <div class="location-map__frame">
+    <div class="location-map__placeholder" data-map-placeholder>
+      <p>{config.address.street}, {config.address.city}, {config.address.postcode}</p>
+      <p class="location-map__privacy" id="map-privacy">Load the interactive map to connect to Google Maps. Google may use cookies and receive information about your browser and connection. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google privacy policy</a>.</p>
+      <button class="button button--booking" type="button" data-map-load aria-describedby="map-privacy" hidden>Load Google map</button>
+      <noscript><p>Use the Get directions link to open Google Maps.</p></noscript>
+    </div>
+    <iframe
+      data-location-map
+      data-src={config.address.mapEmbedUrl}
+      title="NIPO on Google Maps — 95 Quayside, Newcastle upon Tyne"
+      width="1200"
+      height="450"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+      hidden
+    ></iframe>
+  </div>
+</section>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-map-load]");
+  const frame = document.querySelector<HTMLIFrameElement>("[data-location-map]");
+  const placeholder = document.querySelector<HTMLElement>("[data-map-placeholder]");
+  if (button && frame && placeholder) {
+    button.hidden = false;
+    button.addEventListener("click", () => {
+      frame.hidden = false;
+      frame.src = frame.dataset.src!;
+      placeholder.hidden = true;
+      frame.focus();
+    }, { once: true });
+  }
+</script>
+
+<style>
+  .location-map { padding-block: var(--space); }
+  .location-map__heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 36px; }
+  .location-map__heading .label { margin-bottom: 18px; }
+  .location-map__heading .text-link { flex-shrink: 0; }
+  .location-map__frame { background: var(--night-deep); border: 1px solid var(--line); }
+  .location-map__placeholder { min-height: 450px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 24px; text-align: center; }
+  .location-map__privacy { max-width: 560px; color: var(--muted); font-size: 13px; }
+  .location-map__privacy a { text-decoration: underline; text-underline-offset: 3px; }
+  iframe { display: block; width: 100%; height: 450px; border: 0; }
+  @media (max-width: 767px) {
+    .location-map__heading { align-items: start; flex-direction: column; }
+    .location-map__placeholder { min-height: 360px; }
+    iframe { height: 360px; }
+  }
+</style>

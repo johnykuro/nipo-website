@@ -14,6 +14,8 @@ const settings = document.querySelector<HTMLButtonElement>("[data-cookie-setting
 const consentWindow = window as Window & { dataLayer?: unknown[] };
 const dataLayer = consentWindow.dataLayer ??= [];
 let loaded = false;
+let analyticsStarted = false;
+let marketingStarted = false;
 let choice: Choice = { analytics: false, marketing: false };
 let returnFocus: HTMLElement | null = null;
 // gtag uses arguments objects in the shared GTM queue.
@@ -46,6 +48,16 @@ function loadTags(selected: Choice) {
     document.head.appendChild(script);
   }
   dataLayer.push({ event: "nipo_consent_update", analytics_consent: selected.analytics, marketing_consent: selected.marketing });
+  // A denied tag can consume GTM's once-per-page firing opportunity. Emit each
+  // purpose's startup event only after that purpose is granted, once per page.
+  if (selected.analytics && !analyticsStarted) {
+    analyticsStarted = true;
+    dataLayer.push({ event: "nipo_analytics_ready" });
+  }
+  if (selected.marketing && !marketingStarted) {
+    marketingStarted = true;
+    dataLayer.push({ event: "nipo_marketing_ready" });
+  }
 }
 function clearOptionalCookies(selected: Choice) {
   // Expire the first-party cookies used by Google Analytics/Ads and common social tags.

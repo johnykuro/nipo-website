@@ -62,7 +62,7 @@ function loadTags(selected: Choice) {
 function clearOptionalCookies(selected: Choice) {
   // Expire the first-party cookies used by Google Analytics/Ads and common social tags.
   const patterns = [
-    ...(!selected.analytics ? [/^_ga(?:_|$)/, /^_gid$/, /^_gat(?:_|$)/] : []),
+    ...(!selected.analytics ? [/^_ga(?:_|$)/, /^_gid$/, /^_gat(?:_|$)/, /^_clck$/, /^_clsk$/] : []),
     ...(!selected.marketing ? [/^_gcl_/, /^_gac_/, /^_fb[pc]$/, /^_ttp$/, /^ttcsid/] : []),
   ];
   const parts = location.hostname.split(".");

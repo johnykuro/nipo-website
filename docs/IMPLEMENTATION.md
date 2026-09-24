@@ -2,7 +2,7 @@
 
 ## Opening status
 
-`src/config/site.ts` is the source of truth. It currently has status `pre-opening`, date `2026-09-23`, and display label `23 September 2026`. Change the status to `open` when the restaurant opens. Home metadata, hero, footer, Contact announcement, opening FAQ and VIP introduction/success copy respond to that switch. The site does not change status automatically.
+`src/config/site.ts` is the source of truth. The status is `open`: Home metadata describes the restaurant and the opening-date FAQ is omitted. The hero shows the location without an opening announcement; the footer and Contact page have no opening announcement. The historical opening date remains in the configuration for opening-hours schema. The site does not change status automatically.
 
 The owner confirmed: opening 23 September 2026; Monday–Thursday, noon–9pm; Friday–Saturday, noon–10pm; Sunday, noon–8pm; telephone 0191 222 1122; restaurant email newcastle@nipobraza.co.uk; company/privacy email info@nipobraza.co.uk. The address is 95 Quayside, Newcastle upon Tyne NE1 3DH. The grouped hours in `siteConfig.hours` feed the Contact page, FAQs and Restaurant schema. The opening-hours schema starts on the opening date.
 
@@ -22,11 +22,11 @@ See IMAGERY.md for replacement instructions. Slideshow IDs and the 7000ms interv
 
 For future video, set `hero.mode` to `video` and supply a direct playable MP4/WebM URL via the existing `PUBLIC_VIMEO_VIDEO_URL` variable. An ordinary Vimeo watch-page URL is not a media source. Update `video.poster` to an approved poster file. The first slideshow photograph remains the fallback if autoplay fails, video errors, reduced motion or data saver prevents playback. A video is never requested in the default slideshow mode.
 
-## VIP signup
+## Newsletter signup
 
-The original `/api/vip-signup` JSON contract, first name/email validation, explicit marketing consent, honeypot, start time, Turnstile challenge, backend limits and Brevo integration are retained. Signup remains on Home; other pages link to `/#vip`.
+The restaurant newsletter signup appears on Home at `/#newsletter`, linked from Contact and the footer. Its copy covers new dishes, seasonal menus and restaurant news. The original `/#vip` anchor remains as a compatibility target for old links. The existing `VipSignup.astro` component and `/api/vip-signup` backend retain their internal names and existing Brevo integration, validation, consent and Turnstile protection; all public form messaging refers to the newsletter.
 
-The production preview serves static files only. Browser regression checks use the local QA server on port 4323, which returns mock endpoint responses and removes the external challenge script. They supply a local mock token and verify UI behavior without submitting contacts. Existing Worker tests verify server validation, Turnstile handling, duplicate contacts and upstream failures.
+The production preview serves static files only. Browser regression checks use the local QA server on port 4323, with mock signup responses and a local challenge token. Newsletter validation, success, server-error and network-error scenarios are retained. Existing backend tests verify the signup service without submitting real contacts.
 
 ## Layout and accessibility
 

@@ -1,0 +1,35 @@
+{
+  "generated": "2026-09-18",
+  "images": [
+    {
+      "file": "christmas-steak-hero.png",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2396587,
+      "sha256": "843c5eb733dce8abb65a96d444dfa30292678544ee793ea549039289d05f1d4c"
+    },
+    {
+      "file": "christmas-salmon-sushi.png",
+      "width": 1122,
+      "height": 1402,
+      "bytes": 2204139,
+      "sha256": "1c097a7b35c9a1cc6b52c2b0d6c1ac56304259b98ce44bce88ffd0522447568b"
+    },
+    {
+      "file": "christmas-wine-pour.png",
+      "width": 1122,
+      "height": 1402,
+      "bytes": 2001736,
+      "sha256": "ff03b4dae9c77705880d96998c993f1805ac14265192f3da248bc97eea495181"
+    },
+    {
+      "file": "christmas-braised-shank.png",
+      "width": 1122,
+      "height": 1402,
+      "bytes": 2305085,
+      "sha256": "972ca8b3e919543f52587464431b38d0ccee6276849cda9d1c38c2a3e3d5dd69",
+      "source": "IMG_5534.jpg",
+      "prompt": "christmas-braised-shank-prompt.md"
+    }
+  ]
+}

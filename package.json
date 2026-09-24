@@ -9,7 +9,7 @@
     "build": "astro check && astro build && node scripts/verify-seo.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "vitest run && node --test scripts/deployment-config.test.mjs",
+    "test": "vitest run && node --test scripts/deployment-config.test.mjs scripts/gallery-editor.test.mjs",
     "verify:seo": "node scripts/verify-seo.mjs",
     "test:watch": "vitest",
     "cf:dev": "pnpm build && wrangler dev",
@@ -17,7 +17,9 @@
     "netlify:deploy": "pnpm test && pnpm build && npx netlify-cli deploy --prod --dir=dist",
     "deploy": "pnpm netlify:deploy",
     "cf:deploy": "pnpm test && pnpm build && wrangler deploy",
-    "types:worker": "wrangler types worker-configuration.d.ts"
+    "types:worker": "wrangler types worker-configuration.d.ts",
+    "gallery:edit": "node scripts/gallery-editor.mjs",
+    "gallery:import": "node scripts/import-gallery.mjs"
   },
   "dependencies": {
     "@fontsource/playfair-display": "^5.2.8",
@@ -35,7 +37,11 @@
     "wrangler": "^4.132.0"
   },
   "packageManager": "pnpm@10.13.1",
-  "pnpm": { "overrides": { "fast-uri@<3.1.6": "^3.1.8" } },
+  "pnpm": {
+    "overrides": {
+      "fast-uri@<3.1.6": "^3.1.8"
+    }
+  },
   "engines": {
     "node": ">=22.12.0"
   }

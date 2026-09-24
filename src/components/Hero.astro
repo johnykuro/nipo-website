@@ -1,5 +1,5 @@
 ---
-import { siteConfig, openingLine } from "../config/site";
+import { siteConfig } from "../config/site";
 import { photo } from "../data/media";
 import Photo from "./Photo.astro";
 const slides = siteConfig.hero.slideIds.map(photo);
@@ -7,14 +7,14 @@ const useVideo = siteConfig.hero.mode === "video" && siteConfig.video.src;
 ---
 <section class="hero" aria-label="Welcome to NIPO" aria-roledescription="carousel" data-hero data-interval={siteConfig.hero.interval} data-video-src={useVideo ? siteConfig.video.src : undefined}>
   <div class="hero-media" aria-hidden="true">
-    {slides.map((asset, index) => <div class:list={["hero-slide", { "is-active": index === 0 }]} data-hero-slide><Photo asset={asset} eager={index === 0} decorative /></div>)}
+    {slides.map((asset, index) => <div class:list={["hero-slide", { "is-active": index === 0 }]} data-hero-slide><Photo asset={asset} sizes="(max-width:767px) 1600px, 100vw" eager={index === 0} decorative /></div>)}
     {useVideo && <video class="hero-video" poster={siteConfig.video.poster} muted loop playsinline preload="none" tabindex="-1"></video>}
   </div>
   <div class="hero-veil"></div>
   <div class="hero-content">
     <div class="hero-logo"><img src="/brand/nipo-logo-compact.svg" width="455" height="367" alt="NIPO" fetchpriority="high" /></div>
     <h1>Japanese Precision.<br />Brazilian Fire.</h1>
-    <p class="hero-location">{openingLine} <span aria-hidden="true">·</span> Newcastle Quayside</p>
+    <p class="hero-location">Newcastle Quayside</p>
     <div class="hero-actions">
       <a class="button button--booking" href={siteConfig.bookingUrl}>Book a table</a>
       <a class="button button--ghost-inverted" href="/menus/">View menus</a>
@@ -23,7 +23,7 @@ const useVideo = siteConfig.hero.mode === "video" && siteConfig.video.src;
   </div>
   <div class="hero-bottom"><a class="hero-scroll" href="#welcome">Scroll to discover <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M8 1v21m-6-6 6 6 6-6" /></svg></a>
     <div class="slideshow-controls" aria-label="Slideshow controls" data-slideshow-controls hidden>
-      <button type="button" data-hero-prev aria-label="Previous photograph">←</button><span data-hero-count>01 / 03</span><button type="button" data-hero-next aria-label="Next photograph">→</button><button type="button" data-hero-pause aria-pressed="false">Pause</button>
+      <button type="button" data-hero-prev aria-label="Previous photograph">←</button><span data-hero-count>01 / {String(slides.length).padStart(2, "0")}</span><button type="button" data-hero-next aria-label="Next photograph">→</button><button type="button" data-hero-pause aria-pressed="false">Pause</button>
     </div>
   </div>
 </section>

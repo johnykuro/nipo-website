@@ -1,6 +1,6 @@
 /**
  * Local-only browser regression checks against scripts/qa-server.mjs.
- * VIP responses are mocked and the external Turnstile script is omitted.
+ * Newsletter responses are mocked and the external Turnstile script is omitted.
  * AGENT_BROWSER_BIN must point to the agent-browser executable.
  */
 import { execFileSync } from "node:child_process";
@@ -53,17 +53,18 @@ check("Mobile navigation follows the Concept link", () => {
 });
 open("/gallery/");
 check("Lightbox next/previous, keyboard, focus restoration and swipe", () => {
-  command("click","[data-photo-id='salmon-sushi']");
+  command("click","[data-photo-id='sushi-table']");
   assert.equal(evaluate("document.querySelector('[data-lightbox]').open"),true);
   command("press","ArrowRight");
-  assert.match(evaluate("document.querySelector('[data-lightbox-caption]').textContent"),/Sliced steak/);
+  assert.equal(evaluate("document.querySelector('[data-lightbox-image]').src === document.querySelector('[data-photo-id=\"sliced-steak\"]').href"),true);
+  assert.equal(evaluate("document.querySelector('[data-lightbox-caption]').textContent === document.querySelector('[data-photo-id=\"sliced-steak\"]').dataset.caption"),true);
   command("click","[data-lightbox-prev]");
-  assert.match(evaluate("document.querySelector('[data-lightbox-caption]').textContent"),/Salmon sushi/);
+  assert.equal(evaluate("document.querySelector('[data-lightbox-image]').src === document.querySelector('[data-photo-id=\"sushi-table\"]').href"),true);
   evaluate("(()=>{const i=document.querySelector('[data-lightbox-image]');i.dispatchEvent(new PointerEvent('pointerdown',{clientX:300,clientY:250,bubbles:true}));i.dispatchEvent(new PointerEvent('pointerup',{clientX:100,clientY:255,bubbles:true}));})()");
-  assert.match(evaluate("document.querySelector('[data-lightbox-caption]').textContent"),/Sliced steak/);
+  assert.equal(evaluate("document.querySelector('[data-lightbox-image]').src === document.querySelector('[data-photo-id=\"sliced-steak\"]').href"),true);
   command("screenshot","tmp/qa/lightbox-mobile.png");
   command("press","Escape");
-  assert.equal(evaluate("document.activeElement.dataset.photoId"),"salmon-sushi");
+  assert.equal(evaluate("document.activeElement.dataset.photoId"),"sushi-table");
 });
 open("/menus/");
 check("Menu hover and keyboard focus update photography; food opens the priced main menu", () => {
@@ -95,7 +96,7 @@ check("Hero advances after seven seconds and pauses on request", () => {
   assert.notEqual(evaluate("document.querySelector('[data-hero]').dataset.slide"),paused);
 });
 check("Hero pauses offscreen", () => {
-  command("click","[data-hero-pause]"); command("scrollintoview","#vip"); delay(300);
+  command("click","[data-hero-pause]"); command("scrollintoview","#newsletter"); delay(300);
   assert.equal(evaluate("document.querySelector('[data-hero]').dataset.paused"),"true");
 });
 check("Gallery rail moves, pauses on hover and can be dragged", () => {
@@ -127,32 +128,32 @@ const fillSignup = () => {
   command("check","[name='consent']");
   evaluate("(()=>{let input=document.querySelector('[name=cf-turnstile-response]');if(!input){input=document.createElement('input');input.type='hidden';input.name='cf-turnstile-response';document.querySelector('[data-vip-form]').append(input)}input.value='local-mock-token';})()");
 };
-open("/"); command("scrollintoview","#vip");
-check("VIP validation prevents invalid submissions", () => {
+open("/"); command("scrollintoview","#newsletter");
+check("Newsletter validation prevents invalid submissions", () => {
   command("click","[data-vip-form] button[type='submit']");
   assert.equal(evaluate("document.querySelector('[name=firstName]').getAttribute('aria-invalid')"),"true");
   assert.match(evaluate("document.querySelector('[data-error=consent]').textContent"),/confirm/);
 });
-check("VIP success hides form and focuses confirmation with mocked API", () => {
+check("Newsletter success hides form and focuses confirmation with mocked API", () => {
   fillSignup(); command("click","[data-vip-form] button[type='submit']"); delay(250);
   assert.equal(evaluate("document.querySelector('[data-vip-form]').hidden"),true);
   assert.equal(evaluate("document.activeElement.hasAttribute('data-form-success')"),true);
-  command("screenshot","tmp/qa/vip-success.png");
+  command("screenshot","tmp/qa/newsletter-success.png");
 });
 
 evaluate("fetch('/__qa/mode?value=server-error').then(r=>r.json())");
-open("/"); command("scrollintoview","#vip");
-check("VIP server errors remain actionable and re-enable submit", () => {
+open("/"); command("scrollintoview","#newsletter");
+check("Newsletter server errors remain actionable and re-enable submit", () => {
   fillSignup(); command("click","[data-vip-form] button[type='submit']"); delay(250);
   assert.equal(evaluate("document.querySelector('[data-vip-form]').hidden"),false);
   assert.match(evaluate("document.querySelector('[data-form-status]').textContent"),/try again/);
   assert.equal(evaluate("document.querySelector('[data-vip-form] button[type=submit]').disabled"),false);
   assert.equal(evaluate("document.querySelector('[name=email]').getAttribute('aria-invalid')"),"true");
-  command("screenshot","tmp/qa/vip-server-error.png");
+  command("screenshot","tmp/qa/newsletter-server-error.png");
 });
  evaluate("fetch('/__qa/mode?value=network-error').then(r=>r.json())");
-open("/"); command("scrollintoview","#vip");
-check("VIP network failure permits retry", () => {
+open("/"); command("scrollintoview","#newsletter");
+check("Newsletter network failure permits retry", () => {
   fillSignup(); command("click","[data-vip-form] button[type='submit']"); delay(250);
   assert.match(evaluate("document.querySelector('[data-form-status]').textContent"),/connection/);
   assert.equal(evaluate("document.querySelector('[data-vip-form] button[type=submit]').disabled"),false);
@@ -168,7 +169,7 @@ command("set","viewport","390","844");
 open("/");
 check("Navigation, images, main menu and gallery remain usable without scripts", () => {
   assert.equal(evaluate("document.documentElement.classList.contains('js')"),false);
-  assert.equal(evaluate("document.querySelectorAll('.no-js-nav a').length"),4);
+  assert.equal(evaluate("document.querySelectorAll('.no-js-nav > a').length"),4);
   assert.equal(evaluate("getComputedStyle(document.querySelector('.hero-slide')).opacity"),"1");
   command("click",".no-js-nav a[href='/menus/']");
   command("click","[data-menu-preview='0']"); assert.equal(evaluate("location.hash"),"#main-menu");

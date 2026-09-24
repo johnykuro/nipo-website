@@ -1,0 +1,32 @@
+{
+  "created": "2026-09-18",
+  "tool": "built-in image generation",
+  "images": [
+    {
+      "id": "christmas-steak-hero",
+      "prompt": "Use case: photorealistic-natural.\nCreate ONE premium Christmas restaurant website hero photograph based on the reference NIPO steak photograph. Reference image is the exact FOOD AND CROCKERY identity and the lighting/style guide.\nOutput wide landscape, 16:9 composition, target 2560x1440.\nPreserve the sliced medium-rare bone-in steak, realistic portion, browned crust, arrangement of slices, oval muted ceramic platter and separate bowl of leafy salad with edible flowers exactly in character. No festive garnish added to the food.\nScene: elegant NIPO Christmas dining atmosphere. Deep walnut tabletop, green-black backdrop, warm directional light with restrained reflections. Dish occupies right-hand 60% of frame; give the left 35% quiet dark negative space for website copy. Slightly elevated restaurant photography camera, beautiful natural meat and leaf textures, plate in focus.\nSubtle but clearly festive surrounding styling: short evergreen branch along far back table edge, two small matte champagne-gold Christmas baubles grouped behind the platter, a softly glowing amber candle and warm out-of-focus Christmas tree lights at back right. Keep evergreen and ornaments away from the plate and entirely separate from food. Deep burgundy linen detail at the far edge only. Sophisticated intimate Christmas evening; styling belongs to the same dark and warm photographic world as the reference.\nConstraints: ONE steak dish only, no sushi or composite spread; realistic food, no extra portions, no turkey, no cranberries, no invented sauces, no glitter on food, no snow, no Santa props, no candy canes, no hands, no people, no logos, no embedded lettering or watermarks. Preserve correct plate geometry, restrained highlights and believable light. This is an imagined seasonal tabletop, not a particular real restaurant interior.",
+      "references": [
+        "src/assets/photos/approved/steak-salad.png"
+      ],
+      "placement": "Christmas page hero — copy on left"
+    },
+    {
+      "id": "christmas-salmon-sushi",
+      "prompt": "Use case: photorealistic-natural.\nGenerate ONE portrait Christmas editorial food photograph for a NIPO website festive menu card. Target 1600x2000, 4:5 portrait.\nReference image 1: exact food identity, portion and crockery — five salmon-topped sushi rolls on a long bronze ceramic platter, each with the same yellow fruit, pale cream, red chilli and herb garnish, sesame, ginger and subtle sauce. Preserve five rolls and this plating. Reference image 2: style reference only, the Christmas lighting palette and table setting of our new steak hero. DO NOT include steak or salad.\nCompose the entire sushi platter diagonally from lower left to upper right, fully visible with comfortable border, appetising close enough to read each roll. Dark walnut table, deep green-black background, soft warm directional light, restrained natural gloss, crisp rice grains and delicate salmon texture.\nCarry the same festive campaign styling: a small evergreen sprig and two champagne-gold baubles behind the plate, a little out-of-focus warm Christmas light bokeh, a burgundy linen edge at top left and soft amber candlelight. Decoration entirely separate from food, no greenery on the plate. Most of the frame is food, with a little calm dark space above. Elegant intimate Christmas evening, genuine premium restaurant photography with natural material texture.\nNo text, logos, watermark, snow, glitter, novelty props, candy canes, extra food, invented ingredients, oversized portions, hands or people. Accurate plate geometry and natural light. One complete photograph, no collage.",
+      "references": [
+        "src/assets/photos/approved/salmon-sushi.png",
+        "christmas-steak-hero.png"
+      ],
+      "placement": "Festive menu or dining section — portrait"
+    },
+    {
+      "id": "christmas-wine-pour",
+      "prompt": "Use case: photorealistic-natural.\nGenerate ONE portrait photograph for NIPO's Christmas website celebrations and wine section. Target 1600x2000, 4:5 portrait.\nReference image 1: wine identity and composition — exactly two elegant angular-bowled stemmed glasses, modest red-wine fills, a single continuous stream of ruby wine pouring from a red-foiled bottle neck entering upper right into the right-hand glass, dark timber table and warm candlelight. Preserve these recognisable subjects and coherent glass rims, stems, bases, liquid and refraction. Reference image 2: festive style only — coordinate with our Christmas steak hero's deep evergreen, champagne gold, burgundy and amber lighting. Do not include food or crockery.\nRecompose the two wine glasses centrally with both complete bases visible and breathing room around their silhouettes. Neck and stream clearly visible at upper right, no bottle label and no hand. Small glowing candle at left rear, evergreen sprig with two small matte champagne-gold Christmas baubles resting far behind the glass bases, deep burgundy linen softly folded at far side. Subtle Christmas tree light bokeh above against a deep green-black background. Decorations separate from the drinks, no greenery in glass or touching rim.\nPremium editorial restaurant photography, warm directional light through ruby wine, natural subtle reflections in clean glass, rich dark walnut texture, believable candlelight, refined festive evening mood, realistic and intimate. Strong central subject for mobile framing. Entire scene is an imagined seasonal tabletop.\nNo extra glasses, invented drinks or garnish, no food, no snow, no glitter, no candy canes, no novelty props, no people, no logos, no embedded text, no watermark. No distorted stems, overfilled glass, impossible liquid stream, excessive glow or exaggerated splashing.",
+      "references": [
+        "src/assets/photos/wine/wine-pour.png",
+        "christmas-steak-hero.png"
+      ],
+      "placement": "Christmas parties, wine or booking section — portrait"
+    }
+  ]
+}

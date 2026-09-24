@@ -2,7 +2,7 @@
 import { getImage } from "astro:assets";
 import { photo } from "../data/media";
 import Photo from "./Photo.astro";
-const assets = await Promise.all(["fish-avocado-tartare", "salmon-sushi", "botanical-cocktail", "steak-salad", "chicken-skewers", "sesame-tuna-bites"].map(async (id) => {
+const assets = await Promise.all(["small-plates", "sushi-table", "lime-cocktail", "sliced-steak", "braised-shank", "sushi-chopsticks"].map(async (id) => {
   const asset = photo(id);
   return { asset, full: (await getImage({ src: asset.src, width: Math.min(1600, asset.src.width), format: "webp" })).src };
 }));

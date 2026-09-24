@@ -1,17 +1,17 @@
 ---
-import { isPreOpening, vipCopy } from "../config/site";
+import { newsletterCopy } from "../config/site";
 const turnstileSiteKey =
   import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAEFHyznfIrD-Fjmv";
 ---
 
-<section class="signup" id="vip" aria-labelledby="vip-title">
-  <div class="section-shell signup__inner">
+<section class="signup" id="newsletter" aria-labelledby="newsletter-title">
+  <div class="section-shell signup__inner" id="vip">
     <div class="signup__intro reveal">
-      <h2 id="vip-title" class="responsive-heading">
-        <span class="responsive-heading__line">{isPreOpening ? "Be first at the" : "A little more"}</span>
-        <span class="responsive-heading__line">{isPreOpening ? "table." : "NIPO."}</span>
+      <h2 id="newsletter-title" class="responsive-heading">
+        <span class="responsive-heading__line">A little more</span>
+        <span class="responsive-heading__line">NIPO.</span>
       </h2>
-      <p>{vipCopy}</p>
+      <p>{newsletterCopy}</p>
     </div>
 
     <vip-signup class="signup__form-wrap reveal reveal--delay">
@@ -73,7 +73,7 @@ const turnstileSiteKey =
 
         <div class="form-submit">
           <button class="button button--ivory" type="submit">
-            <span data-button-label>Join the VIP list</span>
+            <span data-button-label>Join our newsletter</span>
             <span class="button__spinner" aria-hidden="true"></span>
           </button>
           <p class="form-status" data-form-status aria-live="polite"></p>
@@ -82,8 +82,8 @@ const turnstileSiteKey =
 
       <div class="form-success" data-form-success hidden tabindex="-1">
         <img src="/brand/nipo-mark.svg" alt="" width="72" height="68" />
-        <h3>Welcome to NIPO. You’re on the list.</h3>
-        <p>{isPreOpening ? "We’ll be in touch as our story takes shape on Newcastle Quayside." : "We’ll be in touch with the latest from NIPO."}</p>
+        <h3>You’re on the list.</h3>
+        <p>Thank you for joining our newsletter. We’ll be in touch with the latest from NIPO.</p>
       </div>
     </vip-signup>
   </div>
@@ -202,7 +202,7 @@ const turnstileSiteKey =
       }
 
       this.setLoading(true);
-      this.status.textContent = "Joining the VIP list…";
+      this.status.textContent = "Joining our newsletter…";
 
       try {
         const response = await fetch("/api/vip-signup", {

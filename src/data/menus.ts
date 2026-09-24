@@ -1,8 +1,8 @@
 export const menuLinks = [
-  { title: "Main Menu", description: "Sushi, small plates & the robata", href: "/menus/#main-menu", photoId: "salmon-sushi", pdfHref: "/menus/nipo-main.pdf" },
+  { title: "Main Menu", description: "Sushi, small plates & the robata", href: "/menus/#main-menu", photoId: "beef-sushi-rolls", pdfHref: "/menus/nipo-main.pdf" },
   { title: "Dessert", description: "Hand-finished & freshly made in-house", href: "/menus/dessert/#dessert-menu", photoId: "passionfruit-meringue", pdfHref: "/menus/nipo-dessert.pdf" },
-  { title: "Drinks", description: "Cocktails, sake & spirits", href: "/menus/drinks/#drinks-menu", photoId: "botanical-cocktail", pdfHref: "/menus/nipo-drinks.pdf" },
-  { title: "Wine", description: "A bottle for the table", href: "/menus/wine/#wine-menu", photoId: "wine-pour", pdfHref: "/menus/nipo-wine.pdf" },
+  { title: "Drinks", description: "Cocktails, sake & spirits", href: "/menus/drinks/#drinks-menu", photoId: "lime-cocktail", pdfHref: "/menus/nipo-drinks.pdf" },
+  { title: "Wine", description: "A bottle for the table", href: "/menus/wine/#wine-menu", photoId: "wine-and-oysters", pdfHref: "/menus/nipo-wine.pdf" },
 ];
 export type MenuDish = {
   price: number;

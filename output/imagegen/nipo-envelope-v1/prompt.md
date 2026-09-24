@@ -1,0 +1,16 @@
+# NIPO Christmas envelope
+
+Created 18 September 2026 with built-in image generation for the supplied Christmas poster and potential website use. Master: `nipo-christmas-envelope.png`. This is an AI-generated product image. The existing website and poster are unchanged.
+
+References: `public/brand/nipo-logo-compact.svg`, rasterised as `logo-reference.png` for generation, and `output/imagegen/nipo-christmas-v1/christmas-braised-shank.png` for tabletop styling and lighting. The logo wordmark, flower/flame, envelope geometry and overall festive styling were visually checked.
+
+## Exact prompt
+
+Use case: product-mockup / photorealistic-natural.
+Create ONE premium editorial photograph of a black NIPO envelope on a restaurant table, for the image area of a Christmas poster and later website use. Output slightly landscape, approximately 6:5 aspect ratio, target 1920x1600.
+Reference image 1: exact NIPO logo artwork. Reproduce its recognisable five-petal red flower with central gold flame above the elegant pale-gold serif wordmark NIPO. Preserve the proportions, petal shape, flame and letterforms. Print this complete compact lockup on the centre of the envelope face, at a tasteful scale occupying roughly 35% of its width. The word NIPO must be perfectly legible. No tagline.
+Reference image 2: lighting, dark walnut tabletop and festive styling reference ONLY. Do not include any food, bowl or plate.
+Main subject: one elegant closed rectangular BLACK envelope, premium thick matte paper with subtle tactile grain, lying flat face-up on dark walnut timber, viewed from an elevated three-quarter angle, rotated slightly so its long edge runs gently from lower left towards upper right. The broad envelope face is uninterrupted, logo crisp and readable. Subtle edge thickness and fine side seam make it recognisable as an envelope. No card protruding, no ribbon or seal covering the logo. Deep black paper clearly separated from the dark tabletop by soft warm raking light; realistic paper texture and natural contact shadow. Logo appears physically printed with muted red ink and understated pale-gold foil, not floating or glowing.
+Composition: envelope dominates the central lower-middle area, entirely within frame with ample breathing room on all sides. Keep the whole envelope within the central 75% width and 65% height so a near-square crop for the poster will retain every corner. Background softly out of focus: restrained evergreen sprig across the upper edge, two small champagne-gold baubles, warm glowing candle in textured glass at rear left, a little burgundy linen at far edge and distant amber Christmas light bokeh. Decorations must not cover the envelope or logo. Calm dark corners suitable for flexible website crops.
+Style: NIPO's intimate warm atmospheric restaurant photography, green-black shadows, rich dark timber, subtle bronze and gold highlights, natural material detail, soft directional lighting, controlled reflections, premium festive stationery photograph.
+Constraints: only one envelope; exact supplied NIPO logo and no other text; no invented wording, no gift voucher amount, no QR code, no headline, no watermark, no food, no hands, no people, no snow, no glitter, no novelty Christmas props, no busy clutter, no plastic paper or excessive metallic shine. One finished photograph, not a poster layout.

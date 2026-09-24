@@ -4,7 +4,7 @@ import Hero from "../components/Hero.astro";
 import Photo from "../components/Photo.astro";
 import GalleryRail from "../components/GalleryRail.astro";
 import Lightbox from "../components/Lightbox.astro";
-import VipSignup from "../components/VipSignup.astro";
+import NewsletterSignup from "../components/VipSignup.astro";
 import { photo } from "../data/media";
 import { homeTitle, homeDescription } from "../config/seo";
 ---
@@ -17,14 +17,14 @@ import { homeTitle, homeDescription } from "../config/seo";
     </section>
     <GalleryRail />
     <section class="photo-feature photo-feature--wide" aria-labelledby="home-menus-title">
-      <Photo asset={photo("steak-salad")} /><div class="feature-veil"></div>
+      <Photo asset={photo("sliced-steak")} /><div class="feature-veil"></div>
       <div class="photo-feature__copy" data-reveal><h2 id="home-menus-title">From sushi to the fire.</h2><p>Explore the food, drinks and wines of NIPO.</p><a class="button button--ivory" href="/menus/">Our menus</a></div>
     </section>
     <div class="paired-features">
-      <a class="photo-feature" href="/concept/"><Photo asset={photo("fish-avocado-tartare")} sizes="(max-width:767px) 100vw, 50vw" /><div class="feature-veil"></div><div class="photo-feature__copy"><h2>The NIPO concept</h2><span class="text-link">Our story</span></div></a>
-      <a class="photo-feature" href="/gallery/"><Photo asset={photo("sesame-tuna-bites")} sizes="(max-width:767px) 100vw, 50vw" /><div class="feature-veil"></div><div class="photo-feature__copy"><h2>A closer look</h2><span class="text-link">Explore the gallery</span></div></a>
+      <a class="photo-feature" href="/concept/"><Photo asset={photo("sushi-table")} sizes="(max-width:767px) 100vw, 50vw" /><div class="feature-veil"></div><div class="photo-feature__copy"><h2>The NIPO concept</h2><span class="text-link">Our story</span></div></a>
+      <a class="photo-feature" href="/gallery/"><Photo asset={photo("small-plates")} sizes="(max-width:767px) 100vw, 50vw" /><div class="feature-veil"></div><div class="photo-feature__copy"><h2>A closer look</h2><span class="text-link">Explore the gallery</span></div></a>
     </div>
-    <VipSignup />
+    <NewsletterSignup />
   </main>
   <Lightbox />
 </BaseLayout>

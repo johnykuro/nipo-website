@@ -141,7 +141,7 @@ export default async function handler(request: Request, _context: Context): Prom
 
   const env = getRequiredEnvironment();
   if (!env) {
-    return error("CONFIGURATION", "VIP signup is temporarily unavailable. Please try again later.", 503);
+    return error("CONFIGURATION", "Newsletter signup is temporarily unavailable. Please try again later.", 503);
   }
   if (request.headers.get("Origin") !== env.SITE_ORIGIN) {
     return error("ORIGIN", "This request could not be accepted.", 403);

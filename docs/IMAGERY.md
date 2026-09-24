@@ -1,48 +1,55 @@
-# NIPO imagery
+# NIPO website imagery
 
-## Current collection — approved 15 September 2026
+## Complete gallery and owner-written descriptions — 24 September 2026
 
-The website uses eight approved AI-generated images based on the team's photographs of NIPO food and drinks. They are not documentary photos. Provenance is recorded here and in the review collection; the public Gallery origin note was removed at the owner's request on 15 September 2026.
+The gallery now contains 70 unique photographs: the existing 13 plus 57 new photographs from the owner's `Website Images/gallery` folder. Ten of that folder's 67 files matched existing gallery photographs and were skipped. The importer checks decoded image content, so changing a filename or metadata cannot create a duplicate. Originals are preserved; missing files were copied to `src/assets/photos/gallery/`.
 
-Native PNG masters are copied unchanged into `src/assets/photos/approved/`. Astro generates responsive AVIF and WebP versions, with lightbox widths capped at the lesser of 1600 pixels and the source width. The upscaled review exports are not used as website sources.
+`src/data/gallery.json` is now the authoritative gallery manifest and caption source. Run `pnpm gallery:edit` to enter descriptions beside the photographs. Blank descriptions show no caption; previous generated captions have been removed from the gallery and its shared photo records. A neutral numbered accessibility label is used until the owner supplies wording. See [the gallery editor guide](GALLERY-EDITOR.md) for saving, exporting and future imports. The earlier sections below document the initial shoot integration.
 
-| ID | Subject | Main uses | Desktop / mobile position |
-| --- | --- | --- | --- |
-| salmon-sushi | Five salmon-topped sushi rolls | Hero 1, food menu preview, Concept, rail, Gallery, social card | 50% 50% / 60% 50% |
-| steak-salad | Sliced bone-in steak and flower salad | Hero 2, Home menus feature, Concept, rail, Gallery | 50% 50% / 64% 50% |
-| botanical-cocktail | Layered green cocktail with magenta flower | Hero 3, drinks preview, hospitality, rail, Gallery | 72% 50% / 72% 50% |
-| sesame-tuna-bites | Sesame-crusted tuna on crisp golden bases | Contact, Home Gallery feature, rail, Gallery | 50% 50% / 50% 50% |
-| fish-avocado-tartare | Tuna, salmon and avocado with lotus crisps | Concept opening, Home concept feature, rail, Gallery | 50% 50% / 50% 50% |
-| chicken-skewers | Glazed chicken on metal skewers | Rail, Gallery | 50% 50% / 50% 50% |
-| blue-rice-rolls | Blue rice vegetable sushi | Gallery | 50% 50% / 50% 50% |
-| passionfruit-meringue | Meringue, cream and passion fruit | Gallery | 50% 50% / 50% 50% |
+## Owner-selected hero slideshow — 24 September 2026
 
-Landscape masters are 1672 × 941; portrait masters are 1122 × 1402. The cocktail uses 72% horizontal positioning on desktop as well as mobile so the glass remains visible in narrower drinks and hospitality frames. Tall hero crops show a food detail; the existing text overlays remain in use.
+The homepage hero uses these five photographs in the owner's chosen order. Exact originals from `C:/Users/jonmc/Creative Cloud Files Personal Account/Other Brands/Nipo Steakhouse/Website Images/gallery/` are preserved in `src/assets/photos/hero-2026-09/`, independently of the earlier shoot collection. All are 2048×1365; responsive focal positions control desktop and phone crops without altering originals.
 
-`src/data/media.ts` owns accurate alt text, captions and focal positions. `placeholder: false` means the image was approved for use; it does not imply documentary photography. Dish labels are descriptive and must not inherit the old placeholder captions about picanha on a grill, black cod, moqueca or cheesecake.
+| Slide | Website ID | Original filename |
+| --- | --- | --- |
+| 1 | hero-sushi-table | DSC07608-Edit.jpg |
+| 2 | hero-sliced-steak | DSC08020-Edit.jpg |
+| 3 | hero-sushi-chopsticks | DSC07617-Edit.jpg |
+| 4 | hero-braised-shank | DSC08176-Edit.jpg |
+| 5 | hero-lamb-cutlets | DSC08115-Edit.jpg |
 
-## Provenance and review
+The slideshow retains its seven-second interval. Its initial counter derives from the configured slide count.
 
-### Wine menu image — 16 September 2026
+## Professional shoot — integrated 24 September 2026
 
-Wine menu selection and the Wine list's initial preview now use `wine-pour`, a separate AI-generated image based on the owner's `C:/Users/jonmc/Downloads/RIO EDINBURGH_059.jpg`. The source remains untouched. The image preserves the two angular wine glasses, red-wine pour, candle and timber table, with muted green upholstery and warm lighting. Bottle branding is omitted.
+The main website and Gallery now use the 13 professional shoot photographs supplied by the owner. Originals were copied byte-for-byte from `C:/Users/jonmc/Creative Cloud Files Personal Account/Other Brands/Nipo Steakhouse/Website Images/photo-shoot/` to `src/assets/photos/shoot-2026-09/`. No generative editing, retouching, upscaling or destructive source crops were applied. Responsive frames use focal positions in `src/data/media.ts`; Astro supplies AVIF and WebP sizes from 480px up to each original's native width.
 
-Native master: 1254×1254 PNG at `src/assets/photos/wine/wine-pour.png`; master copy and exact built-in generation prompt: `output/imagegen/nipo-wine-v1/`. Astro generates responsive AVIF/WebP assets. Desktop focal position is 50% 50%; the wine-only mobile position is 50% 15% to retain the pouring stream in shallow crops. This menu-only image is outside the eight-photo Gallery collection.
+| Website ID | Original filename | Main placement |
+| --- | --- | --- |
+| sushi-table | DSC07608-Edit.jpg | Concept card, Contact, rail, Gallery, social preview |
+| sliced-steak | DSC08020-Edit.jpg | Home menus feature, rail, Gallery |
+| small-plates | DSC07295-Edit-2.jpg | Home Gallery card, rail, Gallery |
+| lime-cocktail | DSC07220-Edit.jpg | Drinks preview, hospitality, rail, Gallery |
+| blue-rice-rolls | DSC07560-Edit.jpg | Gallery |
+| sushi-chopsticks | DSC07617-Edit.jpg | Concept opening, rail, Gallery |
+| maki-platter | DSC07743-Edit.jpg | Gallery |
+| beef-sushi-rolls | DSC07777-Edit.jpg | Main Menu preview, Concept, Gallery |
+| fish-skillet | DSC08148-Edit-2.jpg | Gallery |
+| braised-shank | DSC08179-Edit-2.jpg | Rail, Gallery |
+| lamb-cutlets | DSC08115-Edit.jpg | Gallery |
+| steak-on-fire | DSC07802-Edit.jpg | Concept fire section, Gallery |
+| wine-and-oysters | DSC07474.jpg | Wine preview, Gallery |
 
-The Home “The NIPO concept” card uses the approved tartare image. The alternative shared-table composition was rejected and deleted at the owner's request on 15 September 2026.
+The initial shoot integration used generated captions and alt text; the owner-written description workflow above replaces those for gallery records. Gallery lightbox images are capped at 1600px; the original aspect ratios are retained. CSS crops keep each photographed subject visible in desktop and mobile frames. The 1200×630 social preview uses the photographed sushi table with the existing brand overlay.
 
-`output/imagegen/nipo-food-v1/` contains the full original/generated comparison package, exact prompts, source filenames and hashes, original reference copies, native masters and labelled crop proofs. The review packet is a snapshot of the image approval stage; website integration is documented here. The current site files are identical to the approved masters.
+## Remaining temporary image
 
-The eight previous generic placeholders, their original prompts and catalogue remain in `src/assets/photos/` for provenance. None is imported by the active website.
+No dessert photography was provided in this shoot. `passionfruit-meringue` remains a menu-only AI-generated image from the previous approved collection, with `placeholder: true`. It appears when Dessert is selected and on the dessert page. It is excluded from the professional Gallery. Replace it once a dessert photograph is supplied.
 
-## Future changes
+## Preserved earlier work
 
-1. Add approved replacement images to a new folder and update the corresponding imports and metadata in `src/data/media.ts`.
-2. If the subject changes, use a descriptive ID and update its consumers in page components, hero slide configuration and menu previews. Check gallery captions and lightbox labels.
-3. Check all hero slides at 1440×900, 1024×768, 390×844 and 360×800. Preserve heading readability and recognisable food under portrait cropping. Also check Concept, Contact and menu preview frames.
-4. Update `scripts/generate-social.mjs` when the social photograph changes, and update BaseLayout's social-image alt text to match. Run `pnpm generate:assets` and `pnpm build`.
-5. Update these provenance notes when the imagery changes. Run the image containment and gallery/lightbox browser checks.
+The previous generic placeholders and AI-generated food and wine images remain in `src/assets/photos/` for history. Apart from the dessert image noted above, they are no longer imported by the active website. Original generation prompts and review collections remain under `output/imagegen/`. The public Gallery AI-origin note remains removed as requested by the owner.
 
-## Brand artwork
+## Future updates
 
-The compact NIPO logo, footer lockup and `public/brand/botanical.webp` remain supplied brand artwork, separate from the food collection.
+Import new gallery photography with `pnpm gallery:import "path/to/folder"`, then supply captions through `pnpm gallery:edit`. Check captions and lightbox labels whenever the pictured subject changes. Verify hero text legibility and crop positions on phone, tablet and desktop. Update `scripts/generate-social.mjs` and BaseLayout's social alt text when changing social imagery. Run the asset generator, production build and browser image/layout checks.

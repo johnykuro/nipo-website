@@ -7,12 +7,12 @@ import { photos } from "../data/media";
 import { siteConfig } from "../config/site";
 const gallery = await Promise.all(photos.map(async (asset) => ({ asset, full: (await getImage({ src: asset.src, width: Math.min(1600, asset.src.width), format: "webp" })).src })));
 ---
-<BaseLayout title="Food & cocktail gallery | NIPO Newcastle Quayside" description="Explore the food and drinks of NIPO on Newcastle Quayside: salmon sushi, sliced steak, colourful small plates and botanical cocktails. Take a closer look.">
+<BaseLayout title="Food & cocktail gallery | NIPO Newcastle Quayside" description="Explore the NIPO gallery. A closer look at our Japanese-Brazilian restaurant on Newcastle Quayside.">
   <main id="main-content">
     <header class="page-intro section-shell"><p class="label">NIPO in detail</p><h1>A closer look.</h1><p>A taste of the food and drinks of NIPO.</p></header>
     <div class="gallery-grid section-shell">
-      {gallery.map(({ asset, full }, index) => <a class:list={["gallery-item", { "gallery-item--wide": index === 0 || index === 1 || index === 7 }]} href={full} data-lightbox-item data-photo-id={asset.id} data-caption={asset.caption} data-alt={asset.alt} aria-label={"Enlarge: " + asset.alt}>
-        <Photo asset={asset} sizes="(max-width:767px) 100vw, (max-width:1099px) 50vw, 40vw" eager={index === 0} /><span class="gallery-caption">{asset.caption}</span>
+      {gallery.map(({ asset, full }, index) => <a class="gallery-item" style={"--gallery-aspect:" + asset.src.width + " / " + asset.src.height} href={full} data-lightbox-item data-photo-id={asset.id} data-caption={asset.caption} data-alt={asset.alt} aria-label={"Enlarge: " + asset.alt}>
+        <Photo asset={asset} sizes="(max-width:767px) calc(100vw - 48px), (max-width:1099px) calc((100vw - 104px) / 2), (max-width:1599px) calc((87.5vw - 48px) / 3), (max-width:1639px) calc((100vw - 248px) / 3), 464px" eager={index === 0} />{asset.caption && <span class="gallery-caption">{asset.caption}</span>}
       </a>)}
     </div>
     <div class="booking-band section-shell"><h2>Join us at the table.</h2><a class="button button--booking" href={siteConfig.bookingUrl}>Book a table</a></div>

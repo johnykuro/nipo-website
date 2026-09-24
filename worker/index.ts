@@ -210,7 +210,7 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
   if (!configurationIsValid(env)) {
     return error(
       "CONFIGURATION",
-      "VIP signup is temporarily unavailable. Please try again later.",
+      "Newsletter signup is temporarily unavailable. Please try again later.",
       503,
     );
   }

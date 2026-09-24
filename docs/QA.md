@@ -1,5 +1,29 @@
 # NIPO redesign verification
 
+## Restaurant newsletter and ongoing copy — 24 September 2026
+
+- The signup form remains on Home as the restaurant newsletter, linked from Contact and the footer. Opening announcements have been removed; the hero displays Newcastle Quayside. Existing signup validation, consent, Turnstile protection and Brevo integration are retained.
+- `pnpm build` passed; SEO verification passed for 9 indexable pages, 544 local links/assets and 270 menu items. `pnpm test` passed.
+- Scanned all 10 built HTML pages: no opening-date promotion, opening announcements or VIP marketing copy remain.
+- Visually verified the newsletter section and checked empty-submit validation and focus in the local browser. The existing success and error browser scenarios were restored with newsletter labels and syntax checked; the full browser suite was not rerun and no real contacts were submitted.
+- Local changes only; no deployment performed.
+
+## Five selected hero photographs — 24 September 2026
+
+- Replaced the homepage hero with the five owner-selected files from `Website Images/gallery`, in the supplied order, ending with DSC08115-Edit. All five copied originals match their source SHA-256 hashes and measure 2048×1365.
+- Set desktop/mobile focal points and made the initial counter derive from the configured slide count. Preserved the seven-second interval and existing carousel behaviour.
+- `pnpm build` passed with zero errors, warnings or hints; SEO verification passed for 9 pages, 430 local links/assets and 270 menu items. `git diff --check` passed.
+- Browser checks at 1440×900 and 390×844 passed: all five images decode in order, counters show 01–05 / 05, next/previous wrap correctly, and no horizontal overflow or browser errors occur. Visually reviewed all ten hero screenshots for subject crops and text legibility. Evidence: `tmp/qa/hero-selection/`. Local preview only.
+
+## Professional shoot integration — 24 September 2026
+
+- Replaced the main website's generated food, cocktail and wine images with the supplied professional shoot. All 13 photographs are in the Gallery; updated hero slides, Home features, Concept, Contact, menu previews, captions, alt text and social preview. Dessert is the sole remaining generated menu image because the shoot contains no dessert photograph.
+- Copied all 13 originals byte-for-byte into `src/assets/photos/shoot-2026-09/`; verified SHA-256 matches against the supplied folder. No source retouching or destructive crops. Added responsive focal positions and requested at least 1600px-wide hero sources on phones to avoid soft cover crops. Removed the old final-gallery-item width override so the new final row fills the grid evenly.
+- `pnpm generate:assets`, `pnpm build` and `git diff --check` passed. Build reports 0 errors, warnings and hints; SEO verification passed for 9 indexable pages, 428 local links/assets and 270 menu items. Generated 136 responsive image assets.
+- All 35 existing image-containment checks passed from 360px through 3440px. Fourteen additional page/viewport checks decoded every photo on Home, Concept, Gallery, Contact and Main/Drinks/Wine menu pages at 390px and 1440px, with no overflow, unexpected old images or browser errors. Visually inspected the three mobile hero slides, desktop hero, Concept, Gallery and mobile drinks/wine crops.
+- Fourteen browser interaction scenarios passed, covering navigation, lightbox, menu previews/PDFs, slideshow, rail, reduced motion, mocked signup and image failure. The final no-JavaScript check exposed an outdated assertion counting social links as page navigation; narrowed it to direct navigation links and reran that scenario successfully. Backend source remains unchanged.
+- After final layout changes, rechecked the served mobile hero selects a 1600px-wide asset, and Gallery's final two photos have equal widths with all 13 images decoded. Evidence: `tmp/qa/photo-shoot/`, `tmp/qa/image-containment.json`. Local preview only; no production deployment performed.
+
 ## Wine menu image — 16 September 2026
 
 - Replaced steak in the Wine menu mapping with a generated wine-pouring photograph based on the supplied RIO image. Kept the Gallery at eight images and retained the original source photograph.
@@ -87,6 +111,15 @@ The QA server removes the external Turnstile script and accepts only the test to
 All 20 PDF pages rendered and inspected. Drinks has 12 pages; Wine has eight. Printer marks are outside the new page boundaries. Each website MediaBox matches the original TrimBox. Content streams match their respective original pages byte for byte. The original supplied PDF files were not changed.
 
 ## Evidence and limits
+
+### Gallery description editor — 24 September 2026
+
+- `pnpm test`: 13 existing application tests plus six Node tests passed, including persistence, Unicode copy, stale/concurrent saves, input validation, local-only requests, image identity and original-file integrity.
+- `pnpm build`: Astro checks, the production build and SEO verification passed with 70 gallery images.
+- Re-importing the supplied folder added zero images and skipped all 67 as duplicates.
+- `scripts/verify-gallery-browser.mjs` passed against a disposable manifest: previews, exact description save/reload, completion filters, search, conflict recovery and desktop/mobile overflow checks. The verification does not write test descriptions into the real gallery.
+- All 35 existing page/viewport image-containment checks passed. The gallery lightbox was checked separately for opening, next-image keyboard navigation, image loading and focus restoration. Its counter shows 70 images; blank descriptions produce no generated captions.
+- Editor screenshots are saved in `tmp/qa/gallery-editor-desktop.png` and `tmp/qa/gallery-editor-mobile.png`. The editor runs locally on port 4324; it is outside the public build. No deployment was performed.
 
 ### Desktop image containment regression
 

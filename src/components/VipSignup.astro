@@ -89,21 +89,20 @@ const turnstileSiteKey =
   </div>
 </section>
 
-<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
 <script>
   import type { VipSignupResponse } from "../types/vip";
+  import { loadTurnstile, type TurnstileApi } from "../scripts/turnstile";
 
   type FieldName = "firstName" | "email" | "consent" | "turnstile";
-
-  interface TurnstileApi {
-    reset: (widget?: string | HTMLElement) => void;
-  }
 
   class VipSignupElement extends HTMLElement {
     private form!: HTMLFormElement;
     private submitButton!: HTMLButtonElement;
     private status!: HTMLElement;
+    private observer?: IntersectionObserver;
+    private challenge?: Promise<void>;
+    private turnstile?: TurnstileApi;
+    private widgetId?: string;
 
     connectedCallback(): void {
       const form = this.querySelector<HTMLFormElement>("[data-vip-form]");
@@ -118,6 +117,47 @@ const turnstileSiteKey =
       this.status = status;
       startedAt.value = String(Date.now());
       this.form.addEventListener("submit", this.handleSubmit);
+      this.form.addEventListener("focusin", this.startChallenge);
+      this.observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) this.startChallenge();
+      }, { rootMargin: "300px" });
+      this.observer.observe(this);
+    }
+
+    disconnectedCallback(): void {
+      this.observer?.disconnect();
+      this.form?.removeEventListener("submit", this.handleSubmit);
+      this.form?.removeEventListener("focusin", this.startChallenge);
+      if (this.widgetId !== undefined) this.turnstile?.remove(this.widgetId);
+      this.widgetId = undefined;
+    }
+
+    private startChallenge = (): void => { void this.ensureChallenge().catch(() => {}); };
+
+    private ensureChallenge(): Promise<void> {
+      if (this.widgetId !== undefined) return Promise.resolve();
+      if (this.challenge) return this.challenge;
+      this.challenge = loadTurnstile().then((api) => {
+        if (!this.isConnected) return;
+        const container = this.querySelector<HTMLElement>(".cf-turnstile")!;
+        this.turnstile = api;
+        this.widgetId = api.render(container, {
+          sitekey: container.dataset.sitekey!,
+          theme: "dark", size: "flexible", action: container.dataset.action!,
+          appearance: "interaction-only", "response-field-name": "cf-turnstile-response",
+          callback: () => this.setError("turnstile", ""),
+          "error-callback": () => {
+            this.setError("turnstile", "The security check could not complete. Please try again.");
+            return true;
+          },
+        });
+        if (this.widgetId === undefined) throw new Error("Unable to render security check.");
+        this.observer?.disconnect();
+      }).catch((error: unknown) => {
+        if (this.isConnected) this.setError("turnstile", "The security check could not load. Please try again.");
+        throw error;
+      }).finally(() => { this.challenge = undefined; });
+      return this.challenge;
     }
 
     private clearErrors(): void {
@@ -181,14 +221,16 @@ const turnstileSiteKey =
     }
 
     private resetTurnstile(): void {
-      const turnstile = (window as Window & { turnstile?: TurnstileApi }).turnstile;
-      const widget = this.querySelector<HTMLElement>(".cf-turnstile");
-      if (turnstile && widget) turnstile.reset(widget);
+      if (this.widgetId !== undefined) this.turnstile?.reset(this.widgetId);
     }
 
     private handleSubmit = async (event: SubmitEvent): Promise<void> => {
       event.preventDefault();
+      if (this.submitButton.disabled) return;
       this.clearErrors();
+
+      // Also covers immediate submissions before the visibility/focus callbacks.
+      this.startChallenge();
 
       const formData = new FormData(this.form);
       const firstName = String(formData.get("firstName") ?? "").trim();

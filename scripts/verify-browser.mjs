@@ -1,6 +1,6 @@
 /**
  * Local-only browser regression checks against scripts/qa-server.mjs.
- * Newsletter responses are mocked and the external Turnstile script is omitted.
+ * Newsletter responses and the dynamically loaded Turnstile API use local mocks.
  * AGENT_BROWSER_BIN must point to the agent-browser executable.
  */
 import { execFileSync } from "node:child_process";

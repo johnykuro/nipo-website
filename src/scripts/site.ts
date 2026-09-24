@@ -1,6 +1,4 @@
 import { gsap } from "gsap";
-import { Draggable } from "gsap/Draggable";
-gsap.registerPlugin(Draggable);
 document.documentElement.classList.add("js");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
 const cleanups: (() => void)[] = [];
@@ -53,11 +51,34 @@ if (hero) {
   const video = hero.querySelector<HTMLVideoElement>("video");
   let current = 0, userPaused = false, hovered = false, focused = false, visible = true;
   let timer: ReturnType<typeof setTimeout> | undefined;
+  let preloadTimer: ReturnType<typeof setTimeout> | undefined;
+  let request = 0;
+  const prepared = new Map<number, Promise<boolean>>();
+  const prepare = (index: number): Promise<boolean> => {
+    const next = (index + slides.length) % slides.length;
+    const existing = prepared.get(next);
+    if (existing) return existing;
+    const slide = slides[next];
+    const template = slide.querySelector<HTMLTemplateElement>("[data-hero-photo]");
+    if (template) {
+      const fragment = template.content.cloneNode(true) as DocumentFragment;
+      const img = fragment.querySelector("img")!;
+      img.loading = "eager";
+      img.fetchPriority = "low";
+      on(img, "error", () => img.closest(".photo")?.classList.add("is-failed"));
+      template.replaceWith(fragment);
+    }
+    const img = slide.querySelector<HTMLImageElement>("img")!;
+    const ready = img.decode().then(() => true, () => false);
+    prepared.set(next, ready);
+    return ready;
+  };
   let zoom: gsap.core.Tween | undefined;
   let playingVideo = false;
   const blocked = () => reduced.matches || userPaused || hovered || focused || !visible || document.hidden || !!document.querySelector("dialog[open]");
   const update = () => {
     clearTimeout(timer);
+    clearTimeout(preloadTimer);
     const stopped = blocked();
     hero.dataset.paused = String(stopped);
     pause.textContent = userPaused ? "Play" : "Pause";
@@ -67,7 +88,12 @@ if (hero) {
     else {
       zoom?.resume();
       if (playingVideo) void video?.play().catch(() => {});
-      else timer = setTimeout(() => show(current + 1), Number(hero.dataset.interval) || 7000);
+      else {
+        const interval = Number(hero.dataset.interval) || 7000;
+        // Prepare only the upcoming photograph, shortly before its transition.
+        preloadTimer = setTimeout(() => { void prepare(current + 1); }, Math.max(0, interval - 2500));
+        timer = setTimeout(() => { void show(current + 1, true); }, interval);
+      }
     }
   };
   const animatePhoto = () => {
@@ -75,14 +101,7 @@ if (hero) {
     gsap.set(slides[current].querySelector(".photo"), { scale: 1 });
     if (!reduced.matches) zoom = gsap.fromTo(slides[current].querySelector(".photo"), { scale:1 }, { scale:1.055, duration:9, ease:"none" });
   };
-  const show = (index: number) => {
-    let next = (index + slides.length) % slides.length;
-    // Skip failed media without stalling the remaining slideshow.
-    for (let attempt = 0; attempt < slides.length; attempt++) {
-      const img = slides[next].querySelector<HTMLImageElement>("img");
-      if (!img?.complete || img.naturalWidth) break;
-      next = (next + 1) % slides.length;
-    }
+  const commit = (next: number) => {
     current = next;
     slides.forEach((slide, i) => {
       slide.classList.toggle("is-active", i === current);
@@ -91,6 +110,21 @@ if (hero) {
     hero.dataset.slide = String(current);
     count.textContent = String(current + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
     animatePhoto(); update();
+  };
+  const show = async (index: number, automatic = false) => {
+    const pending = ++request;
+    clearTimeout(timer);
+    clearTimeout(preloadTimer);
+    let next = (index + slides.length) % slides.length;
+    // Keep the current photograph visible while loading, and skip failed media.
+    for (let attempt = 0; attempt < slides.length; attempt++) {
+      const ready = await prepare(next);
+      if (pending !== request) return;
+      if (automatic && blocked()) { update(); return; }
+      if (ready) { commit(next); return; }
+      next = (next + 1) % slides.length;
+    }
+    update();
   };
   controls.hidden = false;
   on(hero.querySelector("[data-hero-prev]")!, "click", () => show(current - 1));
@@ -107,12 +141,12 @@ if (hero) {
     animatePhoto(); update();
   });
   observeVisibility(hero, (value) => { visible = value; update(); });
-  show(0);
+  commit(0);
   const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
   if (video && hero.dataset.videoSrc && !reduced.matches && !connection?.saveData) {
     video.src = hero.dataset.videoSrc;
     on(video, "playing", () => {
-      playingVideo = true; gsap.to(video, { opacity:1 }); clearTimeout(timer);
+      playingVideo = true; gsap.to(video, { opacity:1 }); clearTimeout(timer); clearTimeout(preloadTimer); request++;
       controls.querySelectorAll<HTMLElement>("[data-hero-prev], [data-hero-next], [data-hero-count]").forEach(el => el.hidden = true);
     });
     on(video, "error", () => {
@@ -122,7 +156,7 @@ if (hero) {
     });
     void video.play().catch(() => { playingVideo = false; update(); });
   }
-  cleanups.push(() => { clearTimeout(timer); zoom?.kill(); video?.pause(); });
+  cleanups.push(() => { request++; clearTimeout(timer); clearTimeout(preloadTimer); zoom?.kill(); video?.pause(); });
 }
 
 // Menu links remain regular links; hover and keyboard focus only change the preview.
@@ -138,39 +172,27 @@ menuLinks.forEach((link, index) => {
 
 const rail = document.querySelector<HTMLElement>("[data-gallery-rail]");
 if (rail) {
-  const track = rail.querySelector<HTMLElement>("[data-gallery-track]")!;
-  const items = [...track.querySelectorAll<HTMLAnchorElement>("a")];
-  const originals = items.filter(item => !item.dataset.duplicate);
-  let span = 1, x = 0, dragging = false, hovered = false, focused = false, visible = true;
-  let suppressClickUntil = 0;
-  rail.classList.add("is-enhanced");
-  const wrap = (value: number) => ((value % span) + span) % span - span;
-  const measure = () => { span = items[originals.length].offsetLeft - items[0].offsetLeft; x = wrap(x); gsap.set(track, { x }); };
-  measure();
-  const resize = new ResizeObserver(measure); resize.observe(rail); cleanups.push(() => resize.disconnect());
-  const [drag] = Draggable.create(track, {
-    type:"x", trigger:rail, allowNativeTouchScrolling:true, minimumMovement:6,
-    onPress() { dragging = true; x = Number(gsap.getProperty(track, "x")); this.update(); },
-    onDrag() { x = this.x; },
-    onDragEnd() { suppressClickUntil = performance.now() + 120; },
-    onRelease() { dragging = false; x = wrap(this.x); gsap.set(track, { x }); this.update(); }
-  });
-  const tick = (_time: number, delta: number) => {
-    if (dragging || hovered || focused || !visible || reduced.matches || document.hidden || document.querySelector("dialog[open]")) return;
-    x = wrap(x - Math.min(delta, 50) * .027); gsap.set(track, { x });
+  let loading = false, disposed = false;
+  const enhance = async () => {
+    if (loading || disposed) return;
+    loading = true;
+    try {
+      const { initGalleryRail } = await import("./gallery-rail");
+      if (disposed) return;
+      cleanups.push(initGalleryRail(rail));
+      observer.disconnect();
+    } catch {
+      // Keep the native scrolling gallery usable if the enhancement cannot load.
+      loading = false;
+    }
   };
-  gsap.ticker.add(tick); cleanups.push(() => { gsap.ticker.remove(tick); drag.kill(); });
-  on(rail, "click", ((event: MouseEvent) => {
-    if (performance.now() < suppressClickUntil) { event.preventDefault(); event.stopImmediatePropagation(); }
-  }) as EventListener);
-  on(rail, "mouseenter", () => { hovered = true; }); on(rail, "mouseleave", () => { hovered = false; });
-  on(rail, "focusin", ((event: FocusEvent) => {
-    focused = true;
-    const item = (event.target as Element).closest<HTMLAnchorElement>("a");
-    if (item) { x = -item.offsetLeft + 24; gsap.set(track, { x }); drag.update(); }
-  }) as EventListener);
-  on(rail, "focusout", () => { queueMicrotask(() => { focused = rail.contains(document.activeElement); }); });
-  observeVisibility(rail, value => { visible = value; });
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) void enhance();
+  }, { rootMargin: "300px" });
+  observer.observe(rail);
+  on(rail, "focusin", () => { void enhance(); });
+  on(rail, "pointerenter", () => { void enhance(); });
+  cleanups.push(() => { disposed = true; observer.disconnect(); });
 }
 
 const lightbox = document.querySelector<HTMLDialogElement>("[data-lightbox]");

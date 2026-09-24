@@ -7,7 +7,11 @@ const useVideo = siteConfig.hero.mode === "video" && siteConfig.video.src;
 ---
 <section class="hero" aria-label="Welcome to NIPO" aria-roledescription="carousel" data-hero data-interval={siteConfig.hero.interval} data-video-src={useVideo ? siteConfig.video.src : undefined}>
   <div class="hero-media" aria-hidden="true">
-    {slides.map((asset, index) => <div class:list={["hero-slide", { "is-active": index === 0 }]} data-hero-slide><Photo asset={asset} sizes="(max-width:767px) 1600px, 100vw" eager={index === 0} decorative /></div>)}
+    {slides.map((asset, index) => <div class:list={["hero-slide", { "is-active": index === 0 }]} data-hero-slide>
+      {index === 0
+        ? <Photo asset={asset} sizes="(max-width:767px) 1600px, 100vw" eager decorative />
+        : <template data-hero-photo><Photo asset={asset} sizes="(max-width:767px) 1600px, 100vw" decorative /></template>}
+    </div>)}
     {useVideo && <video class="hero-video" poster={siteConfig.video.poster} muted loop playsinline preload="none" tabindex="-1"></video>}
   </div>
   <div class="hero-veil"></div>

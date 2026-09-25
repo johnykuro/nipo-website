@@ -19,12 +19,13 @@ export const homeTitle = "NIPO | Japanese-Brazilian Restaurant Newcastle";
 export const homeDescription = isPreOpening
   ? "NIPO opens " + siteConfig.opening.label + " at 95 Quayside, Newcastle upon Tyne. Discover sushi, robata and Japanese-Brazilian dining."
   : "Discover NIPO at 95 Quayside, Newcastle upon Tyne. Japanese-Brazilian dining, sushi, robata and fire-cooked signatures.";
-export const faqItems = [
+export const faqItems: { question: string; answer: string; link?: { label: string; href: string } }[] = [
   { question: "What is NIPO?", answer: "NIPO is a Japanese-Brazilian restaurant on Newcastle Quayside, shaped by sushi craft, cooking over fire and warm hospitality." },
   { question: "Where can I find NIPO?", answer: siteConfig.address.street + ", " + siteConfig.address.city + " " + siteConfig.address.postcode + "." },
+  { question: "Has RIO closed?", answer: "No, RIO is open as usual and nothing has changed. You’ll still find RIO above us on the first floor at 95 Quayside. NIPO has replaced the former Tomahawk Steakhouse restaurant at this address." },
   { question: "What food will I find at NIPO?", answer: "Sushi, small plates, robata-style cooking, picanha and plant-led dishes. Explore our main and dessert menus, with prices and downloadable PDFs." },
   ...(isPreOpening ? [{ question: "When does NIPO open?", answer: "NIPO opens on " + siteConfig.opening.label + ". Reservations are available now. Join our VIP list for opening news and first looks." }] : []),
-  { question: "How do I book a table?", answer: "Choose Book a Table anywhere on our website to see availability and make your reservation with SevenRooms." },
+  { question: "How do I book a table?", answer: "Choose Book a Table anywhere on our website to see availability and make your reservation with SevenRooms.", link: { label: "Click here to book your table", href: siteConfig.bookingUrl } },
   { question: "What are NIPO’s opening hours?", answer: (isPreOpening ? "From " + siteConfig.opening.label + ", " : "") + "NIPO is open: " + siteConfig.hours.map((hours) => hours.label).join("; ") + "." },
   { question: "How do I contact NIPO?", answer: "Call " + siteConfig.telephoneDisplay + " or email " + siteConfig.email + "." },
 ];

@@ -5,7 +5,7 @@ import { faqItems } from "../config/seo";
 <section class="faq" id="faq" aria-labelledby="faq-title">
   <div class="section-shell faq__inner">
     <div class="faq__intro reveal">
-      <h2 id="faq-title">About NIPO</h2>
+      <h2 id="faq-title">About NIPO / F.A.Q</h2>
     </div>
 
     <div class="faq__list">
@@ -13,10 +13,17 @@ import { faqItems } from "../config/seo";
         faqItems.map((item, index) => (
           <article class={`faq__item reveal${index % 2 ? " reveal--delay" : ""}`}>
             <h3>{item.question}</h3>
-            <p>{item.answer}</p>
+            <p>{item.answer}{item.link && <> <a href={item.link.href}>{item.link.label}</a>.</>}</p>
           </article>
         ))
       }
     </div>
   </div>
 </section>
+
+<style>
+  .faq__item p a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

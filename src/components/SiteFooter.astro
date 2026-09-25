@@ -5,7 +5,7 @@ import { siteConfig as config } from "../config/site";
   <div class="footer-main section-shell">
     <a class="footer-brand" href="/" aria-label="NIPO home"><img src="/brand/nipo-logo.svg" width="455" height="401" alt="NIPO — Japanese Precision. Brazilian Fire." loading="lazy" /></a>
     <div class="footer-address"><p class="label">Find us</p><p>{config.address.street}<br />{config.address.city}<br />{config.address.postcode}</p><a class="text-link" href={config.address.directionsUrl} target="_blank" rel="noopener noreferrer">Directions</a></div>
-    <nav aria-label="Footer navigation"><p class="label">Discover</p>{config.navigation.map((link) => <a href={link.href}>{link.label}</a>)}<a href="/#newsletter">Newsletter</a></nav>
+    <nav aria-label="Footer navigation"><p class="label">Discover</p>{config.navigation.map((link) => <a href={link.href}>{link.label}</a>)}<a href="/contact/#faq">F.A.Q</a><a href="/#newsletter">Newsletter</a></nav>
     <div class="footer-social"><p class="label">Follow NIPO</p>{config.socialLinks.filter((item) => item.url).map((item) => <a href={item.url} target="_blank" rel="noopener noreferrer">{item.label}</a>)}</div>
   </div>
   <div class="footer-bottom section-shell"><p>© {new Date().getFullYear()} NIPO</p><p>Japanese Precision. Brazilian Fire.</p><a href="/privacy/">Privacy</a><button type="button" data-cookie-settings hidden>Cookie settings</button></div>

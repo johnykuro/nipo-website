@@ -1,5 +1,13 @@
 ---
 import { newsletterCopy } from "../config/site";
+import type { LocationId } from "../config/locations";
+interface Props { location?: LocationId }
+const { location } = Astro.props;
+const harrogate = location === "harrogate";
+const intro = harrogate ? "Join the Harrogate VIP list for opening news and to hear when reservations become available." : newsletterCopy;
+const buttonLabel = harrogate ? "Join the Harrogate VIP list" : "Join our newsletter";
+const consentCopy = harrogate ? "I’d like to receive opening news and updates from NIPO Harrogate." : "I’d like to receive news and updates from NIPO.";
+const successCopy = harrogate ? "Thank you for joining the NIPO Harrogate VIP list. We’ll be in touch with opening news." : "Thank you for joining our newsletter. We’ll be in touch with the latest from NIPO.";
 const turnstileSiteKey =
   import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAEFHyznfIrD-Fjmv";
 ---
@@ -8,10 +16,10 @@ const turnstileSiteKey =
   <div class="section-shell signup__inner" id="vip">
     <div class="signup__intro reveal">
       <h2 id="newsletter-title" class="responsive-heading">
-        <span class="responsive-heading__line">A little more</span>
-        <span class="responsive-heading__line">NIPO.</span>
+        <span class="responsive-heading__line">{harrogate ? "Harrogate." : "A little more"}</span>
+        <span class="responsive-heading__line">{harrogate ? "Be in the know." : "NIPO."}</span>
       </h2>
-      <p>{newsletterCopy}</p>
+      <p>{intro}</p>
     </div>
 
     <vip-signup class="signup__form-wrap reveal reveal--delay">
@@ -49,12 +57,13 @@ const turnstileSiteKey =
           <label for="website">Leave this field empty</label>
           <input id="website" name="website" type="url" tabindex="-1" autocomplete="off" />
         </div>
+        {location && <input name="location" type="hidden" value={location} />}
         <input name="startedAt" type="hidden" value="" />
 
         <label class="consent">
           <input name="consent" type="checkbox" value="true" />
           <span>
-            I’d like to receive news and updates from NIPO. I can unsubscribe at any
+            {consentCopy} I can unsubscribe at any
             time. Read our <a href="/privacy/">privacy notice</a>.
           </span>
         </label>
@@ -73,7 +82,7 @@ const turnstileSiteKey =
 
         <div class="form-submit">
           <button class="button button--ivory" type="submit">
-            <span data-button-label>Join our newsletter</span>
+            <span data-button-label>{buttonLabel}</span>
             <span class="button__spinner" aria-hidden="true"></span>
           </button>
           <p class="form-status" data-form-status aria-live="polite"></p>
@@ -83,7 +92,7 @@ const turnstileSiteKey =
       <div class="form-success" data-form-success hidden tabindex="-1">
         <img src="/brand/nipo-mark.svg" alt="" width="72" height="68" />
         <h3>You’re on the list.</h3>
-        <p>Thank you for joining our newsletter. We’ll be in touch with the latest from NIPO.</p>
+        <p>{successCopy}</p>
       </div>
     </vip-signup>
   </div>
@@ -244,7 +253,7 @@ const turnstileSiteKey =
       }
 
       this.setLoading(true);
-      this.status.textContent = "Joining our newsletter…";
+      this.status.textContent = "Adding you to the list…";
 
       try {
         const response = await fetch("/api/vip-signup", {
@@ -257,6 +266,7 @@ const turnstileSiteKey =
             turnstileToken,
             website: String(formData.get("website") ?? ""),
             startedAt: Number(formData.get("startedAt")),
+            ...(formData.get("location") ? { location: formData.get("location") } : {}),
           }),
         });
         const result = (await response.json()) as VipSignupResponse;

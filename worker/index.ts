@@ -9,6 +9,7 @@ export interface Env {
   SIGNUP_RATE_LIMITER: RateLimit;
   BREVO_API_KEY: string;
   BREVO_LIST_ID: string;
+  BREVO_HARROGATE_LIST_ID?: string;
   TURNSTILE_SECRET: string;
   SITE_ORIGIN: string;
 }
@@ -60,6 +61,10 @@ function validatePayload(value: unknown):
     return { ok: false, fields: { email: "Enter a valid email address." } };
   }
 
+  const location = value.location;
+  if (location !== undefined && location !== "newcastle" && location !== "harrogate") {
+    return { ok: false, fields: { location: "Choose a valid NIPO location." } };
+  }
   const firstName = typeof value.firstName === "string" ? value.firstName.trim() : "";
   const email = typeof value.email === "string" ? value.email.trim().toLowerCase() : "";
   const consent = value.consent === true;
@@ -103,6 +108,7 @@ function validatePayload(value: unknown):
   return {
     ok: true,
     payload: {
+      location,
       firstName,
       email,
       consent: true,
@@ -151,7 +157,8 @@ async function verifyTurnstile(
 }
 
 async function createBrevoContact(payload: VipSignupRequest, env: Env): Promise<boolean> {
-  const listId = Number.parseInt(env.BREVO_LIST_ID, 10);
+  const rawListId = payload.location === "harrogate" ? env.BREVO_HARROGATE_LIST_ID : env.BREVO_LIST_ID;
+  const listId = rawListId && /^\d+$/.test(rawListId) ? Number(rawListId) : 0;
   if (!Number.isSafeInteger(listId) || listId <= 0) {
     return false;
   }
@@ -196,6 +203,9 @@ function configurationIsValid(env: Env): boolean {
 export async function handleRequest(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url);
 
+  if (url.pathname === "/contact" || url.pathname === "/contact/") {
+    return Response.redirect(new URL("/locations/newcastle/" + url.search, url), 301);
+  }
   if (url.pathname !== "/api/vip-signup") {
     if (url.pathname.startsWith("/api/")) {
       return error("NOT_FOUND", "This endpoint does not exist.", 404);
@@ -255,6 +265,9 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
   }
 
   const payload = validated.payload;
+  if (payload.location === "harrogate" && (!env.BREVO_HARROGATE_LIST_ID || !/^\d+$/.test(env.BREVO_HARROGATE_LIST_ID) || !Number.isSafeInteger(Number(env.BREVO_HARROGATE_LIST_ID)) || Number(env.BREVO_HARROGATE_LIST_ID) <= 0)) {
+    return error("CONFIGURATION", "Harrogate signup is temporarily unavailable. Please try again shortly.", 503);
+  }
 
   // Give automated honeypot submissions a plausible success response without touching Brevo.
   if (payload.website) {

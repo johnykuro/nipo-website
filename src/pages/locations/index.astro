@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LocationCards from "../../components/LocationCards.astro";
+---
+<BaseLayout title="Our locations | NIPO Newcastle & Harrogate" description="Find your NIPO. Visit Newcastle Quayside for Japanese-Brazilian dining, or discover our new Harrogate steakhouse, coming soon to Parliament Street.">
+  <main id="main-content">
+    <header class="page-intro section-shell"><p class="label">Newcastle · Harrogate</p><h1>Find your NIPO.</h1><p>Japanese precision. Brazilian fire. A welcome worth travelling for.</p></header>
+    <LocationCards showHeading={false} />
+  </main>
+</BaseLayout>

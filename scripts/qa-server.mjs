@@ -21,6 +21,7 @@ createServer(async (request,response) => {
     mode = url.searchParams.get("value") || "success";
     response.writeHead(200,{"content-type":"application/json"}).end(JSON.stringify({mode})); return;
   }
+  if (url.pathname === "/contact/" || url.pathname === "/contact") { response.writeHead(301, { Location: "/locations/newcastle/" }).end(); return; }
   if (url.pathname === "/api/vip-signup") {
     let text = ""; for await (const chunk of request) text += chunk;
     let body; try { body=JSON.parse(text); } catch { response.writeHead(400).end(); return; }
@@ -41,6 +42,12 @@ createServer(async (request,response) => {
       data=Buffer.from(data.toString().replace("<head>", `<head><script>
         const append = HTMLHeadElement.prototype.appendChild;
         HTMLHeadElement.prototype.appendChild = function(node) {
+          // Native browser CLI interception varies by version. Keep optional
+          // analytics inert in this local fixture while retaining loader nodes
+          // so consent tests can assert when they are inserted and removed.
+          if (node.tagName === 'SCRIPT' && /googletagmanager\\.com|google-analytics\\.com|clarity\\.ms/.test(node.src)) {
+            node.type = 'application/x-nipo-qa';
+          }
           if (node.tagName === 'SCRIPT' && node.src.startsWith('https://challenges.cloudflare.com/turnstile/')) {
             node.src = '/__qa/turnstile.js' + new URL(node.src).search;
           }

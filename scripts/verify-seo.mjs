@@ -67,19 +67,31 @@ for (const file of files) {
     const ids = graph.map((node) => node["@id"]);
     assert.equal(new Set(ids).size, ids.length, `${path}: unique entity IDs`);
     const restaurant = graph.find((node) => node["@type"] === "Restaurant");
-    assert(restaurant?.name && restaurant.address?.streetAddress && restaurant.address?.postalCode);
-    assert.equal(restaurant["@id"], origin + "/#restaurant");
-    assert.equal(restaurant.hasMenu, origin + "/menus/");
+    const venue = path === "/locations/harrogate/" ? "harrogate" : path === "/locations/newcastle/" || path.startsWith("/menus/") ? "newcastle" : undefined;
+    assert(graph.some(node => node["@type"] === "Organization" && node["@id"] === origin + "/#organization"));
+    if (venue) {
+      assert(restaurant?.name && restaurant.address?.streetAddress && restaurant.address?.postalCode);
+      assert.equal(restaurant["@id"], origin + `/locations/${venue}/#restaurant`);
+      if (venue === "newcastle") assert.equal(restaurant.hasMenu, origin + "/menus/");
+      else {
+        assert.equal(restaurant.address.postalCode, "HG1 2RL");
+        for (const key of ["hasMenu", "menu", "openingHoursSpecification", "openingHours", "telephone", "email", "acceptsReservations", "priceRange", "offers", "openingDate"]) assert(!(key in restaurant), `Harrogate must not publish ${key}`);
+        assert(!/sevenrooms|tel:|newcastle@|NE1 3DH|95 Quayside|href="\/menus\/|opening hours|12 noon|2026-09-23/i.test(html), "Harrogate has no Newcastle operations or menus");
+        assert.match(html, /name="location"[^>]*value="harrogate"/);
+        assert.match(html, /robata-style cooking/);
+        assert.match(html, /steakhouse/i);
+      }
+    } else assert.equal(restaurant, undefined, `${path}: brand page must not claim a single restaurant`);
     const page = graph.find((node) => node["@id"] === url.href + "#webpage");
     assert.equal(page.name, title);
     assert.equal(page.description, description);
     if (path !== "/") {
       const crumbs = graph.find((node) => node["@type"] === "BreadcrumbList");
-      assert.deepEqual(crumbs.itemListElement.map((item) => item.position), [1, 2]);
-      assert.equal(crumbs.itemListElement[1].item, url.href);
+      assert.deepEqual(crumbs.itemListElement.map((item) => item.position), path.startsWith("/locations/") && path !== "/locations/" ? [1, 2, 3] : [1, 2]);
+      assert.equal(crumbs.itemListElement.at(-1).item, url.href);
     }
     const visible = decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "").replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ");
-    if (path === "/contact/") for (const question of page.mainEntity) {
+    if (path === "/locations/newcastle/" || path === "/locations/harrogate/") for (const question of page.mainEntity) {
       assert(visible.includes(question.name), `Visible FAQ: ${question.name}`);
       assert(visible.includes(question.acceptedAnswer.text), `Visible answer: ${question.name}`);
     }

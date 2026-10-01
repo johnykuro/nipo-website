@@ -21,13 +21,14 @@ const viewports = [[360,800],[390,844],[1024,768],[1440,900],[1920,1080],[2560,1
 const report = [];
 for (const [width,height] of viewports) {
   run("set","viewport",String(width),String(height));
-  for (const path of ["/","/concept/","/menus/","/gallery/","/contact/"]) {
+  for (const path of ["/","/concept/","/menus/","/gallery/","/locations/","/locations/newcastle/","/locations/harrogate/"]) {
     run("open",origin+path);
     const result = run("eval",`(() => {
       const failures = [];
       document.querySelectorAll(".photo").forEach((frame,index) => {
+        if (frame.offsetParent === null) return;
         const f=frame.getBoundingClientRect(), img=frame.querySelector("img"), i=img.getBoundingClientRect();
-        const section=frame.closest(".concept-opening, .contact-opening, .editorial-feature, .hospitality"), s=section?.getBoundingClientRect();
+        const section=frame.closest(".concept-opening, .contact-opening, .harrogate-opening, .editorial-feature, .hospitality"), s=section?.getBoundingClientRect();
         const label=img.alt || "Photo " + index;
         if (f.width <= 0 || f.height <= 0) failures.push(label + ": collapsed frame");
         if (i.top < f.top-1 || i.bottom > f.bottom+1 || i.left < f.left-1 || i.right > f.right+1) failures.push(label + ": image outside frame");

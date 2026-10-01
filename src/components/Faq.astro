@@ -1,5 +1,7 @@
 ---
-import { faqItems } from "../config/seo";
+import type { FaqItem } from "../config/faqs";
+interface Props { items: FaqItem[] }
+const { items: faqItems } = Astro.props;
 ---
 
 <section class="faq" id="faq" aria-labelledby="faq-title">

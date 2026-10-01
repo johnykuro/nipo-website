@@ -8,7 +8,7 @@
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": ["/api/*", "/contact", "/contact/"]
   },
   "observability": {
     "enabled": true
@@ -25,6 +25,7 @@
   ],
   "vars": {
     "BREVO_LIST_ID": "0",
+    "BREVO_HARROGATE_LIST_ID": "13",
     "SITE_ORIGIN": "https://nipo.example"
   }
 }

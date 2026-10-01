@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from "../config/site";
+import { newcastle } from "../config/locations";
 import { photo } from "../data/media";
 import Photo from "./Photo.astro";
 const slides = siteConfig.hero.slideIds.map(photo);
@@ -18,10 +19,10 @@ const useVideo = siteConfig.hero.mode === "video" && siteConfig.video.src;
   <div class="hero-content">
     <div class="hero-logo"><img src="/brand/nipo-logo-compact.svg" width="455" height="367" alt="NIPO" fetchpriority="high" /></div>
     <h1>Japanese Precision.<br />Brazilian Fire.</h1>
-    <p class="hero-location">Newcastle Quayside</p>
+    <p class="hero-location">Newcastle Quayside · Harrogate coming soon</p>
     <div class="hero-actions">
-      <a class="button button--booking" href={siteConfig.bookingUrl}>Book a table</a>
-      <a class="button button--ghost-inverted" href="/menus/">View menus</a>
+      <a class="button button--booking" href={newcastle.bookingUrl}>Book Newcastle</a>
+      <a class="button button--ghost-inverted" href="/locations/">Our locations</a>
     </div>
     <a class="hero-scroll hero-scroll--mobile" href="#welcome">Scroll to discover <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M8 1v21m-6-6 6 6 6-6" /></svg></a>
   </div>

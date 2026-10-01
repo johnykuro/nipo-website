@@ -13,7 +13,7 @@ NIPO is a premium Japanese-Brazilian restaurant on Newcastle Quayside, rooted in
 
 The concept brings together Japanese precision, sushi craft, robata-style cooking and ingredient discipline with Brazilian warmth, fire-cooking and generous hospitality.
 
-NIPO should never feel like generic fusion. It is not a theme restaurant, a steakhouse replacement or simply Rio downstairs. It is a refined, atmospheric dining experience built around precision, fire, sushi, craft and cultural depth.
+NIPO is a refined, atmospheric Japanese-Brazilian dining experience built around precision, fire, sushi, craft and cultural depth. For Harrogate, steakhouse and robata-style cooking are central to its introduction, with the same distinct NIPO identity and warm hospitality.
 
 Core positioning
 
@@ -264,7 +264,6 @@ Exotic
 Carnival
 Tropical escape
 Party vibes
-Steakhouse
 All you can eat
 Rodizio
 Unlimited
@@ -308,7 +307,7 @@ Crafted with precision. Finished by fire.
 
 Brand guardrails
 
-NIPO should not be presented as a steakhouse.
+For Harrogate, present NIPO as a Japanese-Brazilian steakhouse, with steak and robata-style cooking prominent alongside sushi craft and Brazilian hospitality.
 
 NIPO should not be described as generic Brazilian and Japanese fusion.
 
@@ -324,4 +323,4 @@ Any Japanese characters used in the identity, signage or menus should be checked
 
 Suggested Pomelli prompt
 
-Use this brand DNA to create campaign ideas and visual assets for NIPO, a premium Japanese-Brazilian restaurant opening on Newcastle Quayside. The brand should feel refined, atmospheric and culturally grounded, with a visual world led by deep green-black #15231F, premium gold, warm ivory, dark bamboo, soft lighting and controlled blossom red accents. Keep the tone concise, elegant and hospitality-led. Avoid generic fusion, steakhouse language, Rio-style red dominance, carnival references, novelty Japanese styling or loud party-restaurant energy. Focus on Japanese precision, Brazilian fire, sushi, robata, picanha, warm hospitality and a premium Quayside dining experience.
+Use this brand DNA to create campaign ideas and visual assets for NIPO, a premium Japanese-Brazilian restaurant opening on Newcastle Quayside. The brand should feel refined, atmospheric and culturally grounded, with a visual world led by deep green-black #15231F, premium gold, warm ivory, dark bamboo, soft lighting and controlled blossom red accents. Keep the tone concise, elegant and hospitality-led. Avoid generic fusion, Rio-style red dominance, carnival references, novelty Japanese styling or loud party-restaurant energy. Focus on Japanese precision, Brazilian fire, sushi, robata, picanha, warm hospitality and a premium Quayside dining experience.

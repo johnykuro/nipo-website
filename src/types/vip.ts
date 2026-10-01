@@ -1,4 +1,6 @@
+import type { LocationId } from "../config/locations";
 export interface VipSignupRequest {
+  location?: LocationId;
   firstName: string;
   email: string;
   consent: true;
@@ -26,5 +28,5 @@ export type VipSignupResponse =
       ok: false;
       code: VipSignupErrorCode;
       message: string;
-      fields?: Partial<Record<"firstName" | "email" | "consent" | "turnstile", string>>;
+      fields?: Partial<Record<"firstName" | "email" | "consent" | "turnstile" | "location", string>>;
     };

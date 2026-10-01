@@ -6,7 +6,7 @@ brand
 
 ## Users
 
-Guests exploring NIPO on Newcastle Quayside, browsing menus, planning a visit and booking a table from desktop or mobile.
+Guests exploring NIPO on Newcastle Quayside and the forthcoming Harrogate restaurant, browsing menus, planning a visit and booking a table from desktop or mobile.
 
 ## Product Purpose
 
@@ -18,7 +18,7 @@ Refined, warm and atmospheric. Confident, culturally grounded hospitality with c
 
 ## Anti-references
 
-Avoid generic steakhouse or buffet cues, tropical carnival imagery, jungle spectacle, novelty Japanese styling and red-heavy compositions. NIPO is a sibling to Rio, not a sub-brand.
+Use steakhouse and robata-style cooking prominently for Harrogate while retaining Japanese-Brazilian identity. Avoid generic buffet cues, tropical carnival imagery, jungle spectacle, novelty Japanese styling and red-heavy compositions. NIPO is a sibling to Rio, not a sub-brand.
 
 ## Design Principles
 

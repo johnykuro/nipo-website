@@ -1,10 +1,12 @@
 ---
-import { siteConfig as config } from "../config/site";
+import type { RestaurantLocation } from "../config/locations";
+interface Props { location: RestaurantLocation }
+const { location: config } = Astro.props;
 ---
 
 <section class="location-map section-shell" aria-labelledby="location-map-title">
   <div class="location-map__heading">
-    <div><p class="label">Find us on the Quayside</p><h2 id="location-map-title">Your route to NIPO.</h2></div>
+    <div><p class="label">Find us in {config.name}</p><h2 id="location-map-title">Your route to NIPO.</h2></div>
     <a class="text-link" href={config.address.directionsUrl} target="_blank" rel="noopener noreferrer">Get directions</a>
   </div>
   <div class="location-map__frame">
@@ -17,7 +19,7 @@ import { siteConfig as config } from "../config/site";
     <iframe
       data-location-map
       data-src={config.address.mapEmbedUrl}
-      title="NIPO on Google Maps — 95 Quayside, Newcastle upon Tyne"
+      title={`NIPO ${config.name} on Google Maps — ${config.address.street}`}
       width="1200"
       height="450"
       referrerpolicy="strict-origin-when-cross-origin"

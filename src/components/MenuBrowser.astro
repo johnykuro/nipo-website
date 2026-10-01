@@ -5,7 +5,7 @@ import { menuLinks } from "../data/menus";
 const { activeIndex = 0, title = "Our menus" } = Astro.props;
 ---
 <section class="menu-browser" aria-labelledby="menus-title">
-  <div class="menu-browser__list"><p class="label">At the NIPO table</p><h1 id="menus-title">{title}</h1>
+  <div class="menu-browser__list"><p class="label">Newcastle Quayside</p><h1 id="menus-title">{title}</h1>
     <div class="menu-links">
       {menuLinks.map((item, index) => <div class="menu-link-row">
         <a href={item.href} class:list={{ "is-active": index === activeIndex }} data-menu-preview={index}>

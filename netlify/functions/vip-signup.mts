@@ -41,6 +41,10 @@ function validatePayload(value: unknown):
     return { ok: false, fields: { email: "Enter a valid email address." } };
   }
 
+  const location = value.location;
+  if (location !== undefined && location !== "newcastle" && location !== "harrogate") {
+    return { ok: false, fields: { location: "Choose a valid NIPO location." } };
+  }
   const firstName = typeof value.firstName === "string" ? value.firstName.trim() : "";
   const email = typeof value.email === "string" ? value.email.trim().toLowerCase() : "";
   const consent = value.consent === true;
@@ -70,20 +74,21 @@ function validatePayload(value: unknown):
     ? { ok: false, fields }
     : {
         ok: true,
-        payload: { firstName, email, consent: true, turnstileToken, website, startedAt },
+        payload: { location, firstName, email, consent: true, turnstileToken, website, startedAt },
       };
 }
 
 function getRequiredEnvironment() {
   const BREVO_API_KEY = Netlify.env.get("BREVO_API_KEY");
   const BREVO_LIST_ID = Netlify.env.get("BREVO_LIST_ID");
+  const BREVO_HARROGATE_LIST_ID = Netlify.env.get("BREVO_HARROGATE_LIST_ID");
   const TURNSTILE_SECRET = Netlify.env.get("TURNSTILE_SECRET");
   const SITE_ORIGIN = Netlify.env.get("SITE_ORIGIN");
 
   if (!BREVO_API_KEY || !BREVO_LIST_ID || !TURNSTILE_SECRET || !SITE_ORIGIN) {
     return null;
   }
-  return { BREVO_API_KEY, BREVO_LIST_ID, TURNSTILE_SECRET, SITE_ORIGIN };
+  return { BREVO_API_KEY, BREVO_LIST_ID, BREVO_HARROGATE_LIST_ID, TURNSTILE_SECRET, SITE_ORIGIN };
 }
 
 async function verifyTurnstile(
@@ -113,7 +118,8 @@ async function createBrevoContact(
   payload: VipSignupRequest,
   env: NonNullable<ReturnType<typeof getRequiredEnvironment>>,
 ): Promise<boolean> {
-  const listId = Number.parseInt(env.BREVO_LIST_ID, 10);
+  const rawListId = payload.location === "harrogate" ? env.BREVO_HARROGATE_LIST_ID : env.BREVO_LIST_ID;
+  const listId = rawListId && /^\d+$/.test(rawListId) ? Number(rawListId) : 0;
   if (!Number.isSafeInteger(listId) || listId <= 0) return false;
 
   const response = await fetch("https://api.brevo.com/v3/contacts", {
@@ -166,6 +172,9 @@ export default async function handler(request: Request, _context: Context): Prom
   }
 
   const payload = validated.payload;
+  if (payload.location === "harrogate" && (!env.BREVO_HARROGATE_LIST_ID || !/^\d+$/.test(env.BREVO_HARROGATE_LIST_ID) || !Number.isSafeInteger(Number(env.BREVO_HARROGATE_LIST_ID)) || Number(env.BREVO_HARROGATE_LIST_ID) <= 0)) {
+    return error("CONFIGURATION", "Harrogate signup is temporarily unavailable. Please try again shortly.", 503);
+  }
   if (payload.website) {
     return json({ ok: true, message: "Welcome to NIPO. You’re on the list." }, 201);
   }

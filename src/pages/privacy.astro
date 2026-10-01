@@ -1,11 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { newcastle } from "../config/locations";
 import { siteConfig } from "../config/site";
 
 const title = "Privacy policy | NIPO";
 const description =
   "How NIPO collects, uses and protects personal information from website visitors and restaurant guests.";
-const lastUpdated = "24 September 2026";
+const lastUpdated = "1 October 2026";
 ---
 
 <BaseLayout title={title} description={description}>
@@ -38,7 +39,7 @@ const lastUpdated = "24 September 2026";
         <ul>
           <li>your name and contact details;</li>
           <li>booking, order, payment and visit information;</li>
-          <li>your marketing and communication preferences;</li>
+          <li>your marketing and communication preferences, including the NIPO location whose updates you sign up for;</li>
           <li>information you give us in enquiries, feedback or survey responses;</li>
           <li>
             dietary, allergy or accessibility information you choose to share so we can
@@ -301,8 +302,8 @@ const lastUpdated = "24 September 2026";
             <p>
               To ask a privacy question or exercise your rights, reply to an email from
               NIPO with “Privacy” in the subject line, or write to NIPO,
-              {siteConfig.address.street}, {siteConfig.address.city},
-              {siteConfig.address.postcode}, United Kingdom.
+              {newcastle.address.street}, {newcastle.address.city},
+              {newcastle.address.postcode}, United Kingdom.
             </p>
           )
         }

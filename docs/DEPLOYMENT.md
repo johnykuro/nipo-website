@@ -18,6 +18,7 @@ The existing Astro configuration used a Vite-style callback, which Astro did not
 | `PUBLIC_PRIVACY_EMAIL` | `info@nipobraza.co.uk` (also the code default) |
 | `SITE_ORIGIN` | `https://nipobraza.co.uk`, without a trailing slash; Netlify function runtime |
 | `BREVO_LIST_ID` | Actual positive mailing-list ID; function runtime |
+| `BREVO_HARROGATE_LIST_ID` | `13` — NIPO Harrogate VIP; function runtime, separate from the existing audience |
 | `BREVO_API_KEY`, `TURNSTILE_SECRET` | Existing secrets, retained in Netlify; never commit them |
 
 Netlify `deploy-preview`, `branch-deploy`, `preview-server` and `dev` contexts automatically produce noindex HTML and an `X-Robots-Tag` header covering static assets and PDFs. Preview sitemaps are empty and robots.txt does not advertise a sitemap. Preview pages remain crawlable so engines can read noindex. Canonicals still identify production. A manual CLI preview must be built with `PUBLIC_NOINDEX=true`; rebuild for production before publishing.
@@ -64,11 +65,11 @@ Every build checks generated HTML for metadata, canonical/indexing consistency w
 With `AGENT_BROWSER_BIN` set to the installed browser executable:
 
 ```sh
-# Production preview on port 4322, built before starting tests:
-node scripts/verify-consent.mjs
-# Separate local fixture on port 4323 (mock VIP responses):
+# Local fixture on port 4323 (mock VIP responses and inert analytics loaders):
 node scripts/qa-server.mjs
+node scripts/verify-consent.mjs
 node scripts/verify-browser.mjs
+node scripts/verify-locations-browser.mjs
 node scripts/verify-image-layout.mjs
 ```
 
@@ -80,6 +81,6 @@ Browser evidence goes to ignored `tmp/qa/`. Consent tests intercept Google reque
 - Read-only HTTP checks confirmed the current apex serves from Netlify and www redirects to it. An empty invalid signup submission returned field-validation errors (400), indicating required runtime configuration is present, without creating a contact. This does not prove real Turnstile or Brevo delivery.
 - Before launch, use a Netlify preview to check response headers, the real 404 response, PDFs, booking destination and successful signup with a consenting test subscriber. Delete/unsubscribe that test contact afterwards as appropriate.
 - After publishing, confirm production has no `noindex`, run [Rich Results Test](https://search.google.com/test/rich-results) and [Schema.org Validator](https://validator.schema.org/), verify the domain in Search Console and Bing Webmaster Tools, and submit `https://nipobraza.co.uk/sitemap.xml`. Keep Google Business Profile hours, address, contact and menu URL aligned.
-- On 23 September, change `siteConfig.opening.status` from `pre-opening` to `open` and rebuild.
+- Newcastle is open. Restaurant-specific settings now live in `src/config/locations.ts`. Harrogate remains coming soon; publish its operational details only when separately confirmed.
 
 Dependency updates include Astro 7.3.2, Sharp 0.35.4, Vite 8 and Vitest 4, plus current compatible tooling. A same-major `fast-uri` override closes an advisory in the editor/checker dependency chain. See the final QA entry for completed checks and any remaining limits.

@@ -1,6 +1,6 @@
 ---
 import { formatMenuPrice, type MenuSection } from "../data/menus";
-import { siteConfig } from "../config/site";
+import { newcastle } from "../config/locations";
 interface Props {
   id: string;
   title: string;
@@ -11,7 +11,7 @@ interface Props {
 const { id, title, intro, pdfHref, sections } = Astro.props;
 ---
 <section class="food-menu section-shell" id={id} tabindex="-1" aria-labelledby={`${id}-title`}>
-  <header class="food-menu__intro"><p class="label">At the NIPO table</p><h2 id={`${id}-title`}>{title}</h2><p>{intro}</p><a class="text-link" href={pdfHref} target="_blank" rel="noopener noreferrer">View {title.toLowerCase()} PDF<span class="sr-only"> (opens in a new tab)</span></a></header>
+  <header class="food-menu__intro"><p class="label">Newcastle Quayside</p><h2 id={`${id}-title`}>{title}</h2><p>{intro}</p><a class="text-link" href={pdfHref} target="_blank" rel="noopener noreferrer">View {title.toLowerCase()} PDF<span class="sr-only"> (opens in a new tab)</span></a></header>
   <div class="food-menu__sections">
     {sections.map((section) => (
       <section class="menu-category">
@@ -29,5 +29,5 @@ const { id, title, intro, pdfHref, sections } = Astro.props;
       </section>
     ))}
   </div>
-  <div class="food-menu__end"><p>Please inform your server of any allergies or intolerances before ordering.<br />Full allergen information is available on request.</p><a class="button button--booking" href={siteConfig.bookingUrl}>Book a table</a></div>
+  <div class="food-menu__end"><p>Please inform your server of any allergies or intolerances before ordering.<br />Full allergen information is available on request.</p><a class="button button--booking" href={newcastle.bookingUrl}>Book Newcastle</a></div>
 </section>

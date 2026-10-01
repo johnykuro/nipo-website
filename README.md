@@ -39,7 +39,11 @@ Run `pnpm generate:assets` after changing the social-card photograph. Astro buil
 
 ## Browser regression checks
 
-Install `agent-browser` and set `AGENT_BROWSER_BIN` to its executable. After `pnpm build`, run `node scripts/qa-server.mjs` in a separate terminal, then `node scripts/verify-browser.mjs`. The fixture on port 4323 serves the production files with local VIP responses and removes the external Turnstile script. It never creates real mailing-list contacts. `QA_ORIGIN` accepts localhost URLs only. Results and screenshots go to ignored `tmp/qa/`. The user-facing production preview remains on port 4322.
+Install `agent-browser` and set `AGENT_BROWSER_BIN` to its executable. After `pnpm build`, run `node scripts/qa-server.mjs` in a separate terminal, then `node scripts/verify-browser.mjs` and `node scripts/verify-locations-browser.mjs` sequentially. The fixture on port 4323 serves the production files with local VIP responses and removes the external Turnstile script. It never creates real mailing-list contacts. `QA_ORIGIN` accepts localhost URLs only. Results and screenshots go to ignored `tmp/qa/`. The user-facing production preview remains on port 4322.
+
+## Restaurant locations
+
+Shared brand settings live in `src/config/site.ts`; restaurant settings live in `src/config/locations.ts`. Newcastle is `/locations/newcastle/`, Harrogate is `/locations/harrogate/`, and `/locations/` lists both. Harrogate has its own VIP form and requires `BREVO_HARROGATE_LIST_ID=13`. Keep its menus, hours, telephone and reservations unpublished until confirmed. See [the rollout and rollback record](docs/HARROGATE-ROLLOUT.md) before releasing or rolling back.
 
 ## Deployment
 

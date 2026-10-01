@@ -1,10 +1,10 @@
-/** Local browser tests. Google requests are intercepted; no real tracking fires. */
+/** Local fixture browser tests. Optional analytics loaders are inert. */
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
 import assert from "node:assert/strict";
 const binary = process.env.AGENT_BROWSER_BIN;
 if (!binary) throw new Error("Set AGENT_BROWSER_BIN to the installed agent-browser executable.");
-const origin = process.env.QA_ORIGIN || "http://127.0.0.1:4322";
+const origin = process.env.QA_ORIGIN || "http://127.0.0.1:4323";
 if (!/^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) throw new Error("Use a local preview.");
 const results = [];
 const run = (...args) => {
@@ -46,7 +46,7 @@ run("screenshot", "tmp/qa/cookie-mobile.png");
 run("click", "[data-cookie-reject]");
 check("Reject persists across pages without loading GTM", () => {
   assert.equal(visible(), false); assert.equal(loaded(), false);
-  open("/contact/"); assert.equal(visible(), false); assert.equal(loaded(), false);
+  open("/locations/newcastle/"); assert.equal(visible(), false); assert.equal(loaded(), false);
 });
 openSettings();
 check("Footer settings reveal separate unchecked purposes with keyboard focus", () => {

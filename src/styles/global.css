@@ -75,6 +75,8 @@ button{background:none;border:0;color:inherit}address{font-style:normal}
 .hero-scroll svg{flex:none}.hero-scroll--mobile{display:none}
 .slideshow-controls{display:flex;align-items:center;gap:8px;font-size:11px;font-variant-numeric:tabular-nums}
 .slideshow-controls button{min-width:44px;height:44px;font-size:20px}.slideshow-controls [data-hero-pause]{font-size:10px;text-transform:uppercase;letter-spacing:.12em;min-width:76px;border-left:1px solid var(--line);margin-left:10px}
+.home-page{--space:clamp(64px,6vw,96px)}
+.home-page .rail-section{padding-bottom:0}
 .welcome{display:grid;grid-template-columns:1fr 1fr;gap:10%;padding-block:var(--space)}
 .welcome__copy{max-width:520px}.welcome__copy p:not(.lead){color:var(--muted);max-width:450px}
 .rail-section{padding-bottom:var(--space)}.rail-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px;gap:24px}

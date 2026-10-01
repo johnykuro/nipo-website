@@ -9,7 +9,7 @@ const navigation = config.navigation.filter(link => !isHarrogate || link.href !=
 <footer class="site-footer">
   <div class="footer-main section-shell">
     <a class="footer-brand" href="/" aria-label="NIPO home"><img src="/brand/nipo-logo.svg" width="455" height="401" alt="NIPO — Japanese Precision. Brazilian Fire." loading="lazy" /></a>
-    <div class="footer-address"><p class="label">Our locations</p>{locations.map(place => <p><a class="text-link" href={place.path}>{place.name}</a><br />{place.status === "open" ? "Open" : "Coming soon"}</p>)}</div>
+    <div class="footer-address"><p class="label">Our locations</p>{locations.map(place => <p><a class="text-link" href={place.path}>{place.name}</a>{place.status === "coming-soon" && <><br />Coming soon</>}</p>)}</div>
     <nav aria-label="Footer navigation"><p class="label">Discover</p>{navigation.map((link) => <a href={link.href}>{link.label}</a>)}<a href={location ? location.path + "#faq" : "/locations/newcastle/#faq"}>F.A.Q</a><a href={isHarrogate ? "#newsletter" : "/#newsletter"}>{isHarrogate ? "Harrogate VIP list" : "Newsletter"}</a></nav>
     <div class="footer-social"><p class="label">Follow NIPO</p>{config.socialLinks.filter((item) => item.url).map((item) => <a href={item.url} target="_blank" rel="noopener noreferrer">{item.label}</a>)}</div>
   </div>

@@ -6,7 +6,7 @@ import { menuPages } from "../data/menu-pages";
 export const indexablePages = [
   { path: "/", label: "Home", type: "WebPage" },
   { path: "/concept/", label: "Concept", type: "AboutPage" },
-  { path: "/menus/", label: "Menus", type: "CollectionPage" },
+  { path: "/menus/", label: "Newcastle menus", type: "CollectionPage" },
   { path: "/menus/dessert/", label: "Dessert menu", type: "WebPage" },
   { path: "/menus/drinks/", label: "Drinks menu", type: "WebPage" },
   { path: "/menus/wine/", label: "Wine list", type: "WebPage" },
@@ -46,9 +46,18 @@ export function buildPageStructuredData(config: SiteConfig, path: string, title:
       ...(path !== "/" ? { breadcrumb: { "@id": url + "#breadcrumb" } } : {}),
       ...(faqItems ? { mainEntity: faqItems.map(item => ({ "@type": "Question", name: item.question,
         acceptedAnswer: { "@type": "Answer", text: item.answer } }))
-      } : menuSections ? { mainEntity: { "@id": url + "#" + menuId } } : {}),
+      } : menuSections ? { mainEntity: { "@id": url + "#" + menuId } }
+        : path === "/locations/" ? { mainEntity: { "@id": url + "#locations" } } : {}),
     },
   ];
+  if (path === "/locations/") graph.push({
+    "@type": "ItemList", "@id": url + "#locations", name: "NIPO locations",
+    numberOfItems: locations.length,
+    itemListElement: locations.map((place, index) => ({
+      "@type": "ListItem", position: index + 1, name: place.name,
+      url: new URL(place.path, site).href,
+    })),
+  });
   if (location) graph.push({
     "@type": "Restaurant", "@id": restaurantId, name: "NIPO " + location.name,
     url: new URL(location.path, site).href, parentOrganization: { "@id": home + "#organization" },
@@ -68,6 +77,7 @@ export function buildPageStructuredData(config: SiteConfig, path: string, title:
   if (path !== "/") {
     const crumbs = [{ "@type": "ListItem", position: 1, name: "Home", item: home }];
     if (path.startsWith("/locations/") && path !== "/locations/") crumbs.push({ "@type": "ListItem", position: 2, name: "Locations", item: new URL("/locations/", site).href });
+    if (path.startsWith("/menus/") && path !== "/menus/") crumbs.push({ "@type": "ListItem", position: 2, name: "Newcastle menus", item: new URL("/menus/", site).href });
     crumbs.push({ "@type": "ListItem", position: crumbs.length + 1, name: page.label, item: url });
     graph.push({ "@type": "BreadcrumbList", "@id": url + "#breadcrumb", itemListElement: crumbs });
   }

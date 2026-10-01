@@ -169,7 +169,7 @@ command("set","viewport","390","844");
 open("/");
 check("Navigation, images, main menu and gallery remain usable without scripts", () => {
   assert.equal(evaluate("document.documentElement.classList.contains('js')"),false);
-  assert.equal(evaluate("document.querySelectorAll('.no-js-nav > a').length"),4);
+  assert.equal(evaluate("document.querySelectorAll('.no-js-nav > a, .no-js-nav > details').length"),4);
   assert.equal(evaluate("getComputedStyle(document.querySelector('.hero-slide')).opacity"),"1");
   command("click",".no-js-nav a[href='/menus/']");
   command("click","[data-menu-preview='0']"); assert.equal(evaluate("location.hash"),"#main-menu");

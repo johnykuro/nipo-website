@@ -14,7 +14,7 @@ const header = document.querySelector<HTMLElement>("[data-site-header]");
 document.querySelectorAll<HTMLDialogElement>("dialog").forEach(dialog => {
   on(dialog, "keydown", ((event: KeyboardEvent) => {
     if (event.key !== "Tab") return;
-    const focusable = [...dialog.querySelectorAll<HTMLElement>('a[href], button, input, [tabindex="0"]')]
+    const focusable = [...dialog.querySelectorAll<HTMLElement>('a[href], button, input, summary, [tabindex="0"]')]
       .filter(el => el.offsetParent !== null && !el.hasAttribute("disabled"));
     const first = focusable[0], last = focusable.at(-1);
     if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
@@ -24,12 +24,28 @@ document.querySelectorAll<HTMLDialogElement>("dialog").forEach(dialog => {
 const updateHeader = () => header?.classList.toggle("is-scrolled", scrollY > 30);
 on(window, "scroll", updateHeader); updateHeader();
 
+document.querySelectorAll<HTMLDetailsElement>("[data-locations-menu]").forEach(dropdown => {
+  const summary = dropdown.querySelector<HTMLElement>("summary")!;
+  on(dropdown, "keydown", ((event: KeyboardEvent) => {
+    if (event.key === "Escape" && dropdown.open) {
+      event.preventDefault(); event.stopPropagation();
+      dropdown.open = false; summary.focus();
+    }
+  }) as EventListener);
+  on(document, "click", ((event: MouseEvent) => {
+    if (!dropdown.contains(event.target as Node)) dropdown.open = false;
+  }) as EventListener);
+  on(dropdown, "focusout", ((event: FocusEvent) => {
+    if (!dropdown.contains(event.relatedTarget as Node | null)) dropdown.open = false;
+  }) as EventListener);
+});
+
 const menu = document.querySelector<HTMLDialogElement>("[data-mobile-menu]");
 const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
 if (menu && toggle) {
   on(toggle, "click", () => { menu.showModal(); toggle.setAttribute("aria-expanded", "true"); document.dispatchEvent(new Event("nipo:dialog")); });
   on(menu.querySelector("[data-menu-close]")!, "click", () => menu.close());
-  on(menu, "close", () => { toggle.setAttribute("aria-expanded", "false"); toggle.focus(); document.dispatchEvent(new Event("nipo:dialog")); });
+  on(menu, "close", () => { menu.querySelectorAll<HTMLDetailsElement>("[data-locations-menu]").forEach(dropdown => { dropdown.open = false; }); toggle.setAttribute("aria-expanded", "false"); toggle.focus(); document.dispatchEvent(new Event("nipo:dialog")); });
   on(menu, "click", ((event: MouseEvent) => {
     if ((event.target as Element).closest("a")) menu.close();
   }) as EventListener);

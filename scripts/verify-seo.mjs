@@ -87,10 +87,21 @@ for (const file of files) {
     assert.equal(page.description, description);
     if (path !== "/") {
       const crumbs = graph.find((node) => node["@type"] === "BreadcrumbList");
-      assert.deepEqual(crumbs.itemListElement.map((item) => item.position), path.startsWith("/locations/") && path !== "/locations/" ? [1, 2, 3] : [1, 2]);
+      const parent = path.startsWith("/locations/") && path !== "/locations/" ? "/locations/"
+        : path.startsWith("/menus/") && path !== "/menus/" ? "/menus/" : undefined;
+      assert.deepEqual(crumbs.itemListElement.map((item) => item.position), parent ? [1, 2, 3] : [1, 2]);
+      if (parent) assert.equal(crumbs.itemListElement[1].item, origin + parent);
       assert.equal(crumbs.itemListElement.at(-1).item, url.href);
     }
     const visible = decode(html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "").replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ");
+    if (path === "/locations/") {
+      const directory = graph.find(node => node["@id"] === page.mainEntity["@id"]);
+      assert.equal(directory["@type"], "ItemList");
+      assert.equal(directory.numberOfItems, 2);
+      assert.deepEqual(directory.itemListElement.map(item => item.url), [origin + "/locations/newcastle/", origin + "/locations/harrogate/"]);
+      assert.deepEqual(directory.itemListElement.map(item => item.position), [1, 2]);
+      for (const item of directory.itemListElement) assert(visible.includes(item.name), `Visible location: ${item.name}`);
+    }
     if (path === "/locations/newcastle/" || path === "/locations/harrogate/") for (const question of page.mainEntity) {
       assert(visible.includes(question.name), `Visible FAQ: ${question.name}`);
       assert(visible.includes(question.acceptedAnswer.text), `Visible answer: ${question.name}`);
@@ -153,7 +164,9 @@ assert.equal(robots.includes(`Sitemap: ${origin}/sitemap.xml`), !preview);
 const headers = read("_headers");
 assert.match(headers, /\/_astro\/\*/);
 assert.equal(headers.includes("X-Robots-Tag: noindex, nofollow"), preview);
-const image = await sharp(resolve(root, "images/social-card.png")).metadata();
-assert.equal(image.width, 1200); assert.equal(image.height, 630);
+for (const socialImage of ["social-card.png", "brand-social.png", "harrogate-social.png"]) {
+  const image = await sharp(resolve(root, "images", socialImage)).metadata();
+  assert.equal(image.width, 1200); assert.equal(image.height, 630);
+}
 for (const name of ["nipo-main.pdf", "nipo-dessert.pdf", "nipo-drinks.pdf", "nipo-wine.pdf"]) assert.equal(readFileSync(resolve(root, "menus", name)).subarray(0, 5).toString(), "%PDF-");
 console.log(`SEO verification passed: ${urls.length} pages, ${localLinks} local links/assets, ${menuItems} menu items; ${preview ? "preview noindex" : "production indexable"}.`);

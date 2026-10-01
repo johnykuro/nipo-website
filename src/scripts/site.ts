@@ -26,17 +26,34 @@ on(window, "scroll", updateHeader); updateHeader();
 
 document.querySelectorAll<HTMLDetailsElement>("[data-locations-menu]").forEach(dropdown => {
   const summary = dropdown.querySelector<HTMLElement>("summary")!;
+  const hover = window.matchMedia("(hover: hover) and (pointer: fine)");
+  let openedByHover = false;
+  const close = () => { dropdown.open = false; openedByHover = false; };
+  if (!dropdown.classList.contains("location-nav--mobile")) {
+    on(dropdown, "pointerenter", () => {
+      if (hover.matches && !dropdown.open) { openedByHover = true; dropdown.open = true; }
+    });
+    on(dropdown, "pointerleave", () => {
+      if (openedByHover && !dropdown.contains(document.activeElement)) close();
+    });
+    on(summary, "click", ((event: MouseEvent) => {
+      // A pointer click pins an already-hovered menu; the next click closes it.
+      if (openedByHover && dropdown.open && event.detail > 0) event.preventDefault();
+      openedByHover = false;
+    }) as EventListener);
+    on(hover, "change", () => { if (!hover.matches) close(); });
+  }
   on(dropdown, "keydown", ((event: KeyboardEvent) => {
     if (event.key === "Escape" && dropdown.open) {
       event.preventDefault(); event.stopPropagation();
-      dropdown.open = false; summary.focus();
+      close(); summary.focus();
     }
   }) as EventListener);
   on(document, "click", ((event: MouseEvent) => {
-    if (!dropdown.contains(event.target as Node)) dropdown.open = false;
+    if (!dropdown.contains(event.target as Node)) close();
   }) as EventListener);
   on(dropdown, "focusout", ((event: FocusEvent) => {
-    if (!dropdown.contains(event.relatedTarget as Node | null)) dropdown.open = false;
+    if (!dropdown.contains(event.relatedTarget as Node | null)) close();
   }) as EventListener);
 });
 

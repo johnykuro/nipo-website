@@ -29,5 +29,5 @@ const path = Astro.url.pathname;
     {navigation.map((link) => link.href === "/locations/" ? <LocationNav mobile /> : <a href={link.href} aria-current={path === link.href ? "page" : undefined}>{link.label}</a>)}
     <div class="mobile-menu__socials"><SocialLinks /></div>
   </nav>
-  <div class="mobile-menu__bottom"><a class="button button--booking" href={bookingHref}>{bookingLabel}</a><p><a href="/locations/newcastle/">Newcastle Quayside · Open</a><br /><a href="/locations/harrogate/">Harrogate · Coming soon</a></p></div>
+  <div class="mobile-menu__bottom"><a class="button button--booking" href={bookingHref}>{bookingLabel}</a><p><a href="/locations/newcastle/">Newcastle Quayside</a><br /><a href="/locations/harrogate/">Harrogate · Coming soon</a></p></div>
 </dialog>

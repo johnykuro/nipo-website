@@ -1,0 +1,29 @@
+---
+import { locations } from "../config/locations";
+interface Props { mobile?: boolean }
+const { mobile = false } = Astro.props;
+const path = Astro.url.pathname;
+---
+<details class:list={["location-nav", { "location-nav--mobile": mobile, "location-nav--active": path.startsWith("/locations/") }]} data-locations-menu>
+  <summary>Locations <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="m1 1 4 4 4-4" stroke="currentColor" stroke-width="1.2" /></svg></summary>
+  <ul class="location-nav__links">
+    {locations.map(place => <li><a href={place.path} aria-current={path === place.path ? "page" : undefined}><span>{place.name}</span><small>{place.status === "open" ? "Open" : "Coming soon"}</small></a></li>)}
+  </ul>
+</details>
+<style>
+  .location-nav { position: relative; }
+  summary { display: flex; align-items: center; gap: 9px; padding: 12px 0; border-bottom: 1px solid transparent; cursor: pointer; list-style: none; font: 400 11px/1.75 var(--sans); letter-spacing: .16em; text-transform: uppercase; }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover, .location-nav--active > summary, details[open] > summary { color: var(--gold); border-color: var(--gold); }
+  summary svg { flex: none; transition: transform .2s; }
+  details[open] > summary svg { transform: rotate(180deg); }
+  .location-nav__links { position: absolute; top: calc(100% + 12px); right: 0; min-width: 245px; margin: 0; padding: 8px; list-style: none; background: var(--night); border: 1px solid var(--line); box-shadow: 0 14px 32px #0004; z-index: 1; }
+  .location-nav__links a { display: flex; flex-direction: column; gap: 3px; padding: 13px 16px; font: 400 15px/1.5 var(--sans); letter-spacing: 0; text-transform: none; }
+  .location-nav__links a:hover, .location-nav__links a:focus-visible { background: var(--night-deep); color: var(--gold); }
+  .location-nav__links a[aria-current] { color: var(--gold); }
+  .location-nav__links small { color: var(--muted); font: 400 10px/1.5 var(--sans); letter-spacing: .1em; text-transform: uppercase; }
+  .location-nav--mobile > summary { justify-content: space-between; width: fit-content; gap: 18px; padding: 0; font: inherit; letter-spacing: inherit; text-transform: none; }
+  .location-nav--mobile .location-nav__links { position: static; min-width: 0; margin: 12px 0 4px; padding: 0 0 0 16px; border: 0; border-left: 1px solid var(--line); box-shadow: none; }
+  .location-nav--mobile .location-nav__links a { padding: 9px 12px; font-size: 20px; }
+  @media(prefers-reduced-motion: reduce) { summary svg { transition: none; } }
+</style>

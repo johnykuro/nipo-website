@@ -24,7 +24,7 @@ The frontend preview does not run the VIP backend. For a complete local signup f
 
 - `src/config/site.ts`: navigation, booking URL, address, socials, opening status/date, slideshow and future video.
 - `src/data/media.ts`: photo imports, descriptions, captions and desktop/mobile focal positions.
-- `src/data/menus.ts`: menu destinations and 71 confirmed main-menu entries with prices, including the six shared dessert entries.
+- `src/data/menus.ts`: menu destinations and 69 confirmed main-menu entries with prices, including the six shared dessert entries.
 - `src/data/drinks.ts` and `src/data/wine.ts`: 154 drinks and 39 wines with serving sizes, descriptions and prices.
 - `src/data/menu-pages.ts`: shared menu-page registry for search metadata.
 - `src/config/seo.ts`: page registry, linked Restaurant/page/menu schema and visible Contact FAQs.

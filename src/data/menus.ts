@@ -19,8 +19,7 @@ export type MenuSection = {
   dishes: MenuDish[];
 };
 
-// Prices and portions transcribed from the confirmed NIPO-main-menu-WEB.pdf.
-// Owner confirmed Blue Matcha Garden Roll at £8 in both sections (PDF plant-led price is £9).
+// Names, prices and portions match NIPO-main-menu-WEB.pdf supplied on 5 October 2026.
 export const mainSections: MenuSection[] = [
   { title: "Snacks for the table", dishes: [
     { name: "Prawn Crackers", price: 4.5 },
@@ -28,12 +27,13 @@ export const mainSections: MenuSection[] = [
     { name: "Wakame Seaweed", price: 4.5 },
   ] },
   { title: "Small plates", dishes: [
-    { price: 13, name: "Oysters", description: "Three raw oysters with nam jim, or three tempura oysters with dill and oyster emulsion." },
+    { price: 13, name: "Oysters", description: "Three raw oysters with nam jim." },
+    { price: 13, name: "Tempura Oysters", description: "Three tempura oysters with dill and oyster emulsion. A must try!" },
     { price: 16, name: "Fillet Tataki", description: "Lightly seared centre-cut beef fillet with ponzu, chilli, sesame and spring onion." },
     { price: 14, name: "Tuna Crispy Rice", details: "3 pcs", description: "Sesame-seared tuna on crisp rice with jalapeño and zesty yuzu mayonnaise." },
     { price: 9, name: "NIPO Beef Gyoza", details: "4 pcs", description: "Steamed gyoza dumplings filled with tender overnight-braised beef. Served with chilli & soy dip." },
     { price: 14, name: "Black Tiger Prawn Tempura", description: "Crisp black tiger prawns with creamy togarashi mayonnaise and Japanese tempura sauce." },
-    { price: 13, name: "Atum & Salmão NIPO", description: "Fresh tuna and salmon tartare with creamy avocado, nikiri and crisp lotus root." },
+    { price: 13, name: "Salmon & Tuna Tartare", description: "Fresh tuna and salmon tartare with creamy avocado, nikiri and crisp lotus root." },
     { price: 11, name: "Chicken Yakitori", details: "2 pcs", description: "Tender grilled chicken thigh skewers glazed with sweet-savoury yakitori sauce. Served with kimchi." },
     { price: 9, name: "Croquete de Costela", details: "3 pcs", description: "Rich braised short rib croquettes with tonkatsu, creamy kewpie mayonnaise and green onion." },
     { price: 9, name: "Hot Honey & Chilli Pork", details: "4 pcs", description: "Tender slow-cooked pork glazed with sweet, fiery hot honey and chilli." },
@@ -44,19 +44,21 @@ export const mainSections: MenuSection[] = [
     { price: 13, name: "NIPO Tiger Roll", description: "Crisp tempura tiger king prawn, avocado, green tobiko and luxurious truffle mayo." },
     { price: 11, name: "São Paulo Roll", description: "Salmon, cream cheese and avocado, golden crisp shallots, sweet soy drizzle." },
     { price: 18, name: "Lobster Dragon Roll", description: "Lobster, avocado, yuzu mayonnaise and tobiko." },
-    { price: 9, name: "Salmon Samba Roll", description: "Fresh salmon and mango with chilli, lime, coriander and toasted sesame." },
+    { price: 11, name: "Salmon Samba Roll", description: "Fresh salmon and mango with chilli, lime, coriander and toasted sesame." },
     { price: 12, name: "Trio Fish Mosaic", description: "Delicate trio of salmon, black cod and tuna, with pickled daikon and cucumber." },
     { price: 16, name: "Steak Nigiri", description: "Tender beef fillet nigiri, chimichurri, togarashi mayonnaise, wasabi mayonnaise and bonito flakes." },
-    { price: 8, name: "Blue Matcha Garden Roll", details: "VG", description: "Vibrant blue matcha sushi rice with beetroot, carrot, cucumber and mango." },
     { price: 14, name: "Tuna Sashimi", description: "Five delicate slices of fresh raw tuna." },
+    { price: 8, name: "Blue Matcha Roll", details: "VG", description: "Vibrant blue matcha sushi rice with beetroot, carrot, cucumber and mango." },
     { price: 11, name: "Salmon Sashimi", description: "Five delicate slices of fresh raw salmon." },
   ] },
-  { title: "From the fire", note: "Robata grilled steaks. Served with Maldon salt, wasabi, house seasoned fries, NIPO salad & ginger rice.", dishes: [
+  { title: "From the fire", note: "Robata grilled steaks. Served with Maldon salt, wasabi, house seasoned fries & ginger rice.", dishes: [
     { price: 36, name: "Ribeye Robata", details: "10 oz", description: "Deeply marbled ribeye with a rich, yielding texture." },
     { price: 39, name: "Fillet Mignon Robata", details: "8 oz", description: "Exceptionally tender, lean fillet with a delicate texture." },
     { price: 35, name: "Sirloin Steak", details: "10 oz", description: "Well-marbled sirloin with a generous outer edge of fat." },
-    { price: 54, name: "A5 Wagyu Sirloin", details: "4 oz", description: "Full-blood A5 Grade 11 Wagyu, among the world’s most prized beef, celebrated for extraordinary marbling and buttery tenderness." },
     { price: 59, name: "NIPO F1 Sirloin", details: "8 oz", description: "Black Angus × Wagyu crossbreed, combining tenderness and marbling." },
+  ] },
+  { title: "Japanese delicacy", dishes: [
+    { price: 55, name: "A5 Wagyu Sirloin", details: "6 oz", description: "Full-blood A5 Grade 11 Wagyu, among the world’s most prized beef, celebrated for extraordinary marbling and buttery tenderness." },
   ] },
   { title: "To share", dishes: [
     { price: 78, name: "Côte de Boeuf", details: "Avg. 32 oz", description: "Carved bone-in ribeye with two sides and two sauces of your choice." },
@@ -95,15 +97,12 @@ export const mainSections: MenuSection[] = [
     { price: 4, name: "Jus" },
     { price: 4, name: "Confit Garlic Cream" },
     { price: 4, name: "Miso Caramel" },
-    { price: 4, name: "Old Bay Butter" },
-    { price: 4, name: "Tonkatsu" },
-    { price: 4, name: "Ponzu" },
   ] },
   { title: "Plant-led small plates", note: "Vegetarian & vegan. Plant-led plates, crafted with the same NIPO precision.", dishes: [
     { price: 8, name: "Yuzu & Squash Moqueca", details: "VG", description: "Kabocha and tofu gently simmered in a fragrant Brazilian broth of tomato, bell peppers, garlic, lime, paprika, cayenne and coriander." },
     { price: 8, name: "Spiced Mango", details: "V", description: "Charred sweet mango with togarashi, creamy coconut, pickled shallots, kombu oil and micro coriander." },
     { price: 9, name: "Nigiri Vegetarian Selection", details: "VG", description: "Four pieces of nigiri with avocado, inari, tamago and roasted peppers." },
-    { price: 8, name: "Blue Matcha Garden Roll", details: "VG", description: "Vibrant blue matcha sushi rice with beetroot, carrot, cucumber and mango." },
+    { price: 8, name: "Blue Matcha Roll", details: "VG", description: "Vibrant blue matcha sushi rice with beetroot, carrot, cucumber and mango." },
   ] },
   { title: "Plant-led mains", dishes: [
     { price: 14, name: "NIPO Wok Noodles", details: "VG", description: "Fried noodles, hearts of palm, couve and sweetcorn in a rich yakisoba sauce." },

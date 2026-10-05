@@ -8,9 +8,9 @@ The owner confirmed: opening 23 September 2026; Monday–Thursday, noon–9pm; F
 
 ## Food, drinks and wine
 
-Menu selections and 71 confirmed entries with GBP prices live in `src/data/menus.ts`. The main menu is at `/menus/#main-menu`; its six dessert entries are also rendered at `/menus/dessert/#dessert-menu` using the same data and FoodMenu component. Names, descriptions, portions and prices follow the supplied NIPO-main-menu-WEB.pdf and NIPO-dessert-menu-WEB.pdf. The source labels for Nigiri Vegetarian Selection are retained; no dietary guarantees are inferred in schema.
+Menu selections and 69 confirmed entries with GBP prices live in `src/data/menus.ts`. The main menu is at `/menus/#main-menu`; its six dessert entries are also rendered at `/menus/dessert/#dessert-menu` using the same data and FoodMenu component. Names, descriptions, portions and prices follow the supplied NIPO-main-menu-WEB.pdf (updated 5 October 2026) and NIPO-dessert-menu-WEB.pdf. The source labels for Nigiri Vegetarian Selection are retained; no dietary guarantees are inferred in schema.
 
-The Main and Dessert PDF links point to unchanged copies at `public/menus/nipo-main.pdf` and `public/menus/nipo-dessert.pdf`. Replace them when approved PDFs change and update the HTML data in the same change. Menu schema uses the visible dish data and GBP Offer prices. The owner confirmed Blue Matcha Garden Roll at £8 in both website sections. The supplied PDF is unchanged and still lists £9 in Plant-led small plates.
+The Main and Dessert PDF links point to unchanged copies at `public/menus/nipo-main.pdf` and `public/menus/nipo-dessert.pdf`. Replace them when approved PDFs change and update the HTML data in the same change. Menu schema uses the visible dish data and GBP Offer prices. The latest main PDF and both website sections list Blue Matcha Roll at £8.
 
 Drinks and Wine have matching HTML pages at `/menus/drinks/` and `/menus/wine/`. Their full lists live in `src/data/drinks.ts` (154 entries) and `src/data/wine.ts` (39 entries). Each serving keeps its own label and price; bottle-only wines do not imply availability by the glass. All displayed menu prices omit the currency symbol; schema continues to identify GBP.
 

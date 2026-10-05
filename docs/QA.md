@@ -1,5 +1,12 @@
 # NIPO redesign verification
 
+## Main menu update - 5 October 2026
+
+- Updated the HTML main menu and downloadable PDF from the supplied NIPO-main-menu-WEB.pdf. Raw and tempura oysters are separate entries; Salmon & Tuna Tartare and Blue Matcha Roll use their new names; Salmon Samba Roll is 11; A5 Wagyu Sirloin is 6 oz at 55 under Japanese delicacy. Removed NIPO salad from the steak accompaniments and Old Bay Butter, Tonkatsu and Ponzu from the sauce list. Sushi and steak ordering follows the new PDF.
+- Rendered and visually inspected all seven source PDF pages. Independently compared all 69 website dish names and prices and every description with the extracted source text. The copied PDF matches the supplied file byte for byte (SHA-256: `82dd4cf4f5a3e97cd4efaf22836bc4130793ebda21f671ea0373b4ab622ca1ff`). Desserts are unchanged.
+- `pnpm build` passed with zero errors, warnings or hints. Built HTML/schema and resource verification passed for 11 indexable pages, 725 local links/assets and 268 menu items across all menu pages. `git diff --check` passed.
+- Local changes only; no production deployment or browser regression run performed.
+
 ## Restaurant newsletter and ongoing copy — 24 September 2026
 
 - The signup form remains on Home as the restaurant newsletter, linked from Contact and the footer. Opening announcements have been removed; the hero displays Newcastle Quayside. Existing signup validation, consent, Turnstile protection and Brevo integration are retained.

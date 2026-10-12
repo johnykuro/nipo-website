@@ -4,7 +4,7 @@
 
 `src/config/site.ts` is the source of truth. The status is `open`: Home metadata describes the restaurant and the opening-date FAQ is omitted. The hero shows the location without an opening announcement; the footer and Contact page have no opening announcement. The historical opening date remains in the configuration for opening-hours schema. The site does not change status automatically.
 
-The owner confirmed: opening 23 September 2026; Monday–Thursday, noon–9pm; Friday–Saturday, noon–10pm; Sunday, noon–8pm; telephone 0191 222 1122; restaurant email newcastle@nipobraza.co.uk; company/privacy email info@nipobraza.co.uk. The address is 95 Quayside, Newcastle upon Tyne NE1 3DH. The grouped hours in `siteConfig.hours` feed the Contact page, FAQs and Restaurant schema. The opening-hours schema starts on the opening date.
+The owner confirmed: opening 23 September 2026; Monday–Thursday, noon–9pm; Friday–Saturday, noon–10pm; Sunday, noon–8pm; telephone 07723 472694 (+447723472694); restaurant email newcastle@nipobraza.co.uk; company/privacy email info@nipobraza.co.uk. The address is 95 Quayside, Newcastle upon Tyne NE1 3DH. The grouped hours in `siteConfig.hours` feed the Contact page, FAQs and Restaurant schema. The opening-hours schema starts on the opening date.
 
 ## Food, drinks and wine
 

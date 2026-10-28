@@ -20,7 +20,7 @@ const { id, title, intro, pdfHref, sections } = Astro.props;
           <article class="menu-dish">
             <div class:list={["menu-dish__heading", { "menu-dish__heading--servings": !!dish.servings }]}>
               <h4>{dish.name}{dish.details && <span class="menu-dish__details">{dish.details}</span>}</h4>
-              {dish.servings ? <dl class="menu-dish__servings">{dish.servings.map((serving) => <div><dt>{serving.label}</dt><dd class="menu-dish__price" data-price={serving.price.toFixed(2)} data-serving={serving.label}>{formatMenuPrice(serving.price)}</dd></div>)}</dl> : <span class="menu-dish__price" data-price={dish.price.toFixed(2)}>{formatMenuPrice(dish.price)}</span>}
+              {dish.servings ? <dl class="menu-dish__servings">{dish.servings.map((serving) => <div><dt>{serving.label}</dt><dd class="menu-dish__price" data-price={serving.price.toFixed(2)} data-serving={serving.label}>{formatMenuPrice(serving.price)}</dd></div>)}</dl> : dish.price !== undefined ? <span class="menu-dish__price" data-price={dish.price.toFixed(2)}>{formatMenuPrice(dish.price)}</span> : dish.priceNote && <span class="menu-dish__price">{dish.priceNote}</span>}
             </div>
             {dish.region && <p class="menu-dish__region">{dish.region}</p>}
             {dish.description && <p>{dish.description}</p>}
@@ -29,5 +29,6 @@ const { id, title, intro, pdfHref, sections } = Astro.props;
       </section>
     ))}
   </div>
+  <slot />
   <div class="food-menu__end"><p>Please inform your server of any allergies or intolerances before ordering.<br />Full allergen information is available on request.</p><a class="button button--booking" href={newcastle.bookingUrl}>Book Newcastle</a></div>
 </section>

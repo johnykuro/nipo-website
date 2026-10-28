@@ -3,9 +3,11 @@ export const menuLinks = [
   { title: "Dessert", description: "Hand-finished & freshly made in-house", href: "/menus/dessert/#dessert-menu", photoId: "passionfruit-meringue", pdfHref: "/menus/nipo-dessert.pdf" },
   { title: "Drinks", description: "Cocktails, sake & spirits", href: "/menus/drinks/#drinks-menu", photoId: "lime-cocktail", pdfHref: "/menus/nipo-drinks.pdf" },
   { title: "Wine", description: "A bottle for the table", href: "/menus/wine/#wine-menu", photoId: "wine-and-oysters", pdfHref: "/menus/nipo-wine.pdf" },
+  { title: "Set Menu", description: "2 courses 24.95 · 3 courses 29.95", href: "/menus/set/#set-menu", photoId: "beef-sushi-rolls", pdfHref: "/menus/nipo-set.pdf" },
 ];
 export type MenuDish = {
-  price: number;
+  price?: number;
+  priceNote?: string;
   name: string;
   details?: string;
   description?: string;

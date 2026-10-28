@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MenuBrowser from "../../components/MenuBrowser.astro";
+import FoodMenu from "../../components/FoodMenu.astro";
+import { setSections } from "../../data/set-menu";
+---
+<BaseLayout title="Set Menu | NIPO Newcastle" description="A taste of NIPO: 2 courses 24.95 or 3 courses 29.95. Explore our Newcastle set menu, available Sunday–Friday, 12–5pm, with starters, mains and desserts.">
+  <main id="main-content">
+    <MenuBrowser activeIndex={4} title="Set menu" />
+    <FoodMenu id="set-menu" title="Set Menu" intro="A taste of NIPO. 2 courses 24.95 · 3 courses 29.95. Available Sunday–Friday, 12–5pm." pdfHref="/menus/nipo-set.pdf" sections={setSections}>
+      <aside class="set-menu-offer" aria-labelledby="steak-offer-title">
+        <h3 id="steak-offer-title">À la carte steak = complimentary drink</h3>
+        <p>Enjoy a complimentary red, white or premium sparkling wine with any steak from our <a href="/menus/#main-menu">à la carte menu</a>. Sunday–Friday, 12–5pm.</p>
+      </aside>
+    </FoodMenu>
+  </main>
+</BaseLayout>
+<style>
+  .set-menu-offer { max-width: 1000px; margin: 0 auto 40px; padding: 30px; background: var(--night); color: var(--ivory); }
+  .set-menu-offer h3 { margin-bottom: 16px; }
+  .set-menu-offer p { margin-bottom: 0; }
+  .set-menu-offer a { text-decoration: underline; }
+</style>

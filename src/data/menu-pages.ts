@@ -1,8 +1,10 @@
+import { setSections } from "./set-menu";
 import { mainSections, dessertSections } from "./menus";
 import { drinksSections } from "./drinks";
 import { wineSections } from "./wine";
 
 export const menuPages = [
+  { path: "/menus/set/", id: "set-menu", title: "Set Menu", sections: setSections },
   { path: "/menus/", id: "main-menu", title: "Main Menu", sections: mainSections },
   { path: "/menus/dessert/", id: "dessert-menu", title: "Dessert Menu", sections: dessertSections },
   { path: "/menus/drinks/", id: "drinks-menu", title: "Drinks Menu", sections: drinksSections },

@@ -117,7 +117,7 @@ for (const file of files) {
         assert(visible.includes(dish.name), `Visible dish: ${dish.name}`);
         if (dish.description) assert(visible.includes(dish.description), `Visible description: ${dish.name}`);
         const article = visibleDishes[pageMenuItems][1];
-        const offers = Array.isArray(dish.offers) ? dish.offers : [dish.offers];
+        const offers = dish.offers ? (Array.isArray(dish.offers) ? dish.offers : [dish.offers]) : [];
         const visiblePrices = tags(article, "(?:span|dd)").filter(tag => "data-price" in tag);
         assert.equal(visiblePrices.length, offers.length, `Serving count matches schema: ${dish.name}`);
         offers.forEach((offer, index) => {
@@ -168,5 +168,5 @@ for (const socialImage of ["social-card.png", "brand-social.png", "harrogate-soc
   const image = await sharp(resolve(root, "images", socialImage)).metadata();
   assert.equal(image.width, 1200); assert.equal(image.height, 630);
 }
-for (const name of ["nipo-main.pdf", "nipo-dessert.pdf", "nipo-drinks.pdf", "nipo-wine.pdf"]) assert.equal(readFileSync(resolve(root, "menus", name)).subarray(0, 5).toString(), "%PDF-");
+for (const name of ["nipo-main.pdf", "nipo-dessert.pdf", "nipo-drinks.pdf", "nipo-wine.pdf", "nipo-set.pdf"]) assert.equal(readFileSync(resolve(root, "menus", name)).subarray(0, 5).toString(), "%PDF-");
 console.log(`SEO verification passed: ${urls.length} pages, ${localLinks} local links/assets, ${menuItems} menu items; ${preview ? "preview noindex" : "production indexable"}.`);

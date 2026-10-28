@@ -7,6 +7,7 @@ export const indexablePages = [
   { path: "/", label: "Home", type: "WebPage" },
   { path: "/concept/", label: "Concept", type: "AboutPage" },
   { path: "/menus/", label: "Newcastle menus", type: "CollectionPage" },
+  { path: "/menus/set/", label: "Set menu", type: "WebPage" },
   { path: "/menus/dessert/", label: "Dessert menu", type: "WebPage" },
   { path: "/menus/drinks/", label: "Drinks menu", type: "WebPage" },
   { path: "/menus/wine/", label: "Wine list", type: "WebPage" },
@@ -93,7 +94,7 @@ export function buildPageStructuredData(config: SiteConfig, path: string, title:
           "@type": "MenuItem", name: dish.name,
           offers: dish.servings
             ? dish.servings.map((serving) => ({ "@type": "Offer", name: serving.label, price: serving.price.toFixed(2), priceCurrency: "GBP" }))
-            : { "@type": "Offer", price: dish.price.toFixed(2), priceCurrency: "GBP" },
+            : dish.price !== undefined ? { "@type": "Offer", price: dish.price.toFixed(2), priceCurrency: "GBP" } : undefined,
           ...(dish.description ? { description: dish.description } : {}),
         })),
       })),

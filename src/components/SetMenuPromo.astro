@@ -1,0 +1,90 @@
+---
+import { setSections } from "../data/set-menu";
+const offer = setSections[0];
+const price = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" });
+---
+
+<aside class="set-menu-promo" data-set-menu-promo aria-labelledby="set-menu-promo-title" hidden>
+  <button class="set-menu-promo__close" type="button" aria-label="Dismiss set menu promotion" data-set-menu-dismiss>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 4 8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.2" /></svg>
+  </button>
+  <p class="set-menu-promo__eyebrow">Newcastle Quayside · Set menu</p>
+  <h2 id="set-menu-promo-title">A taste of NIPO</h2>
+  <p class="set-menu-promo__hours">{offer.note}</p>
+  <p class="set-menu-promo__prices">
+    {offer.dishes.map((dish) => <span>{dish.name} <strong>{price.format(dish.price!)}</strong></span>)}
+  </p>
+  <a class="set-menu-promo__link" href="/menus/set/">Discover the set menu <span aria-hidden="true">↗</span></a>
+</aside>
+
+<style>
+  .set-menu-promo { position:fixed; z-index:35; right:28px; bottom:28px; width:360px; max-width:calc(100% - 32px); padding:29px 30px 24px; color:var(--night); background:var(--ivory); border:1px solid #d7ceb3; box-shadow:0 12px 48px #06100c26; animation:promo-arrive .6s ease-out both; }
+  .set-menu-promo::before { content:""; display:block; width:32px; height:1px; background:#807449; margin-bottom:20px; }
+  .set-menu-promo__close { position:absolute; top:6px; right:6px; width:44px; height:44px; display:grid; place-items:center; color:#526057; }
+  .set-menu-promo__close:hover { color:var(--night); background:#15231f08; }
+  .set-menu-promo__eyebrow { font-size:9px; line-height:1.6; letter-spacing:.14em; text-transform:uppercase; margin:0 0 12px; color:#526057; }
+  .set-menu-promo h2 { font-size:32px; letter-spacing:-.035em; }
+  .set-menu-promo__hours { font-size:12px; color:#526057; margin:12px 0 16px; }
+  .set-menu-promo__prices { display:flex; flex-wrap:wrap; gap:8px 18px; font-size:12px; margin:0 0 21px; }
+  .set-menu-promo__prices strong { font-weight:500; margin-left:4px; }
+  .set-menu-promo__link { display:flex; align-items:center; justify-content:space-between; min-height:44px; border-top:1px solid #15231f26; padding-top:12px; font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+  .set-menu-promo__link span { font-size:19px; }
+  .set-menu-promo__link:hover { color:#657346; }
+  .set-menu-promo :focus-visible { outline-color:var(--night); outline-offset:3px; }
+  @keyframes promo-arrive { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  @media(max-width:600px) {
+    .set-menu-promo { right:16px; bottom:max(16px, env(safe-area-inset-bottom)); width:340px; padding:21px 24px 16px; }
+    .set-menu-promo::before { margin-bottom:14px; }
+    .set-menu-promo h2 { font-size:28px; }
+    .set-menu-promo__hours { margin:9px 0 12px; }
+    .set-menu-promo__prices { margin-bottom:14px; }
+  }
+  @media(prefers-reduced-motion:reduce) { .set-menu-promo { animation:none; } }
+</style>
+
+<script>
+  import { isSetMenuPromoAllowed } from "../scripts/set-menu-schedule";
+
+  const promo = document.querySelector<HTMLElement>("[data-set-menu-promo]");
+  if (promo) {
+    const storageKey = "nipo-set-menu-dismissed";
+    let dismissed = false;
+    try { dismissed = sessionStorage.getItem(storageKey) === "true"; } catch { /* Continue without persistence when storage is unavailable. */ }
+    let ready = false;
+    const update = () => {
+      const occupied = document.querySelector("dialog[open], [data-cookie-banner]:not([hidden])");
+      promo.hidden = dismissed || !ready || !!occupied || document.visibilityState !== "visible" || !isSetMenuPromoAllowed();
+    };
+    const observer = new MutationObserver(update);
+    document.querySelectorAll("dialog, [data-cookie-banner]").forEach((element) => {
+      observer.observe(element, { attributes:true, attributeFilter:["open", "hidden"] });
+    });
+    const dismiss = () => {
+      dismissed = true;
+      if (promo.contains(document.activeElement)) {
+        const main = document.querySelector<HTMLElement>("#main-content");
+        if (main) {
+          main.setAttribute("tabindex", "-1");
+          main.focus({ preventScroll:true });
+          main.addEventListener("blur", () => main.removeAttribute("tabindex"), { once:true });
+        }
+      }
+      update();
+      observer.disconnect();
+      try { sessionStorage.setItem(storageKey, "true"); } catch { /* Dismissal still works for this page. */ }
+    };
+    promo.querySelector("[data-set-menu-dismiss]")?.addEventListener("click", dismiss);
+    promo.querySelector("a")?.addEventListener("click", dismiss);
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !promo.hidden) dismiss(); });
+    document.addEventListener("visibilitychange", update);
+    window.setTimeout(() => { ready = true; update(); }, 8000);
+    // Recheck on minute boundaries, including when the page stays open over a cutoff.
+    const scheduleCheck = () => {
+      window.setTimeout(() => {
+        update();
+        if (!dismissed) scheduleCheck();
+      }, 60_000 - (Date.now() % 60_000));
+    };
+    if (!dismissed) scheduleCheck();
+  }
+</script>

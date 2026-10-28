@@ -55,7 +55,14 @@ const price = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP
       const occupied = document.querySelector("dialog[open], [data-cookie-banner]:not([hidden])");
       promo.hidden = dismissed || !ready || !!occupied || document.visibilityState !== "visible" || !isSetMenuPromoAllowed();
     };
-    const observer = new MutationObserver(update);
+    const cookieBanner = document.querySelector<HTMLElement>("[data-cookie-banner]");
+    let cookieWasOpen = !!cookieBanner && !cookieBanner.hidden;
+    const observer = new MutationObserver(() => {
+      // Cookie choices take priority; reveal immediately once they are finished.
+      if (cookieWasOpen && cookieBanner?.hidden) ready = true;
+      cookieWasOpen = !!cookieBanner && !cookieBanner.hidden;
+      update();
+    });
     document.querySelectorAll("dialog, [data-cookie-banner]").forEach((element) => {
       observer.observe(element, { attributes:true, attributeFilter:["open", "hidden"] });
     });
@@ -77,7 +84,7 @@ const price = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP
     promo.querySelector("a")?.addEventListener("click", dismiss);
     document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !promo.hidden) dismiss(); });
     document.addEventListener("visibilitychange", update);
-    window.setTimeout(() => { ready = true; update(); }, 8000);
+    window.setTimeout(() => { ready = true; update(); }, 1000);
     // Recheck on minute boundaries, including when the page stays open over a cutoff.
     const scheduleCheck = () => {
       window.setTimeout(() => {

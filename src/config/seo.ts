@@ -8,6 +8,7 @@ export const indexablePages = [
   { path: "/concept/", label: "Concept", type: "AboutPage" },
   { path: "/menus/", label: "Newcastle menus", type: "CollectionPage" },
   { path: "/menus/set/", label: "Set menu", type: "WebPage" },
+  { path: "/menus/childrens/", label: "Children’s menu", type: "WebPage" },
   { path: "/menus/dessert/", label: "Dessert menu", type: "WebPage" },
   { path: "/menus/drinks/", label: "Drinks menu", type: "WebPage" },
   { path: "/menus/wine/", label: "Wine list", type: "WebPage" },

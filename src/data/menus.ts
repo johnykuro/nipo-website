@@ -4,6 +4,7 @@ export const menuLinks = [
   { title: "Drinks", description: "Cocktails, sake & spirits", href: "/menus/drinks/#drinks-menu", photoId: "lime-cocktail", pdfHref: "/menus/nipo-drinks.pdf" },
   { title: "Wine", description: "A bottle for the table", href: "/menus/wine/#wine-menu", photoId: "wine-and-oysters", pdfHref: "/menus/nipo-wine.pdf" },
   { title: "Set Menu", description: "2 courses 24.95 · 3 courses 29.95", href: "/menus/set/#set-menu", photoId: "beef-sushi-rolls", pdfHref: "/menus/nipo-set.pdf" },
+  { title: "Children’s", description: "Little favourites, fries, juice & ice cream · 12.95", href: "/menus/childrens/#childrens-menu", photoId: "sushi-table", pdfHref: "/menus/nipo-childrens.pdf" },
 ];
 export type MenuDish = {
   price?: number;

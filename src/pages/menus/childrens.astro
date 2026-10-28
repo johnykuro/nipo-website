@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MenuBrowser from "../../components/MenuBrowser.astro";
+import FoodMenu from "../../components/FoodMenu.astro";
+import { childrensSections } from "../../data/childrens-menu";
+---
+<BaseLayout title="Children’s Menu | NIPO Newcastle" description="Explore NIPO’s children’s menu for 12.95: steak, chicken katsu or sushi, all served with fries, plus fresh juice and ice cream on Newcastle Quayside.">
+  <main id="main-content">
+    <MenuBrowser activeIndex={5} title="Children’s menu" />
+    <FoodMenu id="childrens-menu" title="Children’s Menu" intro="12.95. Fresh juice, a choice of main served with fries, and vanilla or chocolate ice cream." pdfHref="/menus/nipo-childrens.pdf" sections={childrensSections} />
+  </main>
+</BaseLayout>

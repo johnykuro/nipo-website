@@ -14,7 +14,7 @@ const price = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP
   <p class="set-menu-promo__prices">
     {offer.dishes.map((dish) => <span>{dish.name} <strong>{price.format(dish.price!)}</strong></span>)}
   </p>
-  <a class="set-menu-promo__link" href="/menus/set/">Discover the set menu <span aria-hidden="true">↗</span></a>
+  <a class="set-menu-promo__link" href="/menus/set/#set-menu">Discover the set menu <span aria-hidden="true">↗</span></a>
 </aside>
 
 <style>
@@ -47,9 +47,8 @@ const price = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP
 
   const promo = document.querySelector<HTMLElement>("[data-set-menu-promo]");
   if (promo) {
-    const storageKey = "nipo-set-menu-dismissed";
+    // Dismiss only this page load; a refresh or new visit starts fresh.
     let dismissed = false;
-    try { dismissed = sessionStorage.getItem(storageKey) === "true"; } catch { /* Continue without persistence when storage is unavailable. */ }
     let ready = false;
     const update = () => {
       const occupied = document.querySelector("dialog[open], [data-cookie-banner]:not([hidden])");
@@ -78,7 +77,6 @@ const price = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP
       }
       update();
       observer.disconnect();
-      try { sessionStorage.setItem(storageKey, "true"); } catch { /* Dismissal still works for this page. */ }
     };
     promo.querySelector("[data-set-menu-dismiss]")?.addEventListener("click", dismiss);
     promo.querySelector("a")?.addEventListener("click", dismiss);

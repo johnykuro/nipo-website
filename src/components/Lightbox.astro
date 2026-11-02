@@ -1,5 +1,9 @@
+---
+import ArrowIcon from "./ArrowIcon.astro";
+---
+
 <dialog class="lightbox" data-lightbox aria-label="NIPO photo gallery">
   <div class="lightbox__top"><p data-lightbox-count></p><button type="button" data-lightbox-close>Close <span aria-hidden="true">×</span></button></div>
   <figure><img data-lightbox-image alt="" draggable="false" /><figcaption id="lightbox-caption" data-lightbox-caption aria-live="polite"></figcaption></figure>
-  <div class="lightbox__bottom"><button type="button" data-lightbox-prev><span aria-hidden="true">←</span> Previous</button><button type="button" data-lightbox-next>Next <span aria-hidden="true">→</span></button></div>
+  <div class="lightbox__bottom"><button type="button" data-lightbox-prev><ArrowIcon direction="left" size={16} /> Previous</button><button type="button" data-lightbox-next>Next <ArrowIcon direction="right" size={16} /></button></div>
 </dialog>

@@ -1,5 +1,6 @@
 ---
 import { setSections } from "../data/set-menu";
+import ArrowIcon from "./ArrowIcon.astro";
 const offer = setSections[0];
 const price = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP" });
 ---
@@ -14,7 +15,7 @@ const price = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP
   <p class="set-menu-promo__prices">
     {offer.dishes.map((dish) => <span>{dish.name} <strong>{price.format(dish.price!)}</strong></span>)}
   </p>
-  <a class="set-menu-promo__link" href="/menus/set/#set-menu">Discover the set menu <span aria-hidden="true">↗</span></a>
+  <a class="set-menu-promo__link" href="/menus/set/#set-menu">Discover the set menu <ArrowIcon direction="up-right" size={19} /></a>
 </aside>
 
 <style>
@@ -28,7 +29,6 @@ const price = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP
   .set-menu-promo__prices { display:flex; flex-wrap:wrap; gap:8px 18px; font-size:12px; margin:0 0 21px; }
   .set-menu-promo__prices strong { font-weight:500; margin-left:4px; }
   .set-menu-promo__link { display:flex; align-items:center; justify-content:space-between; min-height:44px; border-top:1px solid #15231f26; padding-top:12px; font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
-  .set-menu-promo__link span { font-size:19px; }
   .set-menu-promo__link:hover { color:#657346; }
   .set-menu-promo :focus-visible { outline-color:var(--night); outline-offset:3px; }
   @keyframes promo-arrive { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }

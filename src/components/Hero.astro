@@ -3,6 +3,7 @@ import { siteConfig } from "../config/site";
 import { newcastle } from "../config/locations";
 import { photo } from "../data/media";
 import Photo from "./Photo.astro";
+import ArrowIcon from "./ArrowIcon.astro";
 const slides = siteConfig.hero.slideIds.map(photo);
 const useVideo = siteConfig.hero.mode === "video" && siteConfig.video.src;
 ---
@@ -28,7 +29,7 @@ const useVideo = siteConfig.hero.mode === "video" && siteConfig.video.src;
   </div>
   <div class="hero-bottom"><a class="hero-scroll" href="#welcome">Scroll to discover <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false"><path d="M8 1v21m-6-6 6 6 6-6" /></svg></a>
     <div class="slideshow-controls" aria-label="Slideshow controls" data-slideshow-controls hidden>
-      <button type="button" data-hero-prev aria-label="Previous photograph">←</button><span data-hero-count>01 / {String(slides.length).padStart(2, "0")}</span><button type="button" data-hero-next aria-label="Next photograph">→</button><button type="button" data-hero-pause aria-pressed="false">Pause</button>
+      <button type="button" data-hero-prev aria-label="Previous photograph"><ArrowIcon direction="left" /></button><span data-hero-count>01 / {String(slides.length).padStart(2, "0")}</span><button type="button" data-hero-next aria-label="Next photograph"><ArrowIcon direction="right" /></button><button type="button" data-hero-pause aria-pressed="false">Pause</button>
     </div>
   </div>
 </section>

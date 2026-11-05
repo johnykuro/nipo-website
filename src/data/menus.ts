@@ -22,7 +22,7 @@ export type MenuSection = {
   dishes: MenuDish[];
 };
 
-// Names, prices and portions match NIPO-main-menu-WEB.pdf supplied on 5 October 2026.
+// Names, prices and portions match NIPO-main-menu-WEB.pdf supplied on 5 November 2026.
 export const mainSections: MenuSection[] = [
   { title: "Snacks for the table", dishes: [
     { name: "Prawn Crackers", price: 4.5 },
@@ -39,7 +39,7 @@ export const mainSections: MenuSection[] = [
     { price: 13, name: "Salmon & Tuna Tartare", description: "Fresh tuna and salmon tartare with creamy avocado, nikiri and crisp lotus root." },
     { price: 11, name: "Chicken Yakitori", details: "2 pcs", description: "Tender grilled chicken thigh skewers glazed with sweet-savoury yakitori sauce. Served with kimchi." },
     { price: 9, name: "Croquete de Costela", details: "3 pcs", description: "Rich braised short rib croquettes with tonkatsu, creamy kewpie mayonnaise and green onion." },
-    { price: 9, name: "Hot Honey & Chilli Pork", details: "4 pcs", description: "Tender slow-cooked pork glazed with sweet, fiery hot honey and chilli." },
+    { price: 9, name: "Hot Honey & Chilli Pork", details: "6 pcs", description: "Tender slow-cooked pork glazed with sweet, fiery hot honey and chilli." },
     { price: 9, name: "Duck Spring Roll", details: "2 pcs", description: "Crisp shredded duck spring rolls with a rich tonkatsu dipping sauce." },
   ] },
   { title: "Sushi fusion", note: "Made to share. All served with wasabi, pickled ginger and soy. Rolls and nigiri selections are four pieces.", dishes: [
@@ -54,7 +54,7 @@ export const mainSections: MenuSection[] = [
     { price: 8, name: "Blue Matcha Roll", details: "VG", description: "Vibrant blue matcha sushi rice with beetroot, carrot, cucumber and mango." },
     { price: 11, name: "Salmon Sashimi", description: "Five delicate slices of fresh raw salmon." },
   ] },
-  { title: "From the fire", note: "Robata grilled steaks. Served with Maldon salt, wasabi, house seasoned fries & ginger rice.", dishes: [
+  { title: "From the fire", note: "Robata grilled steaks. Served with Maldon salt, wasabi & house seasoned fries.", dishes: [
     { price: 36, name: "Ribeye Robata", details: "10 oz", description: "Deeply marbled ribeye with a rich, yielding texture." },
     { price: 39, name: "Fillet Mignon Robata", details: "8 oz", description: "Exceptionally tender, lean fillet with a delicate texture." },
     { price: 35, name: "Sirloin Steak", details: "10 oz", description: "Well-marbled sirloin with a generous outer edge of fat." },
@@ -71,7 +71,7 @@ export const mainSections: MenuSection[] = [
     { price: 28, name: "Costela NIPO", description: "Tender slow-cooked beef rib with silky creamy mandioca and sharp pickled shallot." },
     { price: 27, name: "Lamb Cutlets", description: "Charred lamb cutlets with Brazilian-Japanese herb miso chimichurri." },
     { price: 26, name: "Miso Kuro Cod", details: "May contain bones", description: "Premium, delicate black cod caramelized with a rich, sweet Japanese miso glaze, elevated by vibrant pickled ginger and nutty sesame notes." },
-    { price: 18, name: "Mahi Mahi Moqueca", details: "May contain bones", description: "Mahi Mahi fillet simmered in an aromatic Brazilian stew of tomato, bell peppers, garlic, lime, paprika, cayenne and coriander." },
+    { price: 18, name: "Monkfish Moqueca", details: "May contain bones", description: "Monkfish fillet simmered in an aromatic Brazilian stew of tomato, bell peppers, garlic, lime, paprika, cayenne and coriander." },
     { price: 28, name: "Slow-Cooked Lamb Shank", description: "Slow-cooked lamb, silky yuca aligot and crisp onion." },
     { price: 16, name: "NIPO Chicken Wok Noodles", description: "Chargrilled chicken, fried noodles, hearts of palm, couve and sweetcorn in a rich yakisoba sauce." },
     { price: 50, name: "Nihon Lobster", description: "Traditional Japanese-style lobster brushed with a glossy savoury soy and mirin glaze." },
@@ -84,7 +84,6 @@ export const mainSections: MenuSection[] = [
     { price: 5, name: "Charred Corn, Cherry Tomato & Jalapeño Salad" },
     { price: 6, name: "Garlic & Wild Mushroom Cream" },
     { price: 4, name: "Asian Slaw" },
-    { price: 4, name: "NIPO Salad" },
     { price: 6, name: "Tempura Vegetables" },
     { price: 4, name: "Steamed Rice" },
     { price: 4, name: "Fried Rice" },

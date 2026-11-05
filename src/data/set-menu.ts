@@ -19,10 +19,10 @@ export const setSections: MenuSection[] = [
   ] },
   { title: "Main", dishes: [
     { name: "Chicken Yakisoba", description: "Chargrilled chicken, fried noodles, hearts of palm, couve and sweetcorn in a rich yakisoba sauce." },
-    { name: "Mahi Mahi Moqueca", description: "Mahi Mahi fillet simmered in an aromatic Brazilian stew of tomato, bell peppers, garlic, lime, paprika, cayenne and coriander." },
+    { name: "Monkfish Moqueca", description: "Monkfish fillet simmered in an aromatic Brazilian stew of tomato, bell peppers, garlic, lime, paprika, cayenne and coriander." },
     { name: "Costela NIPO", priceNote: "+5 supplement", description: "Tender slow-cooked beef rib with silky creamy mandioca and sharp pickled shallot." },
     { name: "Lamb Cutlets", priceNote: "+5 supplement", description: "Charred lamb cutlets with Brazilian-Japanese herb miso chimichurri." },
-    { name: "Bistro Rump Steak", priceNote: "+5 supplement", description: "Tender central cut rump steak, robata flame grilled to your preference. Served with Maldon salt, wasabi, house seasoned fries & ginger rice." },
+    { name: "Bistro Rump Steak", priceNote: "+5 supplement", description: "Tender central cut rump steak, robata flame grilled to your preference. Served with Maldon salt, wasabi, house seasoned fries." },
     { name: "Vegetable Yakisoba", details: "VG", description: "Fried noodles, hearts of palm, couve and sweetcorn in a rich yakisoba sauce." },
   ] },
   { title: "Dessert", dishes: [

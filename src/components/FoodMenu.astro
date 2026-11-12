@@ -6,12 +6,13 @@ interface Props {
   title: string;
   intro: string;
   pdfHref: string;
+  pdfLabel?: string;
   sections: MenuSection[];
 }
-const { id, title, intro, pdfHref, sections } = Astro.props;
+const { id, title, intro, pdfHref, pdfLabel = `View ${title.toLowerCase()} PDF`, sections } = Astro.props;
 ---
 <section class="food-menu section-shell" id={id} tabindex="-1" aria-labelledby={`${id}-title`}>
-  <header class="food-menu__intro"><p class="label">Newcastle Quayside</p><h2 id={`${id}-title`}>{title}</h2><p>{intro}</p><a class="text-link" href={pdfHref} target="_blank" rel="noopener noreferrer">View {title.toLowerCase()} PDF<span class="sr-only"> (opens in a new tab)</span></a></header>
+  <header class="food-menu__intro"><p class="label">Newcastle Quayside</p><h2 id={`${id}-title`}>{title}</h2><p>{intro}</p><a class="text-link" href={pdfHref} target="_blank" rel="noopener noreferrer">{pdfLabel}<span class="sr-only"> (opens in a new tab)</span></a></header>
   <div class="food-menu__sections">
     {sections.map((section) => (
       <section class="menu-category">

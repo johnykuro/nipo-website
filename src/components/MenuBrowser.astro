@@ -11,7 +11,7 @@ const { activeIndex = 0, title = "Our menus" } = Astro.props;
         <a href={item.href} class:list={{ "is-active": index === activeIndex }} data-menu-preview={index}>
           <span class="menu-link__title">{item.title}</span><span class="menu-link__detail">{item.description}</span>
         </a>
-        <a class="menu-pdf-link" href={item.pdfHref} target="_blank" rel="noopener noreferrer" aria-label={`View ${item.title.toLowerCase()} PDF (opens in a new tab)`}>View PDF</a>
+        <a class="menu-pdf-link" href={item.pdfHref} target="_blank" rel="noopener noreferrer" aria-label={`${item.pdfLabel ?? `View ${item.title.toLowerCase()} PDF`} (opens in a new tab)`}>View PDF</a>
       </div>)}
     </div><p class="menu-browser__note">Made to discover. Made to share.</p>
   </div>

@@ -1,5 +1,6 @@
 export const menuLinks = [
-  { title: "Main Menu", description: "Sushi, small plates & the robata", href: "/menus/#main-menu", photoId: "beef-sushi-rolls", pdfHref: "/menus/nipo-main.pdf" },
+  { title: "À La Carte", description: "Sushi, small plates & the robata", href: "/menus/#main-menu", photoId: "beef-sushi-rolls", pdfHref: "/menus/nipo-main.pdf" },
+  { title: "Steaks", description: "Robata-grilled cuts, Wagyu & steaks to share", href: "/menus/steaks/#steaks-menu", photoId: "sliced-steak", pdfHref: "/menus/nipo-main.pdf", pdfLabel: "View full À La Carte PDF" },
   { title: "Dessert", description: "Hand-finished & freshly made in-house", href: "/menus/dessert/#dessert-menu", photoId: "passionfruit-meringue", pdfHref: "/menus/nipo-dessert.pdf" },
   { title: "Drinks", description: "Cocktails, sake & spirits", href: "/menus/drinks/#drinks-menu", photoId: "lime-cocktail", pdfHref: "/menus/nipo-drinks.pdf" },
   { title: "Wine", description: "A bottle for the table", href: "/menus/wine/#wine-menu", photoId: "wine-and-oysters", pdfHref: "/menus/nipo-wine.pdf" },
@@ -122,5 +123,10 @@ export const mainSections: MenuSection[] = [
 
 // The separate dessert PDF matches the final section of the main menu.
 export const dessertSections: MenuSection[] = mainSections.filter(section => section.title === "To finish");
+
+// Keep the steak menu and its accompaniments in sync with the confirmed main menu.
+export const steakSections: MenuSection[] = mainSections.filter(section =>
+  ["From the fire", "Japanese delicacy", "To share", "Sides", "Premium side", "Sauces"].includes(section.title)
+);
 
 export const formatMenuPrice = (price: number) => `${Number.isInteger(price) ? price : price.toFixed(2)}`;

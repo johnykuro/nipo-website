@@ -4,7 +4,7 @@ import { locations, type RestaurantLocation } from "../config/locations";
 interface Props { location?: RestaurantLocation }
 const { location } = Astro.props;
 const isHarrogate = location?.id === "harrogate";
-const navigation = config.navigation.filter(link => !isHarrogate || link.href !== "/menus/");
+const navigation = config.navigation.filter(link => !isHarrogate || !link.href.startsWith("/menus/"));
 ---
 <footer class="site-footer">
   <div class="footer-main section-shell">
@@ -13,5 +13,5 @@ const navigation = config.navigation.filter(link => !isHarrogate || link.href !=
     <nav aria-label="Footer navigation"><p class="label">Discover</p>{navigation.map((link) => <a href={link.href}>{link.label}</a>)}<a href={location ? location.path + "#faq" : "/locations/newcastle/#faq"}>F.A.Q</a><a href={isHarrogate ? "#newsletter" : "/#newsletter"}>{isHarrogate ? "Harrogate VIP list" : "Newsletter"}</a></nav>
     <div class="footer-social"><p class="label">Follow NIPO</p>{config.socialLinks.filter((item) => item.url).map((item) => <a href={item.url} target="_blank" rel="noopener noreferrer">{item.label}</a>)}</div>
   </div>
-  <div class="footer-bottom section-shell"><p>© {new Date().getFullYear()} NIPO</p><p>Japanese Precision. Brazilian Fire.</p><a href="/privacy/">Privacy</a><button type="button" data-cookie-settings hidden>Cookie settings</button></div>
+  <div class="footer-bottom section-shell"><p>© {new Date().getFullYear()} NIPO</p><p>Japanese-Brazilian Steakhouse</p><a href="/privacy/">Privacy</a><button type="button" data-cookie-settings hidden>Cookie settings</button></div>
 </footer>

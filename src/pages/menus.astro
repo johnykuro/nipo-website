@@ -4,9 +4,9 @@ import MenuBrowser from "../components/MenuBrowser.astro";
 import FoodMenu from "../components/FoodMenu.astro";
 import { mainSections } from "../data/menus";
 ---
-<BaseLayout title="Menus | NIPO Newcastle" description="Explore NIPO’s main, set and children’s menus, desserts, drinks and wine. Sushi, robata and Japanese-Brazilian dishes with prices on Newcastle Quayside.">
+<BaseLayout title="Menus | NIPO Newcastle Steakhouse" description="Explore steaks, sushi, set and children’s menus, desserts, drinks and wine at NIPO’s Japanese-Brazilian steakhouse on Newcastle Quayside.">
   <main id="main-content">
     <MenuBrowser />
-    <FoodMenu id="main-menu" title="Main Menu" intro="Sushi, small plates and dishes from the fire. Made to discover, made to share." pdfHref="/menus/nipo-main.pdf" sections={mainSections} />
+    <FoodMenu id="main-menu" title="À La Carte" intro="Robata-grilled steaks, sushi, small plates and dishes from the fire. Made to discover, made to share." pdfHref="/menus/nipo-main.pdf" sections={mainSections} />
   </main>
 </BaseLayout>

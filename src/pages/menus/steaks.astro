@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MenuBrowser from "../../components/MenuBrowser.astro";
+import FoodMenu from "../../components/FoodMenu.astro";
+import { steakSections } from "../../data/menus";
+---
+<BaseLayout title="Steaks Menu | NIPO Newcastle Steakhouse" description="Explore steaks at NIPO’s Japanese-Brazilian steakhouse on Newcastle Quayside: robata-grilled cuts, A5 Wagyu and sharing steaks, with sides, sauces and prices.">
+  <main id="main-content">
+    <MenuBrowser activeIndex={1} title="Steaks" />
+    <FoodMenu id="steaks-menu" title="Steaks menu" intro="Steak, finished by fire. Discover robata-grilled cuts, Japanese Wagyu and steaks to share at our Newcastle Quayside steakhouse." pdfHref="/menus/nipo-main.pdf" pdfLabel="View full À La Carte PDF" sections={steakSections} />
+  </main>
+</BaseLayout>

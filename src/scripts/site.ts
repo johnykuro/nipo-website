@@ -102,7 +102,24 @@ if (hero) {
       template.replaceWith(fragment);
     }
     const img = slide.querySelector<HTMLImageElement>("img")!;
-    const ready = img.decode().then(() => true, () => false);
+    const ready = img.decode().then(() => true, async () => {
+      // A responsive picture can change source during decode. Wait for its
+      // selected image to load before retrying instead of excluding the slide.
+      const loaded = await new Promise<boolean>((resolve) => {
+        const finish = () => {
+          img.removeEventListener("load", finish);
+          img.removeEventListener("error", finish);
+          resolve(img.complete && img.naturalWidth > 0);
+        };
+        img.addEventListener("load", finish);
+        img.addEventListener("error", finish);
+        if (img.complete) finish();
+      });
+      return loaded && await img.decode().then(() => true, () => false);
+    }).then((ready) => {
+      if (ready) img.closest(".photo")?.classList.remove("is-failed");
+      return ready;
+    }).finally(() => prepared.delete(next));
     prepared.set(next, ready);
     return ready;
   };
@@ -144,7 +161,7 @@ if (hero) {
     count.textContent = String(current + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
     animatePhoto(); update();
   };
-  const show = async (index: number, automatic = false) => {
+  const show = async (index: number, automatic = false, direction = 1) => {
     const pending = ++request;
     clearTimeout(timer);
     clearTimeout(preloadTimer);
@@ -155,12 +172,12 @@ if (hero) {
       if (pending !== request) return;
       if (automatic && blocked()) { update(); return; }
       if (ready) { commit(next); return; }
-      next = (next + 1) % slides.length;
+      next = (next + direction + slides.length) % slides.length;
     }
     update();
   };
   controls.hidden = false;
-  on(hero.querySelector("[data-hero-prev]")!, "click", () => show(current - 1));
+  on(hero.querySelector("[data-hero-prev]")!, "click", () => show(current - 1, false, -1));
   on(hero.querySelector("[data-hero-next]")!, "click", () => show(current + 1));
   on(pause, "click", () => { userPaused = !userPaused; update(); });
   on(controls, "mouseenter", () => { hovered = true; update(); });

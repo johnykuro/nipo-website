@@ -8,7 +8,7 @@ const { overlay = false, location } = Astro.props;
 const isHarrogate = location?.id === "harrogate";
 const bookingHref = isHarrogate ? "#newsletter" : newcastle.bookingUrl;
 const bookingLabel = isHarrogate ? "Join the Harrogate VIP list" : location?.id === "newcastle" ? "Book a table" : "Book Newcastle";
-const navigation = siteConfig.navigation.filter(link => !isHarrogate || link.href !== "/menus/");
+const navigation = siteConfig.navigation.filter(link => !isHarrogate || !link.href.startsWith("/menus/"));
 const path = Astro.url.pathname;
 ---
 <header class:list={["site-header", { "site-header--overlay": overlay }]} data-site-header>

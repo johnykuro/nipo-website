@@ -13,9 +13,10 @@ export const siteConfig: SiteConfig = {
   canonicalUrl: __NIPO_SITE_URL__,
   navigation: [
     { label: "Concept", href: "/concept/" }, { label: "Menus", href: "/menus/" },
+    { label: "Steaks", href: "/menus/steaks/" },
     { label: "Gallery", href: "/gallery/" }, { label: "Locations", href: "/locations/" },
   ],
-  hero: { mode: "slideshow", slideIds: ["hero-sushi-table", "hero-sliced-steak", "hero-sushi-chopsticks", "hero-braised-shank", "hero-lamb-cutlets"], interval: 7000 },
+  hero: { mode: "slideshow", slideIds: ["hero-sliced-steak", "hero-sushi-table", "hero-sushi-chopsticks", "hero-braised-shank", "hero-lamb-cutlets"], interval: 7000 },
   video: { src: cleanUrl(import.meta.env.PUBLIC_VIMEO_VIDEO_URL), poster: "/images/social-card.png" },
   privacyContact: cleanUrl(import.meta.env.PUBLIC_PRIVACY_EMAIL) || "info@nipobraza.co.uk",
   socialLinks: [

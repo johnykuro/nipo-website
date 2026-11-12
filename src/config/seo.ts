@@ -7,6 +7,7 @@ export const indexablePages = [
   { path: "/", label: "Home", type: "WebPage" },
   { path: "/concept/", label: "Concept", type: "AboutPage" },
   { path: "/menus/", label: "Newcastle menus", type: "CollectionPage" },
+  { path: "/menus/steaks/", label: "Steaks menu", type: "WebPage" },
   { path: "/menus/set/", label: "Set menu", type: "WebPage" },
   { path: "/menus/childrens/", label: "Children’s menu", type: "WebPage" },
   { path: "/menus/dessert/", label: "Dessert menu", type: "WebPage" },
@@ -20,8 +21,8 @@ export const indexablePages = [
 ] as const;
 export const siteNoIndex = __NIPO_NOINDEX__;
 
-export const homeTitle = "NIPO | Japanese-Brazilian Dining in Newcastle & Harrogate";
-export const homeDescription = "Japanese precision. Brazilian fire. Discover NIPO on Newcastle Quayside and our new Japanese-Brazilian steakhouse coming soon to Harrogate.";
+export const homeTitle = "NIPO | Japanese-Brazilian Steakhouse | Newcastle & Harrogate";
+export const homeDescription = "Discover NIPO, a Japanese-Brazilian steakhouse on Newcastle Quayside. Robata-grilled steaks, Wagyu and sushi, with Harrogate coming soon.";
 
 export function buildPageStructuredData(config: SiteConfig, path: string, title: string, description: string) {
   const page = indexablePages.find(entry => entry.path === path);
@@ -64,7 +65,7 @@ export function buildPageStructuredData(config: SiteConfig, path: string, title:
     "@type": "Restaurant", "@id": restaurantId, name: "NIPO " + location.name,
     url: new URL(location.path, site).href, parentOrganization: { "@id": home + "#organization" },
     image: new URL(location.id === "harrogate" ? "/images/harrogate-social.png" : "/images/social-card.png", site).href,
-    description: location.id === "harrogate" ? "A Japanese-Brazilian steakhouse coming soon to Parliament St, Harrogate. Opening date to be announced." : "Japanese-Brazilian dining, sushi and robata on Newcastle Quayside.",
+    description: location.id === "harrogate" ? "A Japanese-Brazilian steakhouse coming soon to Parliament St, Harrogate. Opening date to be announced." : "A Japanese-Brazilian steakhouse on Newcastle Quayside, serving robata-grilled steaks, Wagyu and sushi.",
     servesCuisine: ["Japanese-Brazilian", "Japanese", "Brazilian"],
     address: { "@type": "PostalAddress", streetAddress: location.address.street,
       addressLocality: location.address.city, postalCode: location.address.postcode, addressCountry: "GB" },
@@ -100,7 +101,9 @@ export function buildPageStructuredData(config: SiteConfig, path: string, title:
         })),
       })),
     });
-    for (const menu of menuLinks) graph.push({
+    // Several menu views can share a PDF; its first entry owns the document identity.
+    const pdfMenus = menuLinks.filter((menu, index) => menuLinks.findIndex(item => item.pdfHref === menu.pdfHref) === index);
+    for (const menu of pdfMenus) graph.push({
       "@type": "Menu", "@id": new URL(menu.pdfHref, site).href,
       url: new URL(menu.pdfHref, site).href, name: menu.title, description: menu.description,
       inLanguage: "en-GB",

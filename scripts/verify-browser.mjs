@@ -78,11 +78,49 @@ check("Menu hover and keyboard focus update photography; food opens the priced m
   assert(counts.visible > 0); assert.equal(counts.visible, counts.schema);
   assert.equal(evaluate("document.querySelector('#main-menu').innerText.includes('£')"),false);
 });
-check("All four PDF links return PDFs", () => {
+check("All seven menu PDF links return PDFs", () => {
   const data = evaluate("Promise.all([...document.querySelectorAll('.menu-links a[target]')].map(async a=>{const r=await fetch(a.href);return {status:r.status,type:r.headers.get('content-type'),magic:(await r.text()).slice(0,5)}}))");
-  assert.equal(data.length,4); data.forEach(pdf=>{assert.equal(pdf.status,200);assert.match(pdf.type,/pdf/);assert.equal(pdf.magic,"%PDF-");});
+  assert.equal(data.length,7); data.forEach(pdf=>{assert.equal(pdf.status,200);assert.match(pdf.type,/pdf/);assert.equal(pdf.magic,"%PDF-");});
+});
+check("Steaks opens its dedicated menu with a clearly labelled main-menu PDF", () => {
+  command("click", "[data-menu-preview='1']");
+  assert.equal(evaluate("location.pathname"), "/menus/steaks/");
+  assert.equal(evaluate("location.hash"), "#steaks-menu");
+  assert.equal(evaluate("document.querySelector('h1').textContent"), "Steaks");
+  assert.equal(evaluate("document.querySelector('.menu-preview.is-active').dataset.menuPhoto"), "sliced-steak");
+  assert.equal(evaluate("document.querySelector('#steaks-menu .text-link').getAttribute('href')"), "/menus/nipo-main.pdf");
+  assert.match(evaluate("document.querySelector('#steaks-menu .text-link').textContent"), /View full À La Carte PDF/);
+});
+command("set","viewport","768","900"); open("/");
+check("Tablet navigation preserves the brand mark without horizontal overflow", () => {
+  assert(evaluate("document.querySelector('.header-brand img').getBoundingClientRect().width") >= 35);
+  assert.equal(evaluate("document.documentElement.scrollWidth > innerWidth"), false);
 });
 command("set","viewport","1440","900"); open("/");
+check("Hero recovers a transient decode failure and cycles through every slide both ways", () => {
+  evaluate("document.querySelector('[data-set-menu-dismiss]')?.click()");
+  evaluate("window.__originalHeroDecode=HTMLImageElement.prototype.decode; window.__rejectThirdOnce=true; HTMLImageElement.prototype.decode=function(){ const slides=[...document.querySelectorAll('[data-hero-slide]')]; if(window.__rejectThirdOnce && this.closest('[data-hero-slide]')===slides[2]){ window.__rejectThirdOnce=false; return Promise.reject(new DOMException('Image source changed','EncodingError')); } return window.__originalHeroDecode.call(this); }");
+  const waitForSlide = (index) => evaluate(`new Promise((resolve,reject)=>{const started=Date.now();const poll=()=>{if(document.querySelector('[data-hero]').dataset.slide==='${index}')resolve(true);else if(Date.now()-started>5000)reject(new Error('Slide ${index} did not appear'));else setTimeout(poll,30)};poll()})`);
+  for (const [direction, indices] of [["next", [1,2,3,4,0]], ["prev", [4,3,2,1,0]]]) {
+    for (const index of indices) {
+      command("click", `[data-hero-${direction}]`); waitForSlide(index);
+      assert.equal(evaluate("document.querySelector('[data-hero-count]').textContent"), String(index + 1).padStart(2,"0") + " / 05");
+    }
+  }
+  assert.equal(evaluate("window.__rejectThirdOnce"),false);
+  evaluate("HTMLImageElement.prototype.decode=window.__originalHeroDecode");
+});
+check("Previous skips an unavailable slide backwards and can revisit it after recovery", () => {
+  evaluate("window.__originalHeroDecode=HTMLImageElement.prototype.decode; window.__thirdUnavailable=true; HTMLImageElement.prototype.decode=function(){if(window.__thirdUnavailable && this.closest('[data-hero-slide]')===document.querySelectorAll('[data-hero-slide]')[2])return Promise.reject(new DOMException('Image unavailable','EncodingError')); return window.__originalHeroDecode.call(this); }");
+  const move = (direction, index) => {
+    command("click", `[data-hero-${direction}]`);
+    evaluate(`new Promise((resolve,reject)=>{const started=Date.now();const poll=()=>{if(document.querySelector('[data-hero]').dataset.slide==='${index}')resolve(true);else if(Date.now()-started>5000)reject(new Error('Slide ${index} did not appear'));else setTimeout(poll,30)};poll()})`);
+  };
+  move("prev",4); move("prev",3); move("prev",1);
+  evaluate("window.__thirdUnavailable=false"); move("next",2);
+  evaluate("HTMLImageElement.prototype.decode=window.__originalHeroDecode");
+});
+open("/");
 check("Hero advances after seven seconds and pauses on request", () => {
   command("mouse","move","5","100"); evaluate("document.activeElement.blur()");
   const start = evaluate("document.querySelector('[data-hero]').dataset.slide");

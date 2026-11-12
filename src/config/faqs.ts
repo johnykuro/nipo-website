@@ -2,10 +2,10 @@ import { newcastle, harrogate } from "./locations";
 
 export interface FaqItem { question: string; answer: string; link?: { label: string; href: string } }
 export const newcastleFaqs: FaqItem[] = [
-  { question: "What is NIPO Newcastle?", answer: "NIPO Newcastle is a Japanese-Brazilian restaurant on Newcastle Quayside, shaped by sushi craft, cooking over fire and warm hospitality." },
+  { question: "What is NIPO Newcastle?", answer: "NIPO Newcastle is a Japanese-Brazilian steakhouse on Newcastle Quayside, shaped by robata-grilled steaks, sushi craft and warm hospitality." },
   { question: "Where can I find NIPO Newcastle?", answer: `${newcastle.address.street}, ${newcastle.address.city} ${newcastle.address.postcode}.` },
   { question: "Has RIO closed?", answer: "No, RIO is open as usual and nothing has changed. You’ll still find RIO above us on the first floor at 95 Quayside. NIPO has replaced the former Tomahawk Steakhouse restaurant at this address." },
-  { question: "What food will I find at NIPO Newcastle?", answer: "Sushi, small plates, robata-style cooking, picanha and plant-led dishes. Explore our main and dessert menus, with prices and downloadable PDFs." },
+  { question: "What food will I find at NIPO Newcastle?", answer: "Robata-grilled steaks, Japanese Wagyu, sharing steaks, sushi, small plates and plant-led dishes. Explore our steaks and full à la carte menu with prices.", link: { label: "Explore the steaks menu", href: "/menus/steaks/" } },
   { question: "How do I book a table in Newcastle?", answer: "Choose Book a table on this page to see availability and make your reservation with SevenRooms.", link: { label: "Book your Newcastle table", href: newcastle.bookingUrl } },
   { question: "What are Newcastle’s opening hours?", answer: "NIPO Newcastle is open: " + newcastle.hours.map(hours => hours.label).join("; ") + "." },
   { question: "How do I contact NIPO Newcastle?", answer: `Call ${newcastle.telephoneDisplay} or email ${newcastle.email}.` },

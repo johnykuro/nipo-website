@@ -1,5 +1,20 @@
 # NIPO redesign verification
 
+## Christmas dining revision — 13 November 2026
+
+- Added a dedicated office-party and larger-gathering CTA immediately after the menu, with separate Newcastle and Harrogate enquiry emails. Replaced the introductory heading with “Festive dining at NIPO” and the booking heading with “Book your Christmas table”. Inclusive dining remains the main invitation.
+- Snow now spans the viewport throughout the page, with a persistent transparent ghost pause/resume button. It continues past the hero and pauses for hidden/inactive pages; reduced-motion and no-JavaScript behaviour remain intact. Existing NIPO colours, typography, imagery, menu presentation and general venue operations are preserved.
+- Fresh `pnpm build`: zero errors or warnings; SEO verification remains 15 pages, 1,138 local links/assets and 334 menu items. All **14** checks in `scripts/verify-christmas-browser.mjs` passed; `tmp/qa/christmas/results.json` records no browser errors. Coverage includes snow over the menu, group CTA and footer, both group enquiry links, responsive navigation and the existing accessibility/content checks.
+- This supersedes the earlier hero-only snowfall behaviour and 13-check browser baseline below. Targeted review returned ship after resolving ghost-control legibility over photographs: stable ivory text with a dark shadow, switching to dark green over the menu. Refreshed captures verified the control over steak, wine, ivory and dark sections. Brand documents and sidecars remain unchanged. Local verification only; no deployment performed.
+
+## Christmas dining page — 13 November 2026 (earlier baseline)
+
+- Added the shared Newcastle/Harrogate Christmas page, festive menu and PDF, navigation/menu links and accessible seasonal snowfall. Regular dining tables lead the copy; office parties remain a secondary invitation. Harrogate's ordinary opening and booking status is unchanged.
+- `pnpm test`: 53 passed. `pnpm build`: zero errors or warnings; SEO verification covered 15 pages, 1,138 local links/assets and 334 menu items. The supplied festive PDF is preserved byte for byte.
+- `scripts/verify-christmas-browser.mjs`: all 13 checks passed across 320–1440px, including the 1199/1200px navigation boundary, menu/schema/contact/PDF checks, keyboard and offscreen snowfall, reduced motion, no JavaScript and ordinary Harrogate operations.
+- Targeted final design review: **ship**. Resolved ivory-menu PDF hover contrast with dark teal and set mobile festive dish descriptions to 16px. Inclusive dining emphasis, contact hierarchy and menu-selection wording were accepted; no outstanding findings remain within that review scope. Interaction evidence comes from the recorded browser checks.
+- Maintenance sources, preview/test commands and scope limits: [CHRISTMAS.md](CHRISTMAS.md). Browser evidence: ignored `tmp/qa/christmas/`. Existing brand documents and sidecars are unchanged; their previously reported drift was outside this task. Local preview only; no deployment performed.
+
 ## Main menu update - 5 October 2026
 
 - Updated the HTML main menu and downloadable PDF from the supplied NIPO-main-menu-WEB.pdf. Raw and tempura oysters are separate entries; Salmon & Tuna Tartare and Blue Matcha Roll use their new names; Salmon Samba Roll is 11; A5 Wagyu Sirloin is 6 oz at 55 under Japanese delicacy. Removed NIPO salad from the steak accompaniments and Old Bay Butter, Tonkatsu and Ponzu from the sauce list. Sushi and steak ordering follows the new PDF.

@@ -8,11 +8,16 @@ interface Props {
   pdfHref: string;
   pdfLabel?: string;
   sections: MenuSection[];
+  locationLabel?: string;
+  closingAction?: { href: string; label: string };
 }
-const { id, title, intro, pdfHref, pdfLabel = `View ${title.toLowerCase()} PDF`, sections } = Astro.props;
+const { id, title, intro, pdfHref, pdfLabel = `View ${title.toLowerCase()} PDF`, sections,
+  locationLabel = "Newcastle Quayside",
+  closingAction = { href: newcastle.bookingUrl, label: "Book Newcastle" },
+} = Astro.props;
 ---
 <section class="food-menu section-shell" id={id} tabindex="-1" aria-labelledby={`${id}-title`}>
-  <header class="food-menu__intro"><p class="label">Newcastle Quayside</p><h2 id={`${id}-title`}>{title}</h2><p>{intro}</p><a class="text-link" href={pdfHref} target="_blank" rel="noopener noreferrer">{pdfLabel}<span class="sr-only"> (opens in a new tab)</span></a></header>
+  <header class="food-menu__intro"><p class="label">{locationLabel}</p><h2 id={`${id}-title`}>{title}</h2><p>{intro}</p><a class="text-link" href={pdfHref} target="_blank" rel="noopener noreferrer">{pdfLabel}<span class="sr-only"> (opens in a new tab)</span></a></header>
   <div class="food-menu__sections">
     {sections.map((section) => (
       <section class="menu-category">
@@ -25,11 +30,12 @@ const { id, title, intro, pdfHref, pdfLabel = `View ${title.toLowerCase()} PDF`,
             </div>
             {dish.region && <p class="menu-dish__region">{dish.region}</p>}
             {dish.description && <p>{dish.description}</p>}
+            {dish.festiveExclusive && <p class="menu-dish__exclusive">Festive exclusive</p>}
           </article>
         ))}</div>
       </section>
     ))}
   </div>
   <slot />
-  <div class="food-menu__end"><p>Please inform your server of any allergies or intolerances before ordering.<br />Full allergen information is available on request.</p><a class="button button--booking" href={newcastle.bookingUrl}>Book Newcastle</a></div>
+  <div class="food-menu__end"><p>Please inform your server of any allergies or intolerances before ordering.<br />Full allergen information is available on request.</p><a class="button button--booking" href={closingAction.href}>{closingAction.label}</a></div>
 </section>

@@ -6,6 +6,7 @@ import { menuPages } from "../data/menu-pages";
 export const indexablePages = [
   { path: "/", label: "Home", type: "WebPage" },
   { path: "/concept/", label: "Concept", type: "AboutPage" },
+  { path: "/christmas/", label: "Christmas", type: "WebPage" },
   { path: "/menus/", label: "Newcastle menus", type: "CollectionPage" },
   { path: "/menus/steaks/", label: "Steaks menu", type: "WebPage" },
   { path: "/menus/set/", label: "Set menu", type: "WebPage" },

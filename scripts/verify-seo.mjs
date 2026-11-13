@@ -107,8 +107,8 @@ for (const file of files) {
       assert(visible.includes(question.acceptedAnswer.text), `Visible answer: ${question.name}`);
     }
     assert(!/sample menu|sample food|being finalised|subject to change/i.test(visible + description), `${path}: final menu wording`);
-    if (path.startsWith("/menus/")) {
-      const menuId = path === "/menus/" ? "main-menu" : path.split("/")[2] + "-menu";
+    if (path.startsWith("/menus/") || path === "/christmas/") {
+      const menuId = path === "/christmas/" ? "festive-menu" : path === "/menus/" ? "main-menu" : path.split("/")[2] + "-menu";
       let pageMenuItems = 0;
       const menu = graph.find((node) => node["@id"] === url.href + "#" + menuId);
       assert(menu, `${path}: menu schema exists`);
@@ -135,6 +135,23 @@ for (const file of files) {
         menuItems++;
       }
       assert.equal(pageMenuItems, (html.match(/class="menu-dish"/g) || []).length);
+      if (path === "/christmas/") {
+        assert.equal(pageMenuItems, 15, "Complete festive menu");
+        assert.equal(menu.hasMenuSection.length, 4, "Four festive menu sections");
+        assert.equal((html.match(/class="menu-dish__exclusive"/g) || []).length, 4, "Four printed festive exclusives");
+        for (const text of ["Three courses £55", "Four courses £65", "May contain bones", "Vegan option available.", "Full allergen information is available on request.", "Newcastle Quayside & Harrogate"]) assert(visible.includes(text), `Festive detail: ${text}`);
+        const links = tags(html, "a");
+        for (const location of ["newcastle", "harrogate"]) {
+          const enquiry = links.find(link => link.href?.startsWith(`mailto:${location}@nipobraza.co.uk?`));
+          assert(enquiry, `${location}: festive enquiry link`);
+          const params = new URL(enquiry.href).searchParams;
+          assert(params.get("subject").toLowerCase().includes(location));
+          for (const field of ["Preferred date:", "Number of guests:", "Contact phone/email:"]) assert(params.get("body").includes(field));
+        }
+        assert(links.some(link => link.href === "tel:+447723472694"), "Newcastle telephone");
+        assert(links.some(link => link.href === "https://www.sevenrooms.com/app/reservations/nipo/create/search/"), "Newcastle reservations");
+        assert(links.some(link => link.href === "/menus/nipo-festive.pdf"), "Festive PDF link");
+      }
     }
   }
   for (const tag of [...tags(html, "a"), ...tags(html, "link"), ...tags(html, "img"), ...tags(html, "script")]) {
@@ -168,5 +185,5 @@ for (const socialImage of ["social-card.png", "brand-social.png", "harrogate-soc
   const image = await sharp(resolve(root, "images", socialImage)).metadata();
   assert.equal(image.width, 1200); assert.equal(image.height, 630);
 }
-for (const name of ["nipo-main.pdf", "nipo-dessert.pdf", "nipo-drinks.pdf", "nipo-wine.pdf", "nipo-set.pdf", "nipo-childrens.pdf"]) assert.equal(readFileSync(resolve(root, "menus", name)).subarray(0, 5).toString(), "%PDF-");
+for (const name of ["nipo-main.pdf", "nipo-dessert.pdf", "nipo-drinks.pdf", "nipo-wine.pdf", "nipo-set.pdf", "nipo-childrens.pdf", "nipo-festive.pdf"]) assert.equal(readFileSync(resolve(root, "menus", name)).subarray(0, 5).toString(), "%PDF-");
 console.log(`SEO verification passed: ${urls.length} pages, ${localLinks} local links/assets, ${menuItems} menu items; ${preview ? "preview noindex" : "production indexable"}.`);

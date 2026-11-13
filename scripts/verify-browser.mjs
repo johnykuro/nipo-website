@@ -78,9 +78,9 @@ check("Menu hover and keyboard focus update photography; food opens the priced m
   assert(counts.visible > 0); assert.equal(counts.visible, counts.schema);
   assert.equal(evaluate("document.querySelector('#main-menu').innerText.includes('£')"),false);
 });
-check("All seven menu PDF links return PDFs", () => {
+check("All eight menu PDF links return PDFs", () => {
   const data = evaluate("Promise.all([...document.querySelectorAll('.menu-links a[target]')].map(async a=>{const r=await fetch(a.href);return {status:r.status,type:r.headers.get('content-type'),magic:(await r.text()).slice(0,5)}}))");
-  assert.equal(data.length,7); data.forEach(pdf=>{assert.equal(pdf.status,200);assert.match(pdf.type,/pdf/);assert.equal(pdf.magic,"%PDF-");});
+  assert.equal(data.length,8); data.forEach(pdf=>{assert.equal(pdf.status,200);assert.match(pdf.type,/pdf/);assert.equal(pdf.magic,"%PDF-");});
 });
 check("Steaks opens its dedicated menu with a clearly labelled main-menu PDF", () => {
   command("click", "[data-menu-preview='1']");

@@ -1,0 +1,2 @@
+# Menu PDFs must retain their original bytes, including embedded metadata and offsets.
+*.pdf binary

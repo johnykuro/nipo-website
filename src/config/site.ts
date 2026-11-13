@@ -14,6 +14,7 @@ export const siteConfig: SiteConfig = {
   navigation: [
     { label: "Concept", href: "/concept/" }, { label: "Menus", href: "/menus/" },
     { label: "Steaks", href: "/menus/steaks/" },
+    { label: "Christmas", href: "/christmas/" },
     { label: "Gallery", href: "/gallery/" }, { label: "Locations", href: "/locations/" },
   ],
   hero: { mode: "slideshow", slideIds: ["hero-sliced-steak", "hero-sushi-table", "hero-sushi-chopsticks", "hero-braised-shank", "hero-lamb-cutlets"], interval: 7000 },

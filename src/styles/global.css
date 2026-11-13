@@ -134,6 +134,7 @@ button{background:none;border:0;color:inherit}address{font-style:normal}
 .menu-preview{position:absolute;inset:0;opacity:0}.menu-preview.is-active{opacity:1}
 .food-menu{background:var(--ivory);color:var(--night);max-width:none;padding-block:var(--space)}
 .food-menu :focus-visible{outline-color:var(--night)}.food-menu .label{color:#465d40}
+.food-menu .text-link:hover{color:#0a5552}
 .food-menu__intro{text-align:center;margin-bottom:70px}.food-menu__intro h2{margin-bottom:25px}
 .food-menu__sections{max-width:1000px;margin:auto}
 .menu-category{display:grid;grid-template-columns:1fr 2fr;gap:40px;border-top:1px solid #15231f44;padding:38px 0 12px}
@@ -142,6 +143,7 @@ button{background:none;border:0;color:inherit}address{font-style:normal}
 .menu-dish__heading{display:flex;align-items:baseline;justify-content:space-between;gap:20px}.menu-dish__heading h4{min-width:0}.menu-dish__price{flex:none;white-space:nowrap;font-size:16px;font-variant-numeric:tabular-nums}
 .menu-dish__servings{display:flex;flex:none;gap:22px;margin:0 0 12px;text-align:right}.menu-dish__servings dt{font-size:10px;line-height:1.5;letter-spacing:.05em;text-transform:uppercase;color:#465d40}.menu-dish__servings dd{margin:4px 0 0}.menu-dish p.menu-dish__region{font-size:11px;letter-spacing:.05em;color:#465d40;margin-bottom:10px}
 .menu-dish__details{display:inline-block;font-family:var(--sans);font-size:12px;font-weight:400;letter-spacing:.03em;margin-left:12px;color:#465d40}
+.menu-dish p.menu-dish__exclusive{color:#76591d;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin-top:-6px}
 .food-menu__end{text-align:center;border-top:1px solid #15231f44;padding-top:40px;max-width:1000px;margin:0 auto}.food-menu__end p{font-size:12px}
 .page-intro{padding-block:85px 65px;text-align:left}.page-intro h1{margin-bottom:26px}.page-intro p{margin-bottom:12px}.page-intro .label{margin-bottom:25px}
 /* Natural image proportions reserve space before loading; columns need no scripts. */
@@ -204,6 +206,11 @@ button{background:none;border:0;color:inherit}address{font-style:normal}
 @media(min-width:768px) and (max-width:1100px){:root{--gutter:40px}.hero-content{width:400px}.footer-main{gap:24px}.rail-image{height:340px}.concept-opening__copy,.contact-opening__copy{padding-block:55px}.editorial-feature__copy{padding-block:65px}.concept-opening h1,.contact-opening h1{font-size:51px}}
 @media(min-width:768px) and (max-width:1099px){
  .site-header{gap:16px}.header-brand{padding-inline:10px}.desktop-nav{gap:20px}.site-header .desktop-nav>.social-links{display:none}.header-actions{margin-left:0}.header-book{padding-inline:16px;white-space:nowrap}
+}
+/* Keep the expanded seasonal navigation usable on tablet widths. */
+@media(min-width:768px) and (max-width:1199px){
+ .desktop-nav{display:none}.js .menu-toggle{display:block}.header-actions{margin-left:auto}
+ .no-js-nav{display:flex;gap:18px;flex-wrap:wrap;padding:15px var(--gutter);background:var(--night);position:relative;z-index:45;font-size:12px}
 }
 @media(max-width:767px){
  :root{--header:80px;--gutter:24px;--space:76px}

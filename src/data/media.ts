@@ -6,6 +6,8 @@ import heroSteak from "../assets/photos/hero-2026-09/DSC08020-Edit.jpg";
 import heroChopsticks from "../assets/photos/hero-2026-09/DSC07617-Edit.jpg";
 import heroShank from "../assets/photos/hero-2026-09/DSC08176-Edit.jpg";
 import heroLamb from "../assets/photos/hero-2026-09/DSC08115-Edit.jpg";
+import christmasSteak from "../assets/photos/christmas/christmas-steak-hero.png";
+import christmasWine from "../assets/photos/christmas/christmas-wine-pour.png";
 export interface PhotoAsset {
   id: string; src: ImageMetadata; alt: string; caption: string;
   position: string; mobilePosition: string; placeholder: boolean;
@@ -26,6 +28,8 @@ export const photos: PhotoAsset[] = galleryLibrary.images.map((entry, index) => 
 });
 // Owner-selected hero files from the gallery folder, kept separate from gallery assets.
 const heroPhotos: PhotoAsset[] = [
+  { id: "christmas-steak", src: christmasSteak, alt: "Sliced steak on a ceramic platter in a festive setting with candlelight and gold baubles", caption: "Christmas at NIPO.", position: "50% 50%", mobilePosition: "65% 50%", placeholder: false },
+  { id: "christmas-wine", src: christmasWine, alt: "Red wine poured into glasses beside candlelight and festive greenery", caption: "A festive toast.", position: "50% 50%", mobilePosition: "50% 50%", placeholder: false },
   { id: "hero-sushi-table", src: heroSushiTable, alt: "A spread of sushi with white wine beneath NIPO's red foliage", caption: "A table to share at NIPO.", position: "50% 60%", mobilePosition: "62% 60%", placeholder: false },
   { id: "hero-sliced-steak", src: heroSteak, alt: "Sliced bone-in steak with greens and two sauce jugs on a ceramic platter", caption: "Sliced steak, made for sharing.", position: "50% 50%", mobilePosition: "55% 50%", placeholder: false },
   { id: "hero-sushi-chopsticks", src: heroChopsticks, alt: "A blue rice vegetable roll lifted with chopsticks above platters of sushi", caption: "Discover a new favourite.", position: "60% 45%", mobilePosition: "61% 45%", placeholder: false },

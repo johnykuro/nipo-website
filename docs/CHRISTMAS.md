@@ -10,12 +10,13 @@ This page extends the existing NIPO system: dark green, ivory, gold, Playfair he
 
 ## Maintenance inputs
 
+- The festive menu is available from **23 November**, as confirmed by the owner. This appears in the hero, menu introduction, menu-selection description and page metadata. The supplied PDF remains unchanged; no end date has been supplied.
 - `src/pages/christmas.astro`: page copy, course prices, composition and scoped styles. Preserve inclusive dining above the menu and the dedicated group-party invitation immediately below it.
 - `src/data/festive-menu.ts`: the 15 dishes in source order, dietary markers, four festive exclusives and printed notes. Course combinations and service dates were not supplied; do not infer them.
 - `public/menus/nipo-festive.pdf`: byte-identical copy of the supplied `NIPO-festive-set-menu-WEB.pdf`. SHA-256: `747EA0329CC4E82C06ED7F32686153A541E1E64EEB794546E65A8B18195A3FC1`.
 - `src/config/christmas.ts`: campaign contacts and encoded email enquiry template. Newcastle reuses its ordinary location email, phone and booking URL. Harrogate uses `harrogate@nipobraza.co.uk` for festive enquiries, with no invented phone or booking link. This does not change Harrogate's general opening or reservation status.
 - `src/data/media.ts`: existing `christmas-steak` and `christmas-wine` image records. Preserve approved assets and their focal positions.
-- `src/data/menus.ts`: festive menu selection link and price-only description, “3 courses £55 · 4 courses £65”. Update this alongside the page if approved prices change.
+- `src/data/menus.ts`: festive menu selection link, availability and prices, “From 23 November · 3 courses £55 · 4 courses £65”. Update this alongside the page if approved details change.
 - `src/config/site.ts` and `src/config/seo.ts`: navigation entry and page registration.
 
 ## Scoped interface extensions

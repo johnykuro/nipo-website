@@ -35,6 +35,8 @@ try {
     assert.match(await page.locator("#festive-menu").innerText(), /Vegan option available/);
     assert.match(await page.locator(".christmas-parties").innerText(), /regular dining tables as well as larger celebrations/);
     assert.equal(await page.locator(".christmas-actions .button").textContent(), "Book your Christmas table");
+    assert.match(await page.locator(".christmas-hero__copy").innerText(), /Festive menu available from 23 November/);
+    assert.match(await page.locator("#festive-menu .food-menu__intro").innerText(), /Available from 23 November/);
     assert.equal(await page.locator(".christmas-venue__actions .button").first().textContent(), "Book a Newcastle table");
   });
   await check("Keyboard pause and resume snowfall", async () => {
@@ -146,7 +148,7 @@ try {
   await check("Festive menu preview, link and all eight PDFs work", async () => {
     await page.setViewportSize({ width: 1440, height: 1000 });
     await goto("/menus/");
-    assert.equal(await page.locator("[data-menu-preview='7'] .menu-link__detail").textContent(), "3 courses £55 · 4 courses £65");
+    assert.equal(await page.locator("[data-menu-preview='7'] .menu-link__detail").textContent(), "From 23 November · 3 courses £55 · 4 courses £65");
     await page.locator("[data-menu-preview='7']").focus();
     assert.equal(await page.locator("[data-menu-image].is-active").getAttribute("data-menu-photo"), "christmas-steak");
     const pdfs = await page.locator(".menu-pdf-link").evaluateAll(async links => Promise.all(links.map(async link => { const r = await fetch(link.href); return { status: r.status, type: r.headers.get("content-type"), magic: (await r.text()).slice(0, 5) }; })));

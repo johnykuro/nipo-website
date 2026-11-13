@@ -6,7 +6,7 @@ import { photo } from "../data/media";
 import { festiveSections } from "../data/festive-menu";
 import { christmasVenues, christmasEnquiryHref } from "../config/christmas";
 ---
-<BaseLayout title="Christmas Dining & Festive Menu | NIPO Newcastle & Harrogate" description="Celebrate Christmas at NIPO in Newcastle and Harrogate. Three courses £55 or four £65, for a table for two, family dining, friends or your office Christmas party.">
+<BaseLayout title="Christmas Dining & Festive Menu | NIPO Newcastle & Harrogate" description="Enjoy NIPO’s festive menu from 23 November in Newcastle and Harrogate. Three courses £55 or four £65, for Christmas dining and office parties.">
   <main id="main-content" class="christmas-page" data-christmas-page>
       <div class="christmas-snow" aria-hidden="true" data-christmas-snow hidden>
         {Array.from({ length: 32 }, (_, index) => <span style={`--x:${(index * 37 + 11) % 100}%;--size:${2 + index % 3}px;--duration:${15 + index % 11}s;--delay:-${index * 1.7}s;--drift:${(index % 5 - 2) * 18}px;--alpha:${0.25 + index % 4 * 0.12}`} />)}
@@ -19,6 +19,7 @@ import { christmasVenues, christmasEnquiryHref } from "../config/christmas";
         <p class="christmas-hero__locations">Newcastle Quayside &amp; Harrogate</p>
         <p class="christmas-hero__intro">Gather your favourite people.<br />Make a little more of Christmas.</p>
         <p class="christmas-hero__prices">Three courses <strong>£55</strong><span aria-hidden="true"> / </span><br class="mobile-break" />Four courses <strong>£65</strong></p>
+        <p class="christmas-hero__prices">Festive menu available from 23 November.</p>
         <div class="christmas-actions">
           <a class="button button--booking" href="#christmas-enquiries">Book your Christmas table</a>
           <a class="text-link" href="#festive-menu">Explore the festive menu</a>
@@ -37,7 +38,7 @@ import { christmasVenues, christmasEnquiryHref } from "../config/christmas";
     </section>
 
     <FoodMenu id="festive-menu" title="A taste of NIPO at Christmas" locationLabel="Newcastle Quayside & Harrogate"
-      intro="Festive set menu · Three courses £55 / Four courses £65"
+      intro="Available from 23 November · Three courses £55 / Four courses £65"
       pdfHref="/menus/nipo-festive.pdf" pdfLabel="View festive menu PDF" sections={festiveSections}
       closingAction={{ href: "#christmas-enquiries", label: "Book your Christmas table" }}>
       <p class="festive-menu-note">V — Vegetarian · VG — Vegan<br />Contact our team for festive availability and group arrangements.</p>

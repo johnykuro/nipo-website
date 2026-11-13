@@ -139,7 +139,7 @@ for (const file of files) {
         assert.equal(pageMenuItems, 15, "Complete festive menu");
         assert.equal(menu.hasMenuSection.length, 4, "Four festive menu sections");
         assert.equal((html.match(/class="menu-dish__exclusive"/g) || []).length, 4, "Four printed festive exclusives");
-        for (const text of ["Three courses £55", "Four courses £65", "May contain bones", "Vegan option available.", "Full allergen information is available on request.", "Newcastle Quayside & Harrogate"]) assert(visible.includes(text), `Festive detail: ${text}`);
+        for (const text of ["Available from 23 November", "Festive menu available from 23 November.", "Three courses £55", "Four courses £65", "May contain bones", "Vegan option available.", "Full allergen information is available on request.", "Newcastle Quayside & Harrogate"]) assert(visible.includes(text), `Festive detail: ${text}`);
         const links = tags(html, "a");
         for (const location of ["newcastle", "harrogate"]) {
           const enquiry = links.find(link => link.href?.startsWith(`mailto:${location}@nipobraza.co.uk?`));

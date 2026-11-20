@@ -7,6 +7,7 @@ import { buildPageStructuredData, siteNoIndex } from "../config/seo";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import CookieConsent from "../components/CookieConsent.astro";
+import CampaignBanner from "../components/CampaignBanner.astro";
 
 import type { RestaurantLocation } from "../config/locations";
 
@@ -80,10 +81,11 @@ const jsonLd = structuredData
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
+    <CampaignBanner />
     <SiteHeader overlay={overlayHeader} location={location} />
     <slot />
     <SiteFooter location={location} />
     <CookieConsent />
-    <script>import "../scripts/site";</script>
+    <script>import "../scripts/site"; import "../scripts/promotions";</script>
   </body>
 </html>

@@ -47,14 +47,16 @@ try {
     for (const path of ["/", "/concept/", "/christmas/", "/locations/harrogate/", "/menus/set/", "/privacy/"]) {
       await goto(path);
       assert.equal(await banner.locator("a").getAttribute("href"), "https://gift.nipobraza.co.uk/");
-      assert.equal(await banner.locator("small").textContent(), "*Valid November 2026 & January 2027");
+      assert.equal(await banner.locator("small").count(), 0);
+      assert.equal((await banner.textContent()).includes("*"), false);
       assert.equal(await promo.count(), path === "/" ? 1 : 0);
       if (path === "/") {
         assert.equal(await promo.isVisible(), true);
         assert.equal(await campaign.isVisible(), true);
         assert.equal(await setMenu.isVisible(), false);
         assert.equal(await campaign.locator("a").getAttribute("href"), "https://gift.nipobraza.co.uk/");
-        assert.equal(await campaign.locator(".set-menu-promo__terms").textContent(), "*Valid November 2026 & January 2027");
+        assert.equal(await campaign.locator(".set-menu-promo__terms").textContent(), "*Valid 24 hours after purchase for 6 months. Not redeemable between 1st and 31st December 2026.");
+        assert.equal(await campaign.locator(".set-menu-promo__terms").evaluate(el => getComputedStyle(el).fontSize), "11px");
       }
     }
   });
